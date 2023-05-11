@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Usuario {
+public class User {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -45,26 +45,3 @@ public class Usuario {
     private Image imagen;
 
 }
-/*
-Usuario:
-
-id_dni
-
-nombre
-
-apellido
-
-foto perfil
-
-teléfono
-
-barrio
-
-dirección
-
-sexo
-
-email
-
-password
-*/
