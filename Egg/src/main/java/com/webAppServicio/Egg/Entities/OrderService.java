@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Getter;
@@ -30,4 +32,10 @@ public class OrderService {
 
     @Temporal(TemporalType.DATE)
     private Date fechaRecibida;
+    
+    @ManyToOne
+    private User usuario;
+    
+    @OneToOne()
+    private Supplier proveedor;
 }

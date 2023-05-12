@@ -31,5 +31,11 @@ public class Supplier {
     private String calificacion;
     
     @OneToOne
-    private Image imagen;  
+    private Image imagen;
+    
+    @OneToOne(mappedBy = "proveedor")
+    private OrderService ordenServicio;
+    
+    @OneToOne(mappedBy = "proveedor")
+    private Service servicios;
 }

@@ -3,6 +3,8 @@ package com.webAppServicio.Egg.Entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,4 +24,9 @@ public class Service {
     private String tipoServicio;
     private String detalle;
     
+    @ManyToOne
+    private User usuario;
+    
+    @OneToOne
+    private Supplier proveedor;
 }
