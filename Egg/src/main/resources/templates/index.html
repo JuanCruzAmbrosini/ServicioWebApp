@@ -1,338 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-    <head>
-        <!-- Basic -->
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <!-- Mobile Metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <!-- Site Metas -->
-        <meta name="keywords" content="" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Servicio</title>
-
-        <!-- slider stylesheet -->
-        <link rel="stylesheet" type="text/css"
-              href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
-
-        <!-- bootstrap core css -->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-        <!-- fonts style -->
-        <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
-        <!-- Custom styles for this template -->
-        <link href="css/style.css" rel="stylesheet" />
-        <!-- responsive style -->
-        <link href="css/responsive.css" rel="stylesheet" />
-    </head>
+    <!-- head -->
+    <head th:replace="/fragments/head :: head"></head>
+    <!-- head -->
 
     <body>
         <div class="hero_area">
+
             <!-- header section strats -->
+
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav class="navbar navbar-expand-lg custom_nav-container ">
-                        <a class="navbar-brand" href="/">
-                            <span>
-                                ServyHouse
-                            </span>
-                        </a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
-                                <ul class="navbar-nav  ">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="/">Principal<span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="about.html">Sobre Nosotros</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="service.html">Servicios</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">Contactos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Registrate</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
-                        </form>
-                    </nav>
+                    <nav th:replace="/fragments/navBar :: nav"></nav>
                 </div>
             </header>
-            <!-- end header section -->
-            <!-- slider section -->
-            <section class=" slider_section position-relative">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="slider_item-box layout_padding2">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="img-box">
-                                                <div>
-                                                    <img src="images/slider-img.jpg" alt="" class="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="detail-box">
-                                                <div>
-                                                    <h1>
-                                                        Contratá sin moverte <br>
-                                                        De tu casa <br>
-                                                        <span>
-                                                            Servicios
-                                                        </span>
-                                                    </h1>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                        sed do eiusmod tempor incididunt ut labore
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <div class="slider_item-box layout_padding2">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="img-box">
-                                                <div>
-                                                    <img src="images/slider-img.jpg" alt="" class="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="detail-box">
-                                                <div>
-                                                    <h1>
-                                                        Tenemos los mejores <br>
-                                                        Profesionales a tu alcance <br>
-                                                        <span>
-                                                            Tecnicos
-                                                        </span>
-                                                    </h1>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                        sed do eiusmod tempor incididunt ut labore
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item ">
-                            <div class="slider_item-box layout_padding2">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="img-box">
-                                                <div>
-                                                    <img src="images/slider-img.jpg" alt="" class="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="detail-box">
-                                                <div>
-                                                    <h1>
-                                                        Calidad y <br>
-                                                        Precio <br>
-                                                        <span>
-                                                            Pedí tu Cotizacion
-                                                        </span>
-                                                    </h1>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                        sed do eiusmod tempor incididunt ut labore
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="container">
-                    <div class="slider_nav-box">
-                        <div class="btn-box">
-                            <a href="">
-                                Leer más!!!
-                            </a>
-                            <hr>
-                        </div>
-                        <div class="custom_carousel-control">
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                <span class="sr-only">Anterior</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                <span class="sr-only">Siguiente</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <!-- end header section -->
+
+            <!-- slider section -->
+
+            <section class=" slider_section position-relative">
+                <div th:replace="/fragments/carrucel :: carrucel"></div>
             </section>
+
             <!-- end slider section -->
+
         </div>
         <div class="bg">
 
             <!-- about section -->
             <section class="about_section layout_padding">
-                <div class="container">
-                    <div class="custom_heading-container">
-                        <h3 class=" ">
-                            Sobre nosotros!
-                        </h3>
-                    </div>
-                    <p class="layout_padding2-top">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    </p>
-                    <div class="img-box layout_padding2">
-                        <img src="images/about-img.jpg" alt="">
-                    </div>
-                    <p class="layout_padding2-bottom">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    </p>
-                </div>
-                <div class="container">
-                    <div class="btn-box">
-                        <a href="">
-                            Leer más!!!
-                        </a>
-                        <hr>
-                    </div>
-                </div>
+                <div th:replace="/fragments/about_us :: about"></div>
             </section>
-
-
             <!-- end about section -->
 
             <!-- service section -->
 
             <section class="service_section layout_padding-bottom">
-                <div class="container">
-                    <div class="custom_heading-container">
-                        <h3 class=" ">
-                            Nuestros Servicios
-                        </h3>
-                    </div>
-                    <p class="">
-                        ad minim veniam, quis nostrud exercitation ullamco
-                    </p>
-                    <div class="service_container ">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="box b-1">
-                                    <div class="img-box">
-                                        <img src="images/s-1.jpg" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h6>
-                                            Plomeros
-                                        </h6>
-                                        <p>
-                                            adipiscing elit, sed do eiusmod tempor incididunt
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="">
-                                                Leer más!!!
-                                            </a>
-                                            <hr>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="box b-2">
-                                    <div class="img-box">
-                                        <img src="images/s-2.jpg" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h6>
-                                            Electricistas
-                                        </h6>
-                                        <p>
-                                            adipiscing elit, sed do eiusmod tempor incididunt
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="">
-                                                Leer más!!!
-                                            </a>
-                                            <hr>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="box b-3">
-                                    <div class="img-box">
-                                        <img src="images/s-3.jpg" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h6>
-                                            Gasistas
-                                        </h6>
-                                        <p>
-                                            adipiscing elit, sed do eiusmod tempor incididunt
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="">
-                                                Leer más!!!
-                                            </a>
-                                            <hr>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="box b-4">
-                                    <div class="img-box">
-                                        <img src="images/s-4.jpg" alt="">
-                                    </div>
-                                    <div class="detail-box">
-                                        <h6>
-                                            Jardieros
-                                        </h6>
-                                        <p>
-                                            adipiscing elit, sed do eiusmod tempor incididunt
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="">
-                                                Leer más!!!
-                                            </a>
-                                            <hr>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div th:replace="/fragments/service_us :: service"></div>
             </section>
 
             <!-- end service section -->
@@ -405,49 +110,7 @@
             <!-- contact section -->
 
             <section class="contact_section layout_padding">
-                <div class="custom_heading-container">
-                    <h3 class=" ">
-                        Escribenos
-                    </h3>
-                </div>
-                <div class="container layout_padding2-top">
-                    <div class="row">
-                        <div class="col-md-6 mx-auto">
-                            <form action="">
-                                <div>
-                                    <input type="text" placeholder="Nombre">
-                                </div>
-                                <div>
-                                    <input type="text" placeholder="Direccion">
-                                </div>
-                                <div>
-                                    <input type="email" placeholder="Email">
-                                </div>
-                                <div>
-                                    <input type="text" placeholder="Numero de Celular">
-                                </div>
-                                <div>
-                                    <select name="" id="">
-                                        <option value="" disabled selected>Tipo de Servicio</option>
-                                        <option value="">Plomeria</option>
-                                        <option value="">Gasista</option>
-                                        <option value="">Electricista</option>
-                                        <option value="">Jardineria</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <input type="text" class="message-box" placeholder="Mensaje">
-                                </div>
-                                <div class="d-flex justify-content-center ">
-                                    <button>
-                                        Enviar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
+                <div th:replace="/fragments/contact_us :: contact"></div>
             </section>
 
             <!-- end contact section -->
@@ -486,148 +149,11 @@
             </section>
 
             <!-- info section -->
-            <footer>
-                <section class="info_section layout_padding">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="info-logo">
-                                    <h2>
-                                        ServyHouse
-                                    </h2>
-                                    <p>
-                                        Un servicio para nuestros clientes sin moverse de su casa, ahora mas rapido y 
-                                        al alcance de tus manos, en simples pasos, escribis, envias y tenes un profresional en la puerta de tu casa!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-nav">
-                                    <h4>
-                                        Navegacion
-                                    </h4>
-                                    <ul>
-                                        <li>
-                                            <a href="index.html">
-                                                Principal
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="about.html">
-                                                Sobre Nosotros
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="service.html">
-                                                Servicios
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html">
-                                                Contactanos
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                Registrate
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-contact">
-                                    <h4>
-                                        Informacion de Contacto
-                                    </h4>
-                                    <div class="location">
-                                        <h6>
-                                            Oficina Central:
-                                        </h6>
-                                        <a href="">
-                                            <img src="images/location.png" alt="">
-                                            <span>
-                                                Perú 1841, Ciudad de Mendoza, Argentina.
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="call">
-                                        <h6>
-                                            Email:
-                                        </h6>
-                                        <a href="">
-                                            <img src="images/telephone.png" alt="">
-                                            <span>
-                                                hola@eggeducation.com
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="discover">
-                                    <h4>
-                                        Descubrí
-                                    </h4>
-                                    <ul>
-                                        <li>
-                                            <a href="">
-                                                Ayuda
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                Como Trabajamos!
+            <footer th:replace="/fragments/footer :: footer"></footer>
 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                Suscribirse
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html">
-                                                Contactanos
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="social-box">
-                                        <a href="https://www.facebook.com/EggCooperation/">
-                                            <img src="images/facebook.png" alt="">
-                                        </a>
-                                        <a href="https://www.instagram.com/eggcooperation/">
-                                            <img src="images/twitter.png" alt="">
-                                        </a>
-                                        <!--a href="https://api.whatsapp.com/send/?phone=5492616060967&text=Necesito+m%C3%A1s+informaci%C3%B3n+de%3A">
-                                            <img src="images/google-plus.png" alt="">
-                                        </a-->
-                                        <a href="https://www.linkedin.com/company/eggcooperation/mycompany/">
-                                            <img src="images/linkedin.png" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
 
-
-
-                <!-- end info_section -->
-
-                <!-- footer section -->
-                <section class="container-fluid footer_section">
-                    <p>
-                        Copyright &copy; 2023 Derechos Reservados por 
-                        <a href="https://eggcooperation.com/es-ar/">Egg Cooperation</a>
-                    </p>
-                </section>
-                <!-- footer section -->
-
-                <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-                <script type="text/javascript" src="js/bootstrap.js"></script>
-            </footer>
     </body>
 
 </html>
