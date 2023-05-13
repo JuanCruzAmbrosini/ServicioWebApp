@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <div class="hero_area">
+
+            <!-- header section strats -->
+
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBar :: nav"></nav>
+                </div>
+            </header>
+
+            <!-- end header section -->
+
+        </div>
+
+        <!-- form section -->
+
+        <section class="contact_section layout_padding">
+            <div class="custom_heading-container">
+                <h3 class=" ">
+                    Ingresa Sesión Para Poder Pedir Tus Servicios Desde Tu Casa
+                </h3>
+            </div>
+            <div class="container layout_padding2-top">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <form action="">
+                            <div>
+                                <input type="email" placeholder="Email">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Contraseña">
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-primary" type="submit">Ingresar</button>
+
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <a class="btn btn-secondary" th:href="@{/account}" role="button">Registrate</a>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- end form section -->
+
+        <!-- footer section -->
+
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+        <!-- end footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    </body>
+
+</html>
