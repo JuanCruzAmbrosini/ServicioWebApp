@@ -39,4 +39,14 @@ public class VistasController {
     public String login(){
         return "login.html";
     }
+    
+    @GetMapping("/account_user")
+    public String accountUser(){
+        return "account_user.html";
+    }
+    
+    @GetMapping("/account_supplier")
+    public String accountSupplier(){
+        return "account_supplier.html";
+    }
 }
