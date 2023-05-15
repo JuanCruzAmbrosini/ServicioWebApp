@@ -30,8 +30,29 @@ public class VistasController {
         return "contact.html";
     }
     
+<<<<<<< HEAD
+=======
+    @GetMapping("/account")
+    public String account(){
+        return "new_account.html";
+    }
+    
+>>>>>>> be7f93051a67fec44567d01e81af692d9a373454
     @GetMapping("/login")
     public String login(){
         return "login.html";
     }
+<<<<<<< HEAD
+=======
+    
+    @GetMapping("/account_user")
+    public String accountUser(){
+        return "account_user.html";
+    }
+    
+    @GetMapping("/account_supplier")
+    public String accountSupplier(){
+        return "account_supplier.html";
+    }
+>>>>>>> be7f93051a67fec44567d01e81af692d9a373454
 }

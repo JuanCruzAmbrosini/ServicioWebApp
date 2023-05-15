@@ -1,6 +1,7 @@
 
 package com.webAppServicio.Egg.Controllers;
 
+<<<<<<< HEAD
 import com.webAppServicio.Egg.Exceptions.UserException;
 import com.webAppServicio.Egg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/usuario")
+=======
+>>>>>>> be7f93051a67fec44567d01e81af692d9a373454
 
 public class UserController {
  
