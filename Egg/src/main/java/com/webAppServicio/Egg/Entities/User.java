@@ -48,4 +48,8 @@ public class User {
     @OneToMany(mappedBy = "usuario")
     private List<OrderService> ordenServicios;
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f25a829f37fe0458b3d9af66f8e05c68ca6ea641
