@@ -29,35 +29,43 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form action="">
+                        <form th:action="@{/usuario/registro}" method="post">
                             <div>
-                                <input type="text" placeholder="Nombre">
+                                <label for = "nombre"></label>
+                                <input type="text" name="nombre" placeholder="Nombre">
                             </div>
                             <div>
-                                <input type="text" placeholder="Apellido">
+                                <label for = "apellido"></label>
+                                <input type="text" name="apellido" placeholder="Apellido">
                             </div>
                             <div>
-                                <input type="number" placeholder="N° DNI">
+                                <label for = "dni"></label>
+                                <input type="number" name="dni" placeholder="N° DNI">
                             </div>
                             <div>
-                                <input type="text" placeholder="Direccion">
+                                <label for = "direccion"></label>
+                                <input type="text" name ="direccion" placeholder="Direccion">
                             </div>
                             <div>
-                                <input type="email" placeholder="Email">
+                                <label for = "email"></label>
+                                <input type="email" name="email" placeholder="Email">
                             </div>
                             <div>
-                                <input type="text" placeholder="Numero de Celular">
+                                <label for = "telefono"></label>
+                                <input type="text" name ="telefono" placeholder="Numero de Celular">
                             </div>
                             <div>
-                                <select name="" id="">
+                                <label for = "sexo"></label>
+                                <select name="sexo" id="">
                                     <option value="" disabled selected>Sexo</option>
-                                    <option value="">Masculino</option>
-                                    <option value="">Femenino</option>
-                                    <option value="">Otro</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="femenino">Femenino</option>
+                                    <option value="otro">Otro</option>
                                 </select>
                             </div>
                             <div>
-                                <input type="password" placeholder="Contraseña">
+                                <label for = "password"  ></label>
+                                <input type="password" name="password"  placeholder="Contraseña">
                             </div>
                             <div>
                                 <input type="password" placeholder="Repetir Contraseña">

@@ -30,11 +30,6 @@ public class VistasController {
         return "contact.html";
     }
     
-    @GetMapping("/account")
-    public String account(){
-        return "new_account.html";
-    }
-    
     @GetMapping("/login")
     public String login(){
         return "login.html";
