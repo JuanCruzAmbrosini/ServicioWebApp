@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <div class="hero_area">
+
+            <!-- header section strats -->
+
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBar :: nav"></nav>
+                </div>
+            </header>
+
+            <!-- end header section -->
+
+        </div>
+
+        <!-- validar section -->
+
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- end validar section -->
+
+        <!-- form section -->
+
+        <section class="contact_section layout_padding">
+            <div class="custom_heading-container">
+                <h3 class=" ">
+                    Registrate Para Ser Parte De Nosotros y Brindar Tus Servicios
+                </h3>
+            </div>
+
+            <div class="container layout_padding2-top">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <form action="">
+                            <div>
+                                <input type="text" placeholder="Nombre">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Apellido">
+                            </div>
+                            <div>
+                                <input type="number" placeholder="N° Matricula">
+                            </div>
+                            <div>
+                                <select name="" id="">
+                                    <option value="" disabled selected>Oficio</option>
+                                    <option value="">Plomeria</option>
+                                    <option value="">Gasista</option>
+                                    <option value="">Electricista</option>
+                                    <option value="">Jardineria</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Email">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Numero de Celular">
+                            </div>
+                            <div>
+                                <input type="file" placeholder="Cargar Archivo">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Contraseña">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Repetir Contraseña">
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-primary" type="submit">Resgistrate</button>
+
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-secondary" type="reset">Borrar</button>
+                            </div>
+                            <div class="d-flex justify-content-lg-start">
+                                <a th:href="@{/account}" type="btn btn-secondary">Volver a Registros</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- end form section -->
+
+        <!-- footer section -->
+
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+        <!-- end footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    </body>
+
+</html>
