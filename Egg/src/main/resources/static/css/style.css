@@ -672,6 +672,9 @@ a:focus {
 .footer_section a {
     color: #171717;
 }
+.col-md-3 a {
+    text-decoration: none;
+}
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
