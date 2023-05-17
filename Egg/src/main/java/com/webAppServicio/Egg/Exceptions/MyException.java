@@ -1,9 +1,9 @@
 
 package com.webAppServicio.Egg.Exceptions;
 
-public class UserException extends Exception{
+public class MyException extends Exception{
     
-    public UserException(String msg){
+    public MyException(String msg){
         
         super(msg);
         
