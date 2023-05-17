@@ -34,8 +34,8 @@ public class UserService {
         usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setSexo(sexo);
-
         usuario.setBarrio(barrio);
+        
         usuario.setRol(Rol.USER);
         
         userR.save(usuario);

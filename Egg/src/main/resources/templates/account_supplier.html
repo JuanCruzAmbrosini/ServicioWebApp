@@ -36,36 +36,36 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form action="">
+                        <form action="/supplier/registered_supplier" method="POST" enctype="multipart/form-data">
                             <div>
-                                <input type="text" placeholder="Nombre">
+                                <input name="nombre"  type="text" placeholder="Nombre">
                             </div>
                             <div>
-                                <input type="text" placeholder="Apellido">
+                                <input name="apellido" type="text" placeholder="Apellido">
                             </div>
                             <div>
-                                <input type="number" placeholder="N° Matricula">
+                                <input name="matricula" type="number" placeholder="N° Matricula">
                             </div>
                             <div>
-                                <select name="" id="">
-                                    <option value="" disabled selected>Oficio</option>
-                                    <option value="">Plomeria</option>
-                                    <option value="">Gasista</option>
-                                    <option value="">Electricista</option>
-                                    <option value="">Jardineria</option>
+                                <select name="oficio" id="">
+                                    <option value="" >Oficio</option>
+                                    <option value="plomeria">Plomeria</option>
+                                    <option value="gasista">Gasista</option>
+                                    <option value="electricista">Electricista</option>
+                                    <option value="jardineria">Jardineria</option>
                                 </select>
                             </div>
                             <div>
-                                <input type="email" placeholder="Email">
+                                <input name ="email" type="email" placeholder="Email">
                             </div>
                             <div>
-                                <input type="text" placeholder="Numero de Celular">
+                                <input name="telefono" type="text" placeholder="Numero de Celular">
                             </div>
                             <div>
                                 <input type="file" placeholder="Cargar Archivo">
                             </div>
                             <div>
-                                <input type="password" placeholder="Contraseña">
+                                <input name="password" type="password" placeholder="Contraseña">
                             </div>
                             <div>
                                 <input type="password" placeholder="Repetir Contraseña">

@@ -38,6 +38,7 @@ public class UserController {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
+            modelo.put("telefono", telefono);
             modelo.put("direccion", direccion);
             modelo.put("barrio", barrio);
             modelo.put("email", email);
