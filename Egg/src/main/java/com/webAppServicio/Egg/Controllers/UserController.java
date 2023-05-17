@@ -1,6 +1,6 @@
 package com.webAppServicio.Egg.Controllers;
 
-import com.webAppServicio.Egg.Exceptions.UserException;
+import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,15 +26,15 @@ public class UserController {
     public String newUser(@RequestParam String dni, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam String telefono,
             @RequestParam String direccion, @RequestParam String barrio, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2,
-            /*@RequestParam String sexo,*/ ModelMap modelo) throws UserException {
+            @RequestParam String password, @RequestParam String password2, @RequestParam String sexo, ModelMap modelo) throws MyException {
 
         try {
-            userS.crearUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2/*, sexo*/);
+            userS.crearUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
             modelo.put("exito", "Usuario registrado Correctamente");
             return "login.html";
+
+        } catch (MyException ex) {
             
-        } catch (UserException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
@@ -43,8 +43,10 @@ public class UserController {
             modelo.put("email", email);
             modelo.put("password", password);
             modelo.put("password2", password2);
+            modelo.put("sexo", sexo);
+            
             return "account_user.html";
         }
-        
+
     }
 }
