@@ -140,7 +140,7 @@ public class UserService {
         
         if (sexo == null || sexo.isEmpty()){
             
-            throw new UserException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
+            throw new MyException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
             
         }
         
