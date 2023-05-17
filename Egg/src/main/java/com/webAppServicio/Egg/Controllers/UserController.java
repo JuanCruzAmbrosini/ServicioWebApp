@@ -27,7 +27,7 @@ public class UserController {
             @RequestParam String apellido, @RequestParam String telefono,
             @RequestParam String direccion, @RequestParam String barrio, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, @RequestParam String sexo, ModelMap modelo) throws MyException {
-
+      
         try {
             userS.crearUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
             modelo.put("exito", "Usuario registrado Correctamente");
