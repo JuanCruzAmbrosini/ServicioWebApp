@@ -20,9 +20,9 @@ public class UserService {
     private UserRepository userR;
 
     @Transactional
-    public void crearUsuario(String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2/*, String sexo*/) throws UserException {
+    public void crearUsuario(String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws UserException {
 
-        validarUsuario(dni, nombre, apellido, telefono, direccion, email, password/*, sexo*/, barrio, password2);
+        validarUsuario(dni, nombre, apellido, telefono, direccion, email, password, sexo, barrio, password2);
         
         User usuario = new User();
 
@@ -33,10 +33,10 @@ public class UserService {
         usuario.setDireccion(direccion);
         usuario.setEmail(email);
         usuario.setPassword(password);
-        /*usuario.setSexo(sexo);*/
+        usuario.setSexo(sexo);
 
         usuario.setBarrio(barrio);
-        //usuario.setRol(Rol.USER);
+        usuario.setRol(Rol.USER);
         
         userR.save(usuario);
 
@@ -54,7 +54,7 @@ public class UserService {
     @Transactional
     public void modificarPerfil(String dni, String nombre, String apellido, String barrio, String telefono, String direccion, String email, String password, String password2, String sexo) throws UserException {
 
-        validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2/*, sexo*/);
+        validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
         Optional<User> respuesta = userR.findById(dni);
         if (respuesta.isPresent()) {
@@ -82,7 +82,7 @@ public class UserService {
         
     }
     
-    public void validarUsuario (String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2 /*,String sexo*/) throws UserException{
+    public void validarUsuario (String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2 ,String sexo) throws UserException{
         
         if ( dni == null || dni.isEmpty()){
             
@@ -138,11 +138,11 @@ public class UserService {
             
         }
         
-//        if (sexo == null || sexo.isEmpty()){
-//            
-//            throw new UserException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
-//            
-//        }
+        if (sexo == null || sexo.isEmpty()){
+            
+            throw new UserException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
+            
+        }
         
     }
     
