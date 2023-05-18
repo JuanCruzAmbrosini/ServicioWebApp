@@ -1,7 +1,10 @@
 
 package com.webAppServicio.Egg.Entities;
 
+import com.webAppServicio.Egg.Enums.Rol;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import lombok.Getter;
@@ -24,7 +27,10 @@ public class Supplier {
     private String email;
     private String password;
     private String oficio; 
-    private String calificacion;
+    private double calificacion;
+    
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
     
     @OneToOne
     private Image imagen;

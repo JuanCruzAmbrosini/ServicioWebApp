@@ -34,8 +34,8 @@ public class UserService {
         usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setSexo(sexo);
-
         usuario.setBarrio(barrio);
+        
         usuario.setRol(Rol.USER);
         
         userR.save(usuario);
@@ -140,7 +140,7 @@ public class UserService {
         
         if (sexo == null || sexo.isEmpty()){
             
-            throw new UserException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
+            throw new MyException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
             
         }
         
