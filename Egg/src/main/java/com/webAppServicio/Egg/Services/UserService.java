@@ -1,6 +1,7 @@
 
 package com.webAppServicio.Egg.Services;
 
+import com.webAppServicio.Egg.Entities.Image;
 import com.webAppServicio.Egg.Entities.User;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -18,9 +20,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userR;
+    
+    @Autowired
+    private ImageService imageS;
 
     @Transactional
-    public void crearUsuario(String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
+    public void crearUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
 
         validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
@@ -34,8 +39,9 @@ public class UserService {
         usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setSexo(sexo);
+        Image image = imageS.guardar(imagen);
+        usuario.setImagen(image);
         usuario.setBarrio(barrio);
-        
         usuario.setRol(Rol.USER);
         
         userR.save(usuario);
@@ -73,6 +79,10 @@ public class UserService {
             userR.save(usuario);
         }
 
+    }
+    
+    public User getOne(String dni){
+        return userR.getOne(dni);
     }
     
     @Transactional
