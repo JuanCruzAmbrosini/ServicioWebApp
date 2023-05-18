@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/supplier")
 public class SupplierController {
     
-    @Autowired
+     @Autowired
     private SupplierService supplierS;
     
     @GetMapping("/account_supplier")
@@ -23,15 +24,16 @@ public class SupplierController {
     }
     
     @PostMapping("/registered_supplier")
-    public String newSupplier( @RequestParam String matricula, @RequestParam String nombre,
-            @RequestParam String apellido, @RequestParam String oficio, @RequestParam String email,
-            @RequestParam String telefono, @RequestParam String password,
+    public String newSupplier(@RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam String email,
+            @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam String oficio,
             ModelMap modelo) throws MyException{
         
         try {
             
-            supplierS.crearProveedor(matricula, nombre, apellido, telefono, email, password, oficio);
+            supplierS.crearProveedor(imagen, matricula, nombre, apellido, telefono, email, password, password2, oficio);
             modelo.put("exito", "Proveedor registrado Correctamente");
+            return "login.html";
             
         } catch (MyException ex) {
             
@@ -42,12 +44,11 @@ public class SupplierController {
             modelo.put("email", email);
             modelo.put("telefono", telefono);
             modelo.put("password", password);
+            modelo.put("password2", password2);
             
-            return "account_supppllier.html";
+            return "account_supplier.html";
             
         }
-        
-        return "login.html";
+       
     }
-    
 }
