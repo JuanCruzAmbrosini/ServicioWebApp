@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/supplier")
-public class supplierController {
+public class SupplierController {
     
      @Autowired
     private SupplierService supplierS;
