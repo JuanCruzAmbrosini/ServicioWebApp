@@ -53,11 +53,11 @@ public class UserController {
 
     }
     
-    @GetMapping("/lista")
-    public String lista(ModelMap modelo){
-        List <User> usuarios = userS.listarUsuarios();
-        modelo.addAttribute("usuarios", usuarios);
-        return "request_plumber.html";
-    }
+//    @GetMapping("/lista")
+//    public String lista(ModelMap modelo){
+//        List <User> usuarios = userS.listarUsuarios();
+//        modelo.addAttribute("usuarios", usuarios);
+//        return "request_plumber.html";
+//    }
     
 }

@@ -1,7 +1,9 @@
 package com.webAppServicio.Egg.Controllers;
 
+import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.SupplierService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,5 +52,33 @@ public class SupplierController {
             
         }
        
+    }
+    
+    @GetMapping("/lista_plumber")
+    public String listaPlumber(ModelMap modelo){
+        List <Supplier> proveedores = supplierS.listarProveedores();
+        modelo.addAttribute("proveedores", proveedores);
+        return "request_plumber.html";
+    }
+    
+    @GetMapping("/lista_electric")
+    public String listaElectric(ModelMap modelo){
+        List <Supplier> proveedores = supplierS.listarProveedores();
+        modelo.addAttribute("proveedores", proveedores);
+        return "request_electric.html";
+    }
+    
+    @GetMapping("/lista_gardener")
+    public String listaGardener(ModelMap modelo){
+        List <Supplier> proveedores = supplierS.listarProveedores();
+        modelo.addAttribute("proveedores", proveedores);
+        return "request_gardener.html";
+    }
+    
+    @GetMapping("/lista_gas")
+    public String listaGas(ModelMap modelo){
+        List <Supplier> proveedores = supplierS.listarProveedores();
+        modelo.addAttribute("proveedores", proveedores);
+        return "request_gas.html";
     }
 }

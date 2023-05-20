@@ -559,7 +559,7 @@ a:focus {
     margin: 0 auto;
 }
 
-.client_section .client_container .detail-box p {
+.client_section .client_container .detail-box p{
     text-align: center;
 }
 
@@ -676,5 +676,8 @@ a:focus {
     text-decoration: none;
 }
 
+.detail-services p{
+    text-align: initial;
+}
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
