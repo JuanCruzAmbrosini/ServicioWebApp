@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter @Setter
 @NoArgsConstructor
 @ToString
-public class Service {
+public class TechnicalService {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -23,6 +23,9 @@ public class Service {
     
     private String tipoServicio;
     private String detalle;
+    
+    @OneToOne
+    private Image imagen;
     
     @ManyToOne
     private User usuario;

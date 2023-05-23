@@ -1,7 +1,9 @@
 
 package com.webAppServicio.Egg.Controllers;
 
+import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.User;
+import com.webAppServicio.Egg.Services.SupplierService;
 import com.webAppServicio.Egg.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,11 +21,27 @@ public class ImageController {
     @Autowired
     private UserService userS;
     
-    @GetMapping("/perfil/{dni}")
+    @Autowired
+    private SupplierService supplierS;
+    
+    @GetMapping("/perfilUser/{dni}")
     public ResponseEntity<byte[]> imageUser(@PathVariable String dni){
         User usuarios = userS.getOne(dni);
         
         byte[] imagen = usuarios.getImagen().getContenido();
+        
+        HttpHeaders headers = new HttpHeaders();
+        
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        
+        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
+    }
+    
+    @GetMapping("/perfilSupplier/{matricula}")
+    public ResponseEntity<byte[]> imageSupplier(@PathVariable String matricula){
+        Supplier proveedor = supplierS.getOne(matricula);
+        
+        byte[] imagen = proveedor.getImagen().getContenido();
         
         HttpHeaders headers = new HttpHeaders();
         

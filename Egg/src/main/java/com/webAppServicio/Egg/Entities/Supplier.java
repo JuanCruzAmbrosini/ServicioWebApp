@@ -39,5 +39,5 @@ public class Supplier {
     private OrderService ordenServicio;
 
     @OneToOne(mappedBy = "proveedor")
-    private Service servicios;
+    private TechnicalService servicios;
 }

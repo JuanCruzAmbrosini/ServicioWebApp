@@ -12,86 +12,70 @@
         <div class="service_container ">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="box b-1">
+                    <div class="box b-4">
                         <div class="img-box">
-                            <img src="images/plomero.jpg" alt="">
+                            <a th:href="@{/description_plumber}">
+                                <img th:src="@{/images/plomero.jpg}" alt="">
+                            </a>
                         </div>
                         <div class="detail-box">
                             <h6>
                                 Plomeros
                             </h6>
-                            <p>
+                            <p class='detail-services'>
                                 adipiscing elit, sed do eiusmod tempor incididunt
                             </p>
-                            <div class="btn-box">
-                                <a th:href="@{/description_plumber}">
-                                    Leer más!!!
-                                </a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="box b-2">
-                        <div class="img-box">
-                            <img src="images/electricista.jfif" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h6>
-                                Electricistas
-                            </h6>
-                            <p>
-                                adipiscing elit, sed do eiusmod tempor incididunt
-                            </p>
-                            <div class="btn-box">
-                                <a th:href="@{/description_electric}">
-                                    Leer más!!!
-                                </a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="box b-3">
-                        <div class="img-box">
-                            <img src="images/gasista.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h6>
-                                Gasistas
-                            </h6>
-                            <p>
-                                adipiscing elit, sed do eiusmod tempor incididunt
-                            </p>
-                            <div class="btn-box">
-                                <a th:href="@{description_gas}">
-                                    Leer más!!!
-                                </a>
-                                <hr>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="box b-4">
                         <div class="img-box">
-                            <img src="images/jardinero.jfif" alt="">
+                            <a th:href="@{/description_electric}">
+                                <img th:src="@{/images/electricista.jfif}" alt="">
+                            </a>
                         </div>
                         <div class="detail-box">
                             <h6>
-                                Jardieros
+                                Electricistas
                             </h6>
-                            <p>
+                            <p class='detail-services'>
                                 adipiscing elit, sed do eiusmod tempor incididunt
                             </p>
-                            <div class="btn-box">
-                                <a th:href="@{/description_gardener}">
-                                    Leer más!!!
-                                </a>
-                                <hr>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box b-4">
+                        <div class="img-box">
+                            <a th:href="@{description_gas}">
+                                <img th:src="@{/images/gasista.jpg}" alt="">
+                            </a>
+                        </div>
+                        <div class="detail-box">
+                            <h6>
+                                Gasistas
+                            </h6>
+                            <p class='detail-services'>
+                                adipiscing elit, sed do eiusmod tempor incididunt
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box b-4">
+                        <div class="img-box">
+                            <a th:href="@{/description_gardener}">
+                                <img th:src="@{/images/jardinero.jfif}" alt="">
+                            </a>
+                        </div>
+                        <div class="detail-box">
+                            <h6>
+                                Jardineros
+                            </h6>
+                            <p class='detail-services'>
+                                adipiscing elit, sed do eiusmod tempor incididunt
+                            </p>
                         </div>
                     </div>
                 </div>

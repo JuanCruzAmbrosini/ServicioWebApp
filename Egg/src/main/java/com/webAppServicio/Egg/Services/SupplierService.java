@@ -5,6 +5,8 @@ import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.SupplierRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,6 +75,18 @@ public class SupplierService {
 
         supplierR.deleteById(matricula);
 
+    }
+    
+    public List<Supplier> listarProveedores(){
+        List <Supplier> listaProveedores = new ArrayList<>();
+        
+        listaProveedores = supplierR.findAll();
+        
+        return listaProveedores;
+    }
+    
+    public Supplier getOne(String matricula){
+        return supplierR.getOne(matricula);
     }
 
     public void validarProveedor(String matricula, String nombre, String apellido,
