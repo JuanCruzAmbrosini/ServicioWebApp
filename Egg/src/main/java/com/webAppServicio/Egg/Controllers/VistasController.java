@@ -1,7 +1,7 @@
 package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Supplier;
-import com.webAppServicio.Egg.Entities.User;
+import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Services.SupplierService;
 import com.webAppServicio.Egg.Services.UserService;
 import java.util.List;
@@ -85,7 +85,7 @@ public class VistasController {
     
     @GetMapping("/user_list")
     public String listarUsuarios(ModelMap modelo) {
-        List<User> usuarios = userS.listarUsuarios();
+        List<Client> usuarios = userS.listarUsuarios();
         modelo.addAttribute("usuarios", usuarios);
 
         return "list_user.html";

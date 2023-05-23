@@ -1,6 +1,6 @@
 package com.webAppServicio.Egg.Controllers;
 
-import com.webAppServicio.Egg.Entities.User;
+import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.UserService;
 import java.util.List;

@@ -2,7 +2,7 @@
 package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Supplier;
-import com.webAppServicio.Egg.Entities.User;
+import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Services.SupplierService;
 import com.webAppServicio.Egg.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ImageController {
     
     @GetMapping("/perfilUser/{dni}")
     public ResponseEntity<byte[]> imageUser(@PathVariable String dni){
-        User usuarios = userS.getOne(dni);
+        Client usuarios = userS.getOne(dni);
         
         byte[] imagen = usuarios.getImagen().getContenido();
         

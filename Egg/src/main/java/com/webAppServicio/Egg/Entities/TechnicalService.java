@@ -28,7 +28,7 @@ public class TechnicalService {
     private Image imagen;
     
     @ManyToOne
-    private User usuario;
+    private Client usuario;
     
     @OneToOne
     private Supplier proveedor;

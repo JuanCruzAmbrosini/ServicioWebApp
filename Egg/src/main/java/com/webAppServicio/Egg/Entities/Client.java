@@ -19,7 +19,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class User {
+public class Client {
 
     @Id
     private String dni;

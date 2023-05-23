@@ -2,7 +2,7 @@
 package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
-import com.webAppServicio.Egg.Entities.User;
+import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.UserRepository;
@@ -29,7 +29,7 @@ public class UserService {
 
         validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
-        User usuario = new User();
+        Client usuario = new Client();
 
         usuario.setDni(dni);
         usuario.setNombre(nombre);
@@ -48,9 +48,9 @@ public class UserService {
 
     }
 
-    public List<User> listarUsuarios() {
+    public List<Client> listarUsuarios() {
 
-        List<User> listaUsuarios = new ArrayList<>();
+        List<Client> listaUsuarios = new ArrayList<>();
 
         listaUsuarios = userR.findAll();
 
@@ -62,10 +62,10 @@ public class UserService {
 
         validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
-        Optional<User> respuesta = userR.findById(dni);
+        Optional<Client> respuesta = userR.findById(dni);
         if (respuesta.isPresent()) {
 
-            User usuario = respuesta.get();
+            Client usuario = respuesta.get();
 
             usuario.setDni(dni);
             usuario.setNombre(nombre);
@@ -81,7 +81,7 @@ public class UserService {
 
     }
     
-    public User getOne(String dni){
+    public Client getOne(String dni){
         return userR.getOne(dni);
     }
     
