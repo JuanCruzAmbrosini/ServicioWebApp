@@ -8,7 +8,7 @@
                             <div class="col-md-6">
                                 <div class="img-box">
                                     <div>
-                                        <img src="images/slider-img.jpg" alt="" class="" />
+                                        <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                             <div class="col-md-6">
                                 <div class="img-box">
                                     <div>
-                                        <img src="images/slider-img.jpg" alt="" class="" />
+                                        <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                             <div class="col-md-6">
                                 <div class="img-box">
                                     <div>
-                                        <img src="images/slider-img.jpg" alt="" class="" />
+                                        <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
                                     </div>
                                 </div>
                             </div>
@@ -103,10 +103,10 @@
         <div class="slider_nav-box">
             <div class="btn-box">   
                 <div class="custom_carousel-control">
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" th:href="@{#carouselExampleControls}" role="button" data-slide="prev">
                         <span class="sr-only">Anterior</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <a class="carousel-control-next" th:href="@{#carouselExampleControls}" role="button" data-slide="next">
                         <span class="sr-only">Siguiente</span>
                     </a>
                 </div>

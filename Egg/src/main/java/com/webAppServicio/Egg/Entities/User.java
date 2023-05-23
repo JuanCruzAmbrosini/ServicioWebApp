@@ -43,7 +43,7 @@ public class User {
     private Image imagen;
     
     @OneToMany(mappedBy = "usuario")
-    private List<Service> servicios;
+    private List<TechnicalService> servicios;
     
     @OneToMany(mappedBy = "usuario")
     private List<OrderService> ordenServicios;
