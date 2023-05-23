@@ -26,7 +26,7 @@ public class ServiceController {
     @PostMapping("/newService")
     public String newService(@RequestParam String tipoServicio, @RequestParam String detalle, 
             @RequestParam MultipartFile imagen, ModelMap modelo) throws MyException{
-        
+  
         try {
             serviciosTecnicos.crearServicio(tipoServicio, detalle, imagen);
             modelo.put("exito", "Servicio Registrado Correctamente");
