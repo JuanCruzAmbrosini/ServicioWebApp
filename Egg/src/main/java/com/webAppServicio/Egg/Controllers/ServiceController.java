@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/service")
+@RequestMapping("/service_create")
 public class ServiceController {
 
     @Autowired
@@ -38,4 +38,11 @@ public class ServiceController {
             return "account_service.html";
         }
     }
+    
+//    @GetMapping("/service")
+//    public String listarServicios(ModelMap modelo) {
+//        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+//        modelo.addAttribute("servicios", servicios);
+//        return "service.html";
+//    }
 }

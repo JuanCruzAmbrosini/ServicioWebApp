@@ -2,6 +2,8 @@ package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.TechnicalService;
+import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
 import com.webAppServicio.Egg.Services.UserService;
 import java.util.List;
@@ -22,7 +24,10 @@ public class VistasController {
 
     @Autowired
     private SupplierService supplierS;
-
+    
+    @Autowired
+    private ServiceOfServices serviciosTecnicos;
+    
     @GetMapping("/")
     public String index(ModelMap modelo) {
         return "index.html";
@@ -33,8 +38,8 @@ public class VistasController {
         return "about.html";
     }
 
-    @GetMapping("/service")
-    public String service() {
+    @GetMapping("/serviceList")
+    public String servicios() {
         return "service.html";
     }
 
@@ -98,5 +103,4 @@ public class VistasController {
 
         return "list_supplier.html";
     }
-
 }
