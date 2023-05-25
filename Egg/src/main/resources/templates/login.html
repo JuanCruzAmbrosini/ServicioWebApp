@@ -35,12 +35,12 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form action="">
+                        <form th:action = "@{/logincheck}" method = "POST">
                             <div>
-                                <input type="email" placeholder="Email">
+                                <input type="email" name="email" placeholder="Email">
                             </div>
                             <div>
-                                <input type="password" placeholder="Contraseña">
+                                <input type="password" name="password" placeholder="Contraseña">
                             </div>
 
                             <div class="d-flex justify-content-center">

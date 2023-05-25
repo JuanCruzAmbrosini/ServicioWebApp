@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,7 @@ public class SupplierService {
         supplier.setApellido(apellido);
         supplier.setTelefono(telefono);
         supplier.setEmail(email);
-        supplier.setPassword(password);
+        supplier.setPassword(new BCryptPasswordEncoder().encode(password));
         supplier.setOficio(oficio);
         Image image = imagenS.guardar(imagen);
         supplier.setImagen(image);
@@ -128,9 +129,9 @@ public class SupplierService {
 
         }
         
-        if (password2 == null || password2.isEmpty()) {
+        if (!password2.equals(password)) {
 
-            throw new MyException("No se registró una entrada válida en el campo de repetir contraseña. Por favor, inténtelo nuevamente.");
+            throw new MyException("Las contraseñas no coinciden, por favor, revise nuevamente los campos.");
 
         }
 

@@ -1,8 +1,8 @@
 package com.webAppServicio.Egg.Controllers;
 
-import com.webAppServicio.Egg.Entities.User;
+import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Exceptions.MyException;
-import com.webAppServicio.Egg.Services.UserService;
+import com.webAppServicio.Egg.Services.ClientService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
     @Autowired
-    private UserService userS;
+    private ClientService userS;
 
     @GetMapping("/account_user")
     public String accountUser() {

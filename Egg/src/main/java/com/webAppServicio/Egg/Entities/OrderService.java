@@ -34,7 +34,7 @@ public class OrderService {
     private Date fechaRecibida;
     
     @ManyToOne
-    private User usuario;
+    private Client usuario;
     
     @OneToOne()
     private Supplier proveedor;
