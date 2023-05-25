@@ -2,7 +2,7 @@
 package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
-import com.webAppServicio.Egg.Entities.User;
+import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.UserRepository;
@@ -10,13 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
-public class UserService {
+public class ClientService implements UserDetailsService{
 
     @Autowired
     private UserRepository userR;
@@ -29,7 +36,7 @@ public class UserService {
 
         validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
-        User usuario = new User();
+        Client usuario = new Client();
 
         usuario.setDni(dni);
         usuario.setNombre(nombre);
@@ -37,7 +44,7 @@ public class UserService {
         usuario.setTelefono(telefono);
         usuario.setDireccion(direccion);
         usuario.setEmail(email);
-        usuario.setPassword(password);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(sexo);
         Image image = imageS.guardar(imagen);
         usuario.setImagen(image);
@@ -48,9 +55,9 @@ public class UserService {
 
     }
 
-    public List<User> listarUsuarios() {
+    public List<Client> listarUsuarios() {
 
-        List<User> listaUsuarios = new ArrayList<>();
+        List<Client> listaUsuarios = new ArrayList<>();
 
         listaUsuarios = userR.findAll();
 
@@ -62,10 +69,10 @@ public class UserService {
 
         validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
-        Optional<User> respuesta = userR.findById(dni);
+        Optional<Client> respuesta = userR.findById(dni);
         if (respuesta.isPresent()) {
 
-            User usuario = respuesta.get();
+            Client usuario = respuesta.get();
 
             usuario.setDni(dni);
             usuario.setNombre(nombre);
@@ -81,7 +88,7 @@ public class UserService {
 
     }
     
-    public User getOne(String dni){
+    public Client getOne(String dni){
         return userR.getOne(dni);
     }
     
@@ -142,15 +149,37 @@ public class UserService {
             
         }
         
-        if (password2 == null || password2.isEmpty()){
+        if (!password2.equals(password)){
             
-            throw new MyException("No se registró una entrada válida en el campo de repetir contraseña. Por favor, inténtelo nuevamente.");
+            throw new MyException("Las contraseñas no coinciden, por favor, revise nuevamente los campos.");
             
         }
         
         if (sexo == null || sexo.isEmpty()){
             
             throw new MyException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
+            
+        }
+        
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        
+        Client usuario = userR.buscarUsuarioPorEmail(email);
+        
+        if (usuario != null) {
+            
+            List<GrantedAuthority> permisos = new ArrayList<>();
+            
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+usuario.getRol().toString());
+            
+            permisos.add(p);
+            
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+        } else {
+            
+            return null;
             
         }
         
