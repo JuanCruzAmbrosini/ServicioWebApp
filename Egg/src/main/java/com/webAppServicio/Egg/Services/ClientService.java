@@ -10,13 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
-public class UserService {
+public class ClientService implements UserDetailsService{
 
     @Autowired
     private UserRepository userR;
@@ -37,7 +44,7 @@ public class UserService {
         usuario.setTelefono(telefono);
         usuario.setDireccion(direccion);
         usuario.setEmail(email);
-        usuario.setPassword(password);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setSexo(sexo);
         Image image = imageS.guardar(imagen);
         usuario.setImagen(image);
@@ -142,15 +149,37 @@ public class UserService {
             
         }
         
-        if (password2 == null || password2.isEmpty()){
+        if (!password2.equals(password)){
             
-            throw new MyException("No se registró una entrada válida en el campo de repetir contraseña. Por favor, inténtelo nuevamente.");
+            throw new MyException("Las contraseñas no coinciden, por favor, revise nuevamente los campos.");
             
         }
         
         if (sexo == null || sexo.isEmpty()){
             
             throw new MyException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
+            
+        }
+        
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        
+        Client usuario = userR.buscarUsuarioPorEmail(email);
+        
+        if (usuario != null) {
+            
+            List<GrantedAuthority> permisos = new ArrayList<>();
+            
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+usuario.getRol().toString());
+            
+            permisos.add(p);
+            
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+        } else {
+            
+            return null;
             
         }
         

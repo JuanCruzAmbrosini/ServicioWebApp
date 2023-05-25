@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Getter
@@ -47,5 +48,6 @@ public class Client {
     
     @OneToMany(mappedBy = "usuario")
     private List<OrderService> ordenServicios;
+
 
 }

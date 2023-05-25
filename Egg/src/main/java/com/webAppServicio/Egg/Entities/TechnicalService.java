@@ -32,4 +32,8 @@ public class TechnicalService {
     
     @OneToOne
     private Supplier proveedor;
+
+    public Object getImagen() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
