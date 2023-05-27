@@ -26,31 +26,27 @@
                 <table class="table table-dark">
                     <thead>
                         <tr>
-                            <th scope="col">N° De Matricula</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Oficio</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Telefono</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tipo de Servicio</th>
+                            <th scope="col">Detalle</th>
+                            <th scope="col">Caracteristicas</th>
                             <th scope="col">Imagen</th>
                         </tr>
                     </thead>
-                    <tbody th:each="proveedor : ${proveedores}">
-                    <input hidden th:value="${matricula}" name="matricula">
+                    <tbody th:each="servicio : ${servicios}">
+                    <input hidden th:value="${id}" name="id">
                     <tr>
-                        <th scope="row" th:text="${proveedor.matricula}"></th>
-                        <td th:text="${proveedor.nombre}"></td>
-                        <td th:text="${proveedor.apellido}"></td>
-                        <td th:text="${proveedor.oficio}"></td>
-                        <td th:text="${proveedor.email}"></td>
-                        <td th:text="${proveedor.telefono}"></td>
+                        <th scope="row" th:text="${servicio.id}"></th>
+                        <td th:text="${servicio.tipoServicio}"></td>
+                        <td th:text="${servicio.detalle}"></td>
+                        <td th:text="${servicio.caracteristicas}"></td>
                         <td>
-                            <a><img th:if="${proveedor.imagen != null}" 
+                            <a><img th:if="${servicio.imagen != null}" 
                                     style="width: 150px;
                                     height: 150px;
                                     margin: auto;
-                                    border-radius: 50%" 
-                                    th:src="@{/imagen/perfilSupplier/__${proveedor.matricula}__}" >
+                                    border-radius: 0%" 
+                                    th:src="@{/imagen/perfilService/__${servicio.id}__}" >
                             </a>
                         </td>
                         <td>

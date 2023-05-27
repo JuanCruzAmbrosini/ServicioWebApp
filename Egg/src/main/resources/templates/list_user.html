@@ -10,37 +10,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav class="navbar navbar-expand-lg custom_nav-container">
-                        <a class="navbar-brand" href="/">
-                            <span>
-                                ServyHouse
-                            </span>
-                        </a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
-                                <ul class="navbar-nav  ">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/">Principal<span class="sr-only"></span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/service_create/account_service">Nuevo Servicio</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/user_list">Lista Usuarios</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/supplier_list">Lista Técnicos</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <nav th:replace="/fragments/navBarAdmin :: navAdmin"></nav>
                 </div>
             </header>
 
@@ -97,7 +67,7 @@
 
                 <section class="py-5 text-center container">
                     <div class="d-flex justify-content-lg-start">
-                        <a href="/" type="btn btn-secondary">Volver</a>
+                        <a href="/init_admin" type="btn btn-secondary">Volver</a>
                     </div>
                 </section>
 

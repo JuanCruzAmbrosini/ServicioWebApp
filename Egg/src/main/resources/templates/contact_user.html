@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <div class="hero_area">
+            
+            <!-- header section strats -->
+            
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
+                </div>
+            </header>
+            
+            <!-- end header section -->
+            
+        </div>
+
+        <!-- contact section -->
+
+        <section class="contact_section layout_padding">
+            <div th:replace="/fragments/contact_us :: contact"></div>
+        </section>
+
+        <!-- end contact section -->
+    
+        <!-- footer section -->
+        
+        <footer th:replace="/fragments/footer :: footer"></footer>
+        
+        <!-- end footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        
+    </body>
+
+</html>

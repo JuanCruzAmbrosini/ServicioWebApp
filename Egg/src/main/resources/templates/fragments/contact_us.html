@@ -38,10 +38,10 @@
                         </button>
                     </div>
                     <br>
-                    <div class="d-flex justify-content-center">
+                    <div th:if="${session.usuariosession == null}" class="d-flex justify-content-center">
                         <p> ó Mejor </p>
                     </div>
-                    <div class="d-flex justify-content-center">
+                    <div th:if="${session.usuariosession == null}" class="d-flex justify-content-center">
                         <a class="btn btn-secondary" th:href="@{/account}" role="button">Registrate Para Tener Una Atencion Personalizada</a>
                     </div>
                 </form>
