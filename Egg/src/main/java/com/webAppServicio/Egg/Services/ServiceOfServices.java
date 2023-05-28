@@ -22,15 +22,17 @@ public class ServiceOfServices {
     private ImageService imageS;
 
     @Transactional
-    public void crearServicio(String tipoServicio, String detalle, MultipartFile imagen) throws MyException {
+    public void crearServicio(String tipoServicio, String detalle, String caracteristicas, MultipartFile imagen) throws MyException {
         
-        validar(tipoServicio, detalle);
+        validar(tipoServicio, detalle, caracteristicas);
 
         TechnicalService servicioTecnico = new TechnicalService();
 
         servicioTecnico.setTipoServicio(tipoServicio);
 
         servicioTecnico.setDetalle(detalle);
+        
+        servicioTecnico.setCaracteristicas(caracteristicas);
         
         Image image = imageS.guardar(imagen);
         
@@ -51,9 +53,9 @@ public class ServiceOfServices {
     }
     
     @Transactional
-    public void modificarServicio (String id, String tipoServicio, String detalle, MultipartFile imagen) throws MyException{
+    public void modificarServicio (String id, String tipoServicio, String detalle, String caracteristicas, MultipartFile imagen) throws MyException{
         
-        validar(tipoServicio, detalle);
+        validar(tipoServicio, detalle, caracteristicas);
         
         Optional<TechnicalService> respuesta = servicioR.findById(id);
         
@@ -64,6 +66,8 @@ public class ServiceOfServices {
             servicioTecnico.setTipoServicio(tipoServicio);
             
             servicioTecnico.setDetalle(detalle);
+            
+            servicioTecnico.setCaracteristicas(caracteristicas);
             
             Image image = imageS.actualizar(imagen, id);
             
@@ -80,7 +84,7 @@ public class ServiceOfServices {
         servicioR.deleteById(id);
     }
     
-    public void validar(String tipoServicio, String detalle) throws MyException{
+    public void validar(String tipoServicio, String detalle, String caracteristicas) throws MyException{
         if ( tipoServicio == null || tipoServicio.isEmpty()){
             
             throw new MyException("No se registró una entrada válida en el campo de tipo de Servicio. Por favor, inténtelo nuevamente.");
@@ -90,6 +94,12 @@ public class ServiceOfServices {
         if (detalle == null || detalle.isEmpty()){
             
             throw new MyException("No se registró una entrada válida en el campo detalle. Por favor, inténtelo nuevamente.");
+            
+        }
+        
+        if ( caracteristicas == null || caracteristicas.isEmpty()){
+            
+            throw new MyException("No se registró una entrada válida en el campo de caracteristicas. Por favor, inténtelo nuevamente.");
             
         }
         

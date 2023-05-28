@@ -1,10 +1,11 @@
-
 package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.Client;
-import com.webAppServicio.Egg.Services.SupplierService;
+import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Services.ClientService;
+import com.webAppServicio.Egg.Services.ServiceOfServices;
+import com.webAppServicio.Egg.Services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class ImageController {
     @Autowired
     private SupplierService supplierS;
     
+    @Autowired
+    private ServiceOfServices serviceS;
+    
     @GetMapping("/perfilUser/{dni}")
     public ResponseEntity<byte[]> imageUser(@PathVariable String dni){
         Client usuarios = userS.getOne(dni);
@@ -42,6 +46,19 @@ public class ImageController {
         Supplier proveedor = supplierS.getOne(matricula);
         
         byte[] imagen = proveedor.getImagen().getContenido();
+        
+        HttpHeaders headers = new HttpHeaders();
+        
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        
+        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
+    }
+    
+    @GetMapping("/perfilService/{id}")
+    public ResponseEntity<byte[]> imageServicio(@PathVariable String id){
+        TechnicalService servicio = serviceS.getOne(id);
+        
+        byte[] imagen = servicio.getImagen().getContenido();
         
         HttpHeaders headers = new HttpHeaders();
         

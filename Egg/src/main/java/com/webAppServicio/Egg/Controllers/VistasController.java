@@ -2,28 +2,27 @@ package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Enums.Rol;
+import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
 import com.webAppServicio.Egg.Services.ClientService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 
 @Controller
 @RequestMapping("/")
-
 public class VistasController {
 
     @Autowired
-    private ClientService userS;
-
-    @Autowired
-    private SupplierService supplierS;
+    private ServiceOfServices serviciosTecnicos;
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
@@ -35,8 +34,8 @@ public class VistasController {
         return "about.html";
     }
 
-    @GetMapping("/service")
-    public String service() {
+    @GetMapping("/serviceList")
+    public String servicios() {
         return "service.html";
     }
 
@@ -51,15 +50,26 @@ public class VistasController {
     }
 
     @GetMapping("/login")
-    public String login( @RequestParam(required = false) String error, ModelMap modelo ) {
-        
-        if (error != null ){
-            
+    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
+
+        if (error != null) {
+
             modelo.put("error", "¡Usuario o contraseña invalidos!");
-            
+
         }
-        
+
         return "login.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/init")
+    public String inicio(HttpSession session) {
+        Client logueado = (Client) session.getAttribute("usuariosession");
+
+        if (logueado.getRol().toString().equals("ADMIN")) {
+            return "redirect:/admin/dashboard";
+        }
+        return "init_user.html";
     }
 
     @GetMapping("/description_plumber")
@@ -85,27 +95,6 @@ public class VistasController {
     @PostMapping("/registered_supplier")
     public String newSupplier() {
         return "login.html";
-    }
-
-    @GetMapping("/admin")
-    public String indexAdmin(){
-        return "indexAdmin.html";
-    }
-    
-    @GetMapping("/user_list")
-    public String listarUsuarios(ModelMap modelo) {
-        List<Client> usuarios = userS.listarUsuarios();
-        modelo.addAttribute("usuarios", usuarios);
-
-        return "list_user.html";
-    }
-
-    @GetMapping("/supplier_list")
-    public String listarProveedores(ModelMap modelo) {
-        List<Supplier> proveedores = supplierS.listarProveedores();
-        modelo.addAttribute("proveedores", proveedores);
-
-        return "list_supplier.html";
     }
 
 }

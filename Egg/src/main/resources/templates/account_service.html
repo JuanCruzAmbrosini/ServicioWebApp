@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:replace="/fragments/head :: head"></head>
 
@@ -10,37 +10,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav class="navbar navbar-expand-lg custom_nav-container">
-                        <a class="navbar-brand" href="/">
-                            <span>
-                                ServyHouse
-                            </span>
-                        </a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
-                                <ul class="navbar-nav  ">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/">Principal<span class="sr-only"></span></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/service/account_service">Nuevo Servicio</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/user_list">Lista Usuarios</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/supplier_list">Lista Técnicos</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <nav th:replace="/fragments/navBarAdmin :: navAdmin"></nav>
                 </div>
             </header>
 
@@ -58,8 +28,8 @@
 
         <section class="contact_section layout_padding">
             <div class="custom_heading-container">
-                <h3 class=" ">
-                    Registra un nuevo Servicio Para Tener Mas Profesionales a Tu alcance y Brindar Tus Servicios a mas Clientes!!!
+                <h3 class="">
+                    Registra un nuevo Servicio Para Tener Mas Profesionales a Tu alcance
                 </h3>
             </div>
 
@@ -74,6 +44,9 @@
                                 <input name="detalle" type="text" class="message-box" placeholder="Detalle">
                             </div>
                             <div>
+                                <input name="caracteristicas" type="text" class="message-box" placeholder="Caracteristicas">
+                            </div>
+                            <div>
                                 <input name="imagen" type="file" placeholder="Cargar Archivo">
                             </div>
                             <div class="d-flex justify-content-center">
@@ -83,7 +56,7 @@
                                 <button class="btn btn-secondary" type="reset">Borrar</button>
                             </div>
                             <div class="d-flex justify-content-lg-start">
-                                <a href="#" type="btn btn-secondary">Volver</a>
+                                <a href="/init_admin" type="btn btn-secondary">Volver</a>
                             </div>
                         </form>
                     </div>

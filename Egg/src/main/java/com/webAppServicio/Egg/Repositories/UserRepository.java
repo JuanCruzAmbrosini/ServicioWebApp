@@ -7,18 +7,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<Client, String>{
-    
+public interface UserRepository extends JpaRepository<Client, String> {
+
     @Query("SELECT c FROM Client c WHERE c.nombre = :nombre")
-    public Client buscarUsuarioPorNombre (@Param ("nombre") String nombre);
-    
+    public String buscarUsuarioPorNombre(@Param("nombre") String nombre);
+
     @Query("SELECT c FROM Client c WHERE c.apellido = :apellido")
-    public Client buscarUsuarioPorApellido (@Param ("apellido") String nombre);
-    
-     @Query("SELECT c FROM Client c WHERE c.direccion = :direccion")
-    public Client buscarUsuarioPorDireccion (@Param ("direccion") String direccion);
-    
-@Query("SELECT c FROM Client c WHERE c.email = :email")
-    public Client buscarUsuarioPorEmail (@Param ("email") String email);    
-    
+    public String buscarUsuarioPorApellido(@Param("apellido") String nombre);
+
+    @Query("SELECT c FROM Client c WHERE c.direccion = :direccion")
+    public String buscarUsuarioPorDireccion(@Param("direccion") String direccion);
+
+    @Query("SELECT c FROM Client c WHERE c.email = :email")
+    public Client buscarUsuarioPorEmail(@Param("email") String email);
 }

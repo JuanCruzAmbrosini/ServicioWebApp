@@ -23,6 +23,7 @@ public class TechnicalService {
     
     private String tipoServicio;
     private String detalle;
+    private String caracteristicas;
     
     @OneToOne
     private Image imagen;
@@ -32,4 +33,5 @@ public class TechnicalService {
     
     @OneToOne
     private Supplier proveedor;
+
 }

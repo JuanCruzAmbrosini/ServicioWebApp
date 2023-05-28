@@ -19,7 +19,7 @@ public class SupplierService {
 
     @Autowired
     private SupplierRepository supplierR;
-    
+
     @Autowired
     private ImageService imagenS;
 
@@ -77,16 +77,16 @@ public class SupplierService {
         supplierR.deleteById(matricula);
 
     }
-    
-    public List<Supplier> listarProveedores(){
-        List <Supplier> listaProveedores = new ArrayList<>();
-        
+
+    public List<Supplier> listarProveedores() {
+        List<Supplier> listaProveedores = new ArrayList<>();
+
         listaProveedores = supplierR.findAll();
-        
+
         return listaProveedores;
     }
-    
-    public Supplier getOne(String matricula){
+
+    public Supplier getOne(String matricula) {
         return supplierR.getOne(matricula);
     }
 
@@ -128,7 +128,7 @@ public class SupplierService {
             throw new MyException("No se registró una entrada válida en el campo de la contraseña. Por favor, inténtelo nuevamente.");
 
         }
-        
+
         if (!password2.equals(password)) {
 
             throw new MyException("Las contraseñas no coinciden, por favor, revise nuevamente los campos.");
@@ -140,6 +140,5 @@ public class SupplierService {
             throw new MyException("No se registró una entrada válida en el campo del oficio. Por favor, inténtelo nuevamente.");
 
         }
-
     }
 }

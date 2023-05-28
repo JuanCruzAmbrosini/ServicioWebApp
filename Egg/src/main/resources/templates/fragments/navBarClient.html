@@ -1,6 +1,6 @@
-<div th:fragment="nav">
+<div th:fragment="navClient">
     <nav class="navbar navbar-expand-lg custom_nav-container">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/init_client">
             <span>
                 ServyHouse
             </span>
@@ -15,25 +15,22 @@
             <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
                 <ul class="navbar-nav  ">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Principal<span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">Sobre Nosotros</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/serviceList">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contactos</a>
+                        <a class="nav-link" href="/contact_user">Contactos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/account}">Registrate</a>
+                        <a class="nav-link" th:href="@{#}">Mi Perfil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Iniciar Sesión</a>
+                        <a class="nav-link" href="/logout">Salir</a>
                     </li>
                 </ul>
             </div>
         </div>
+        <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+            <button class="btn  my-2 my-sm-0 nav_search-btn" type="search"></button>
+        </form>
     </nav>
 </div>
