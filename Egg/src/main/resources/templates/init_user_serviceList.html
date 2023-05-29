@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+    <!-- head -->
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <!-- head -->
+
+    <body>
+        <div class="hero_area">
+
+            <!-- header section strats -->
+
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
+                </div>
+            </header>
+
+            <!-- end header section -->
+
+        </div>
+
+        <!-- service section -->
+
+        <section class="service_section layout_padding-bottom">
+            <div th:replace="/fragments/service_us :: service"></div>
+        </section>
+
+        <!-- end service section -->
+
+        <!-- footer section -->
+        <footer th:replace="/fragments/footer :: footer"></footer>
+        <!-- end footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        
+    </body>
+
+</html>

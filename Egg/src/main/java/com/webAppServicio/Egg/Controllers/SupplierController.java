@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ public class SupplierController {
      @Autowired
     private SupplierService supplierS;
     
-    @GetMapping("/init_supplier")
+    @GetMapping("/init")
     public String inicioSupplier(){
         return "init_supplier.html";
     }
@@ -31,20 +32,21 @@ public class SupplierController {
     }
     
     @PostMapping("/registered_supplier")
-    public String newSupplier(@RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
+    public String newSupplier(@RequestParam String dni, @RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam String email,
             @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam String oficio,
             ModelMap modelo) throws MyException{
         
         try {
             
-            supplierS.crearProveedor(imagen, matricula, nombre, apellido, telefono, email, password, password2, oficio);
+            supplierS.crearProveedor(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, oficio);
             modelo.put("exito", "Proveedor registrado Correctamente");
             return "login.html";
             
         } catch (MyException ex) {
             
             modelo.put("error", ex.getMessage());
+            modelo.put("dni", dni);
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
             modelo.put("oficio", oficio);
@@ -86,4 +88,13 @@ public class SupplierController {
         modelo.addAttribute("proveedores", proveedores);
         return "request_gas.html";
     }
+    
+    @GetMapping("/delete/{dni}")
+    public String eliminarNoticia(@PathVariable String dni, ModelMap modelo){
+        
+        supplierS.eliminarProveedor(dni);
+        
+        return "redirect:/admin/supplier_list";
+    }
+    
 }

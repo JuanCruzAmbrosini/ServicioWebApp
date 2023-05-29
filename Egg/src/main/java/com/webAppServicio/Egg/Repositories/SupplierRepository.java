@@ -13,7 +13,7 @@ public interface SupplierRepository extends JpaRepository <Supplier, String>{
     public String buscarProveedorPorNombre (@Param ("nombre") String nombre);
     
      @Query("SELECT s FROM Supplier s WHERE s.email = :email")
-    public String buscarProveedorPorEmail (@Param ("email") String email);
+    public Supplier buscarProveedorPorEmail (@Param ("email") String email);
     
      @Query("SELECT s FROM Supplier s WHERE s.oficio = :oficio")
     public String buscarProveedorPorOficio (@Param ("oficio") String nombre);

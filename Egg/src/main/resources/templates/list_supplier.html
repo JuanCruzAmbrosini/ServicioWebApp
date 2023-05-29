@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="/fragments/head :: head">
+    </head>
+
+    <link rel="stylesheet" href="/css/tablaStyle.css" type="text/css">
 
     <body>
         <div class="hero_area">
@@ -20,45 +23,49 @@
 
         <!-- contact section -->
 
-        <section class="contact_section layout_padding">
-            <div class="container">
+            <div class="contenido_principal">
 
-                <table class="table table-dark">
+                <table class="tabla" >
+
                     <thead>
-                        <tr>
-                            <th scope="col">N° De Matricula</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Oficio</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Imagen</th>
-                        </tr>
-                    </thead>
-                    <tbody th:each="proveedor : ${proveedores}">
-                    <input hidden th:value="${matricula}" name="matricula">
-                    <tr>
-                        <th scope="row" th:text="${proveedor.matricula}"></th>
-                        <td th:text="${proveedor.nombre}"></td>
-                        <td th:text="${proveedor.apellido}"></td>
-                        <td th:text="${proveedor.oficio}"></td>
-                        <td th:text="${proveedor.email}"></td>
-                        <td th:text="${proveedor.telefono}"></td>
-                        <td>
-                            <a><img th:if="${proveedor.imagen != null}" 
-                                    style="width: 150px;
-                                    height: 150px;
-                                    margin: auto;
-                                    border-radius: 50%" 
-                                    th:src="@{/imagen/perfilSupplier/__${proveedor.matricula}__}" >
-                            </a>
-                        </td>
-                        <td>
-                            <a href= "#"><i class="fas fa-feather-alt"></i> Modificar </a>
-                        </td>
-                    </tr>
 
-                    </tbody>
+                        <tr class="fila_tabla_encabezado">
+
+                            <th class="elemento_tabla_encabezado"></th>
+                            <th class="elemento_tabla_encabezado">N° DNI</th>
+                            <th class="elemento_tabla_encabezado">N° De Matrícula</th>
+                            <th class="elemento_tabla_encabezado">Nombre</th>
+                            <th class="elemento_tabla_encabezado">Apellido</th>
+                            <th class="elemento_tabla_encabezado">Oficio</th>
+                            <th class="elemento_tabla_encabezado">E-mail</th>
+                            <th class="elemento_tabla_encabezado">Teléfono</th>
+                            <th class="elemento_tabla_encabezado"></th>
+                            <th class="elemento_tabla_encabezado"></th>
+
+                        </tr>
+
+                    <tbody>
+
+                    <input hidden th:value="${dni}" name="dni">
+                    <tr class="fila_tabla_cuerpo" th:each="proveedor:${proveedores}">
+
+                        <td class="elemento_tabla_cuerpo"><img class="thumbnail" th:src="@{/imagen/perfilSupplier/__${proveedor.dni}__}"></td>
+                        <td  class="elemento_tabla_cuerpo" th:text="${proveedor.dni}"></td>
+                        <td  class="elemento_tabla_cuerpo" th:text="${proveedor.matricula}"></td>
+                        <td  class="elemento_tabla_cuerpo" th:text="${proveedor.nombre}"></td>
+                        <td  class="elemento_tabla_cuerpo" th:text="${proveedor.apellido}"></td>
+                        <td  class="elemento_tabla_cuerpo" th:text="${proveedor.oficio}"></td>
+                        <td  class="elemento_tabla_cuerpo" th:text="${proveedor.email}"></td>
+                        <td  class="elemento_tabla_cuerpo" th:text="${proveedor.telefono}"></td>
+
+                        <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo"
+                                                             th:href="@{/supplier/delete/__${proveedor.dni}__}">Eliminar</a></td>
+                        <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="#">Modificar</a></td>
+
+                        </tbody>
+
+                        </thead>
+
                 </table>
 
                 <section class="py-5 text-center container">
@@ -68,7 +75,6 @@
                 </section>
 
             </div>
-        </section>
 
         <!-- end contact section -->
 

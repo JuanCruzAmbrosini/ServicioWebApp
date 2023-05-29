@@ -8,14 +8,23 @@ import com.webAppServicio.Egg.Repositories.SupplierRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class SupplierService {
+public class SupplierService implements UserDetailsService {
 
     @Autowired
     private SupplierRepository supplierR;
@@ -24,13 +33,14 @@ public class SupplierService {
     private ImageService imagenS;
 
     @Transactional
-    public void crearProveedor(MultipartFile imagen, String matricula, String nombre, String apellido,
+    public void crearProveedor(MultipartFile imagen,String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String oficio) throws MyException {
 
-        validarProveedor(matricula, nombre, apellido, telefono, email, password, password2, oficio);
+        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, oficio);
 
         Supplier supplier = new Supplier();
-
+        
+        supplier.setDni(dni);
         supplier.setMatricula(matricula);
         supplier.setNombre(nombre);
         supplier.setApellido(apellido);
@@ -48,16 +58,17 @@ public class SupplierService {
     }
 
     @Transactional
-    public void modificarPerfil(String matricula, String nombre, String apellido,
+    public void modificarPerfil(String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String oficio) throws MyException {
 
-        validarProveedor(matricula, nombre, apellido, telefono, email, password, password2, oficio);
+        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, oficio);
 
-        Optional<Supplier> respuesta = supplierR.findById(matricula);
+        Optional<Supplier> respuesta = supplierR.findById(dni);
         if (respuesta.isPresent()) {
 
             Supplier supplier = respuesta.get();
-
+            
+            supplier.setDni(dni);
             supplier.setMatricula(matricula);
             supplier.setNombre(nombre);
             supplier.setApellido(apellido);
@@ -72,9 +83,9 @@ public class SupplierService {
     }
 
     @Transactional
-    public void eliminarProveedor(String matricula) {
+    public void eliminarProveedor(String dni) {
 
-        supplierR.deleteById(matricula);
+        supplierR.deleteById(dni);
 
     }
 
@@ -90,9 +101,15 @@ public class SupplierService {
         return supplierR.getOne(matricula);
     }
 
-    public void validarProveedor(String matricula, String nombre, String apellido,
+    public void validarProveedor(String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String oficio) throws MyException {
 
+        if ( dni == null || dni.isEmpty()){
+            
+            throw new MyException("No se registró una entrada válida en el campo del DNI. Por favor, inténtelo nuevamente.");
+            
+        }
+        
         if (matricula == null || matricula.isEmpty()) {
 
             throw new MyException("No se registró una entrada válida en el campo de la matrícula. Por favor, inténtelo nuevamente.");
@@ -141,4 +158,28 @@ public class SupplierService {
 
         }
     }
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Supplier usuario = supplierR.buscarProveedorPorEmail(email);
+
+        if (usuario != null) {
+
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+
+            permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("usuariosession", usuario);
+
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+        } else {
+            return null;
+        }
+    }
+
 }

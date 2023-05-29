@@ -33,6 +33,9 @@ public class ClientService implements UserDetailsService{
     
     @Autowired
     private ImageService imageS;
+    
+    @Autowired
+    private SupplierService supplierS;
 
     @Transactional
     public void crearUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
@@ -168,6 +171,7 @@ public class ClientService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        
         Client usuario = userR.buscarUsuarioPorEmail(email);
         
         if (usuario != null) {
@@ -186,7 +190,9 @@ public class ClientService implements UserDetailsService{
             
             return new User(usuario.getEmail(), usuario.getPassword(),permisos);
         }else{
-            return null;
+            
+           return  supplierS.loadUserByUsername(email);
+            
         }
     }
     
