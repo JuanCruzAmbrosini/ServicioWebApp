@@ -2,6 +2,7 @@ package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
@@ -61,15 +62,22 @@ public class VistasController {
         return "login.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPPLIER')")
     @GetMapping("/init")
     public String inicio(HttpSession session) {
-        Client logueado = (Client) session.getAttribute("usuariosession");
+        Person logueado = (Person) session.getAttribute("usuariosession");
 
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
+            
+        } else if (logueado.getRol().toString().equals("SUPPLIER")){
+            return "redirect:/supplier/init";
+            
+        } else{
+            
+        return "redirect:/user/init";
+        
         }
-        return "init_user.html";
     }
 
     @GetMapping("/description_plumber")

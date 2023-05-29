@@ -53,6 +53,27 @@ public class UserController {
 
     }
     
+    @GetMapping("/init")
+    public String initCliente(){
+        
+        return "init_user.html";
+        
+    }
+    
+    @GetMapping("/serviceList")
+    public String serviciosCliente(){
+        
+        return "init_user_serviceList.html";
+        
+    }
+    
+    @GetMapping("/contact")
+    public String contactoCliente(){
+        
+        return "init_user_contact.html";
+        
+    }
+    
 //    @GetMapping("/lista")
 //    public String lista(ModelMap modelo){
 //        List <User> usuarios = userS.listarUsuarios();
