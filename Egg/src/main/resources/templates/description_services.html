@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+    <!-- head -->
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <!-- head -->
+
+    <body>
+        <div class="hero_area">
+
+            <!-- header section strats -->
+
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBar :: nav"></nav>
+                </div>
+            </header>
+
+            <!-- end header section -->
+
+        </div>
+
+        <!-- about section -->
+
+        <section class="about_section layout_padding">
+            <div class="container">
+                <input hidden th:value="${id}" name="id">
+                <div class="custom_heading-container">
+                    <h3 class=" " th:text="${servicios.tipoServicio}">
+                        
+                    </h3>
+                </div>
+                <p class="layout_padding2-top" th:text="${servicios.caracteristicas}">
+                    
+                </p>
+<!--                <div class="img-box layout_padding2">
+                    <img src="images/plomero.jpg" alt="">
+                </div>
+                <p class="layout_padding2-bottom">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                </p>
+                <div class="d-flex justify-content-lg-center">
+                    <a th:href="@{/supplier/lista_plumber}" type="btn btn-primary">Lista De Plomeros</a>
+                </div>-->
+            </div>
+            <div class="d-flex justify-content-lg-center">
+                <a th:href="@{/service}" type="btn btn-secondary">Volver a Servicios</a>
+            </div>
+        </section>
+
+        <!-- end about section -->
+
+        <!-- footer section -->
+        <footer th:replace="/fragments/footer :: footer"></footer>
+        <!-- end footer section -->
+
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    </body>
+
+</html>

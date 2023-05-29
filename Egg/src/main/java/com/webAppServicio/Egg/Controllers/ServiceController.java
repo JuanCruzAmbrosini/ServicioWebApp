@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +25,12 @@ public class ServiceController {
     public String registroServicio() {
         return "account_service.html";
     }
-    
+
     @PostMapping("/newService")
     public String newService(@RequestParam String tipoServicio, @RequestParam String detalle,
             @RequestParam String caracteristicas,
-            @RequestParam MultipartFile imagen, ModelMap modelo) throws MyException{
-  
+            @RequestParam MultipartFile imagen, ModelMap modelo) throws MyException {
+
         try {
             serviciosTecnicos.crearServicio(tipoServicio, detalle, caracteristicas, imagen);
             modelo.put("exito", "Servicio Registrado Correctamente");
@@ -42,7 +43,5 @@ public class ServiceController {
             return "account_service.html";
         }
     }
-    
-    
-    
+
 }

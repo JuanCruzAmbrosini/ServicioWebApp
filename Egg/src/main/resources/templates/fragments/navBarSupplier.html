@@ -1,6 +1,6 @@
-<div th:fragment="navAdmin">
+<div th:fragment="navSupplier">
     <nav class="navbar navbar-expand-lg custom_nav-container">
-        <a class="navbar-brand" href="/admin/dashboard">
+        <a class="navbar-brand" href="/supplier/init">
             <span>
                 ServyHouse
             </span>
@@ -15,16 +15,13 @@
             <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
                 <ul class="navbar-nav  ">
                     <li class="nav-item">
-                        <a class="nav-link" href="/service_create/account_service">Nuevo Servicio</a>
+                        <a class="nav-link" href="#">Pedidos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/service_list">Lista Servicios</a>
+                        <a class="nav-link" href="/supplier/contact">Contacto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/user_list">Lista Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/supplier_list">Lista Técnicos</a>
+                        <a class="nav-link" th:href="@{#}">Mi Perfil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Salir</a>
@@ -32,5 +29,8 @@
                 </ul>
             </div>
         </div>
+        <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+            <button class="btn  my-2 my-sm-0 nav_search-btn" type="search"></button>
+        </form>
     </nav>
 </div>

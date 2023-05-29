@@ -1,0 +1,32 @@
+<div th:fragment="card">
+    <div class="container">
+        <br>
+        <div class="custom_heading-container">
+            <h3 class=" ">
+                Nuestros Servicios
+            </h3>
+        </div>
+        <p class="">
+            ad minim veniam, quis nostrud exercitation ullamco
+        </p>
+        <section class="service_section layout_padding-bottom">
+            <div class="row text-center">
+
+                <div class="col-lg-3 col-md-6 mb-4" th:each="servicio : ${servicios}">
+                    <input hidden th:value="${id}" name="id">
+                    <div class="card h-100">
+                        <a><img th:if="${servicio.imagen != null}" class="card-img-top" th:src="@{/imagen/perfilService/__${servicio.id}__}" ></a>
+                        <div class="card-body">
+                            <b><p class="card-text" th:text="${servicio.tipoServicio}"></p></b>
+                            <p th:text="${servicio.detalle}"></p>
+                        </div>
+                        <div class="card-footer">
+                            <a th:href="@{/service_description/{id}(id=${servicio.id})}" class="btn btn-success">Caracteristicas</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
