@@ -24,20 +24,46 @@
 
         <div class="bg">
 
-            <!-- service section -->
-
-            <section class="service_section layout_padding-bottom">
-                <div th:replace="/fragments/service_us :: service"></div>
+            <!-- main section -->
+            <section class=" slider_section position-relative">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="img-box">
+                                <div>
+                                    <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="detail-box">
+                                <div>
+                                    <h1>
+                                        Contratá sin moverte <br>
+                                        De tu casa <br>
+                                        <span>
+                                            Servicios Desde La Aplicacion
+                                        </span>
+                                    </h1>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                        sed do eiusmod tempor incididunt ut labore
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-
-            <!-- end service section -->
+            <!-- end main section -->
 
             <!-- footer section -->
-            <footer th:replace="/fragments/footer :: footer"></footer>
+            <footer th:replace="/fragments/footer_login :: footer_login"></footer>
             <!-- end footer section -->
 
-            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-            <script type="text/javascript" src="js/bootstrap.js"></script>
+            <!-- script section -->
+            <div th:replace="/fragments/scripts :: script"></div>
+            <!-- end scripts section -->
 
     </body>
 

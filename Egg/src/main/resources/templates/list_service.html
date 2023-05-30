@@ -18,58 +18,74 @@
 
         </div>
 
+        <!-- validar section -->
+
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- end validar section -->
+
+
         <!-- contact section -->
 
-        <section class="contact_section layout_padding">
-            <div class="container">
+        <div class="contenido_principal">
 
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Tipo de Servicio</th>
-                            <th scope="col">Detalle</th>
-                            <th scope="col">Caracteristicas</th>
-                            <th scope="col">Imagen</th>
-                        </tr>
-                    </thead>
-                    <tbody th:each="servicio : ${servicios}">
-                    <input hidden th:value="${id}" name="id">
-                    <tr>
-                        <th scope="row" th:text="${servicio.id}"></th>
-                        <td th:text="${servicio.tipoServicio}"></td>
-                        <td th:text="${servicio.detalle}"></td>
-                        <td th:text="${servicio.caracteristicas}"></td>
-                        <td>
-                            <a><img th:if="${servicio.imagen != null}" 
-                                    style="width: 150px;
-                                    height: 150px;
-                                    margin: auto;
-                                    border-radius: 0%" 
-                                    th:src="@{/imagen/perfilService/__${servicio.id}__}" >
-                            </a>
-                        </td>
-                        <td>
-                            <a href= "#"><i class="fas fa-feather-alt"></i> Modificar </a>
-                        </td>
+            <table class="tabla" >
+
+                <thead>
+
+                    <tr class="fila_tabla_encabezado">
+
+                        <th class="elemento_tabla_encabezado"></th>
+                        <th class="elemento_tabla_encabezado">ID</th>
+                        <th class="elemento_tabla_encabezado">Tipo de Servicio</th>
+                        <th class="elemento_tabla_encabezado">Detalle</th>
+                        <th class="elemento_tabla_encabezado">Caracteristicas</th>                   
+                        <th class="elemento_tabla_encabezado"></th>
+                        <th class="elemento_tabla_encabezado"></th>
+
                     </tr>
 
-                    </tbody>
-                </table>
+                <tbody>
 
-                <section class="py-5 text-center container">
-                    <div class="d-flex justify-content-lg-start">
-                        <a href="/init_admin" type="btn btn-secondary">Volver</a>
-                    </div>
-                </section>
+                <input hidden th:value="${id}" name="id">
+                <tr class="fila_tabla_cuerpo" th:each="servicio : ${servicios}">
 
-            </div>
-        </section>
+
+
+                    <td class="elemento_tabla_cuerpo"><img th:if="${servicio.imagen != null}" class="thumbnail" th:src="@{/imagen/perfilService/__${servicio.id}__}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${servicio.id}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${servicio.tipoServicio}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${servicio.detalle}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${servicio.caracteristicas}"></td>
+
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" th:href="@{/service_create/delete/__${servicio.id}__}">Eliminar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="#">Modificar</a></td>
+
+                </tr>
+
+                </tbody>
+
+                </thead>
+
+            </table>
+
+            <section class="py-5 text-center container">
+                <div class="d-flex justify-content-lg-start">
+                    <a href="/init_admin" type="btn btn-secondary">Volver</a>
+                </div>
+            </section>
+
+        </div>
 
         <!-- end contact section -->
 
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <!-- footer section -->
+        <footer th:replace="/fragments/footer_login :: footer_login"></footer>
+        <!-- end footer section -->
+
+        <!-- script section -->
+        <div th:replace="/fragments/scripts :: script"></div>
+        <!-- end scripts section -->
 
     </body>
 

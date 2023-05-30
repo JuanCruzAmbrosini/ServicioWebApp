@@ -31,7 +31,7 @@ public class ServiceController {
         try {
             serviciosTecnicos.crearServicio(tipoServicio, detalle, caracteristicas, imagen);
             modelo.put("exito", "Servicio Registrado Correctamente");
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/service_list";
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("tipoServicio", tipoServicio);
@@ -39,6 +39,14 @@ public class ServiceController {
             modelo.put("caracteristicas", caracteristicas);
             return "account_service.html";
         }
+    }
+    
+    @GetMapping("/delete/{id}")
+    public String eliminarProveedor(@PathVariable String id, ModelMap modelo) {
+
+        serviciosTecnicos.eliminarServicio(id);
+        modelo.put("exito", "Servicio Eliminado Correctamente");
+        return "redirect:/admin/service_list";
     }
 
 }

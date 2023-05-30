@@ -11,13 +11,13 @@
 
         <!-- header section strats -->
 
-            <header class="header_section">
-                <div class="container-fluid">
-                    <nav th:replace="/fragments/navBarAdmin :: navAdmin"></nav>
-                </div>
-            </header>
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav th:replace="/fragments/navBarAdmin :: navAdmin"></nav>
+            </div>
+        </header>
 
-            <!-- end header section -->
+        <!-- end header section -->
 
         <!-- validar section -->
 
@@ -26,6 +26,10 @@
         <!-- end validar section -->
 
         <h1>Hola Admin</h1>
+
+        <!-- script section -->
+        <div th:replace="/fragments/scripts :: script"></div>
+        <!-- end scripts section -->
 
     </body>
 </html>

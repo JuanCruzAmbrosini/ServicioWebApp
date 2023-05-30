@@ -10,8 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +22,8 @@ public class VistasController {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "index.html";
     }
 
@@ -38,16 +38,11 @@ public class VistasController {
         modelo.addAttribute("servicios", servicios);
         return "service.html";
     }
-    
-    @GetMapping("/service_description/{id}")
-    public String verCaracteristicas(@PathVariable("id") String id, ModelMap modelo) {
-        TechnicalService servicios = serviciosTecnicos.getOne(id);
-        modelo.addAttribute("servicios", servicios);
-        return "description_services.html";
-    }
 
     @GetMapping("/contact")
-    public String contact() {
+    public String contact(ModelMap modelo) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "contact.html";
     }
 
@@ -75,40 +70,15 @@ public class VistasController {
 
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
-            
-        } else if (logueado.getRol().toString().equals("SUPPLIER")){
+
+        } else if (logueado.getRol().toString().equals("SUPPLIER")) {
             return "redirect:/supplier/init";
-            
-        } else{
-            
-        return "redirect:/user/init";
-        
+
+        } else {
+
+            return "redirect:/user/init";
+
         }
-    }
-    
-    @GetMapping("/description_plumber")
-    public String descriptionPlumber() {
-        return "description_plumber.html";
-    }
-
-    @GetMapping("/description_electric")
-    public String descriptionElectric() {
-        return "description_electric.html";
-    }
-
-    @GetMapping("/description_gas")
-    public String descriptionGas() {
-        return "description_gas.html";
-    }
-
-    @GetMapping("/description_gardener")
-    public String descriptionGarden() {
-        return "description_gardener.html";
-    }
-
-    @PostMapping("/registered_supplier")
-    public String newSupplier() {
-        return "login.html";
     }
 
 }

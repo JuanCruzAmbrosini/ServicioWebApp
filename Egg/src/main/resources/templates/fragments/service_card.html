@@ -20,8 +20,12 @@
                             <b><p class="card-text" th:text="${servicio.tipoServicio}"></p></b>
                             <p th:text="${servicio.detalle}"></p>
                         </div>
+                        <div class="card-footer" th:if="${session.usuariosession == null}">
+                            <p>Para Ver Más</p>
+                            <a th:href="@{/login}" class="btn btn-success">Iniciar Sesión</a>
+                        </div>
                         <div class="card-footer" th:if="${session.usuariosession != null}">
-                            <a th:href="@{/service_description/{id}(id=${servicio.id})}" class="btn btn-success">Caracteristicas</a>
+                            <a th:href="@{/user/service_description/{id}(id=${servicio.id})}" class="btn btn-success">Caracteristicas</a>
                         </div>
                     </div>
                 </div>
