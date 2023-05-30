@@ -46,7 +46,7 @@ public class ServiceController {
     public String eliminarProveedor(@PathVariable String id, ModelMap modelo) {
 
         serviciosTecnicos.eliminarServicio(id);
-
+        modelo.put("exito", "Servicio Eliminado Correctamente");
         return "redirect:/admin/service_list";
     }
 

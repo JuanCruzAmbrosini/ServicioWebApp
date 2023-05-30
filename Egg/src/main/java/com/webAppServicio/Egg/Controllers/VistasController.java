@@ -22,6 +22,8 @@ public class VistasController {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "index.html";
     }
 
@@ -37,15 +39,10 @@ public class VistasController {
         return "service.html";
     }
 
-//    @GetMapping("/service_description/{id}")
-//    public String verCaracteristicas(@PathVariable("id") String id, ModelMap modelo) {
-//        TechnicalService servicios = serviciosTecnicos.getOne(id);
-//        modelo.addAttribute("servicios", servicios);
-//        return "description_services.html";
-//    }
-
     @GetMapping("/contact")
-    public String contact() {
+    public String contact(ModelMap modelo) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "contact.html";
     }
 

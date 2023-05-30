@@ -1,7 +1,10 @@
 package com.webAppServicio.Egg.Controllers;
 
+import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
+import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,8 +22,14 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierS;
 
+    @Autowired
+    private ServiceOfServices serviceS;
+    
+
     @GetMapping("/account_supplier")
-    public String accountSupplier() {
+    public String accountSupplier(ModelMap modelo) {
+        List<TechnicalService> servicios = serviceS.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "account_supplier.html";
     }
 
@@ -81,7 +90,6 @@ public class SupplierController {
 //        modelo.addAttribute("proveedores", proveedores);
 //        return "request_gas.html";
 //    }
-    
     @GetMapping("/delete/{dni}")
     public String eliminarProveedor(@PathVariable String dni, ModelMap modelo) {
 
@@ -96,7 +104,9 @@ public class SupplierController {
     }
 
     @GetMapping("/contact")
-    public String contact() {
+    public String contact(ModelMap modelo) {
+        List<TechnicalService> servicios = serviceS.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "init_supplier_contact.html";
     }
 

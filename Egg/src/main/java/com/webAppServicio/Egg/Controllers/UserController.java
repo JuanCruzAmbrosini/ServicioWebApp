@@ -81,8 +81,9 @@ public class UserController {
     }
 
     @GetMapping("/contact")
-    public String contactoCliente() {
-
+    public String contactoCliente(ModelMap modelo) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "init_user_contact.html";
 
     }
@@ -91,7 +92,7 @@ public class UserController {
     public String perfilUser() {
         return "profile.html";
     }
-    
+
     @GetMapping("/delete/{dni}")
     public String eliminarUser(@PathVariable String dni, ModelMap modelo) {
 

@@ -7,7 +7,7 @@
     <div class="container layout_padding2-top">
         <div class="row">
             <div class="col-md-6 mx-auto">
-                <form action="">
+                <form action=""  method="POST" enctype="text/plain">
                     <div>
                         <input type="text" name="nombre" placeholder="Nombre y Apellido">
                     </div>
@@ -15,12 +15,11 @@
                         <input type="email" name="email" placeholder="Email">
                     </div>
                     <div>
-                        <select name="" id="">
-                            <option value="" disabled selected>Tipo de Servicio</option>
-                            <option value="">Plomeria</option>
-                            <option value="">Gasista</option>
-                            <option value="">Electricista</option>
-                            <option value="">Jardineria</option>
+                        <select name="oficio">
+                            <option>Servicio</option>
+                            <option th:each="servicio : ${servicios}"
+                                    th:value="${servicio.id}"
+                                    th:text="${servicio.tipoServicio}"/>
                         </select>
                     </div>
                     <div>

@@ -36,7 +36,7 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form action="/supplier/registered_supplier" method="POST" enctype="multipart/form-data">
+                        <form th:action="@{/supplier/registered_supplier}" method="POST" enctype="multipart/form-data">
                             <div>
                                 <input name="nombre"  type="text" placeholder="Nombre">
                             </div>
@@ -50,12 +50,11 @@
                                 <input name="matricula" type="number" placeholder="N° Matricula">
                             </div>
                             <div>
-                                <select name="oficio" id="">
-                                    <option value="" >Oficio</option>
-                                    <option value="plomeria">Plomeria</option>
-                                    <option value="gasista">Gasista</option>
-                                    <option value="electricista">Electricista</option>
-                                    <option value="jardineria">Jardineria</option>
+                                <select name="oficio">
+                                    <option>Oficio</option>
+                                    <option th:each="servicio : ${servicios}"
+                                            th:value="${servicio.id}"
+                                            th:text="${servicio.tipoServicio}"/>
                                 </select>
                             </div>
                             <div>
@@ -98,8 +97,9 @@
 
         <!-- end footer section -->
 
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <!-- script section -->
+        <div th:replace="/fragments/scripts :: script"></dvi>
+        <!-- end scripts section -->
 
     </body>
 
