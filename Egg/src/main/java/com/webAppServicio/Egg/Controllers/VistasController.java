@@ -3,6 +3,7 @@ package com.webAppServicio.Egg.Controllers;
 import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Entities.Person;
+import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
@@ -14,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +38,17 @@ public class VistasController {
     }
 
     @GetMapping("/serviceList")
-    public String servicios() {
+    public String listarServicios(ModelMap modelo) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "service.html";
+    }
+    
+    @GetMapping("/service_description/{id}")
+    public String verCaracteristicas(@PathVariable("id") String id, ModelMap modelo) {
+        TechnicalService servicios = serviciosTecnicos.getOne(id);
+        modelo.addAttribute("servicios", servicios);
+        return "description_services.html";
     }
 
     @GetMapping("/contact")
@@ -79,7 +90,7 @@ public class VistasController {
         
         }
     }
-
+    
     @GetMapping("/description_plumber")
     public String descriptionPlumber() {
         return "description_plumber.html";

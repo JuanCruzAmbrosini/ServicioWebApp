@@ -20,11 +20,6 @@ public class SupplierController {
     
      @Autowired
     private SupplierService supplierS;
-    
-    @GetMapping("/init")
-    public String inicioSupplier(){
-        return "init_supplier.html";
-    }
      
     @GetMapping("/account_supplier")
     public String accountSupplier(){
@@ -96,5 +91,16 @@ public class SupplierController {
         
         return "redirect:/admin/supplier_list";
     }
+    
+    @GetMapping("/init")
+    public String inicio(){
+        return "init_supplier.html";
+    }
+    
+    @GetMapping("/contact")
+    public String contact(){
+        return "init_supplier_contact.html";
+    }
+            
     
 }

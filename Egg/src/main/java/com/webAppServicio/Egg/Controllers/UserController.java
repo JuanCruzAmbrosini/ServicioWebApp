@@ -1,13 +1,16 @@
 package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ClientService;
+import com.webAppServicio.Egg.Services.ServiceOfServices;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,9 @@ public class UserController {
 
     @Autowired
     private ClientService userS;
+    
+    @Autowired
+    private ServiceOfServices serviciosTecnicos;
 
     @GetMapping("/account_user")
     public String accountUser() {
@@ -61,10 +67,17 @@ public class UserController {
     }
     
     @GetMapping("/serviceList")
-    public String serviciosCliente(){
-        
+    public String listarServicios(ModelMap modelo) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "init_user_serviceList.html";
-        
+    }
+    
+    @GetMapping("/service_description/{id}")
+    public String verCaracteristicas(@PathVariable("id") String id, ModelMap modelo) {
+        TechnicalService servicios = serviciosTecnicos.getOne(id);
+        modelo.addAttribute("servicios", servicios);
+        return "description_services.html";
     }
     
     @GetMapping("/contact")
