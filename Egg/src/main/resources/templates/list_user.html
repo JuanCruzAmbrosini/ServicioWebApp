@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="/fragments/head :: head">
+    </head>
+
+    <link rel="stylesheet" href="/css/tablaStyle.css" type="text/css">
 
     <body>
         <div class="hero_area">
@@ -20,61 +23,70 @@
 
         <!-- contact section -->
 
-        <section class="contact_section layout_padding">
-            <div class="container">
+        <div class="contenido_principal">
 
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">N° DNI</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Barrio</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Sexo</th>
-                            <th scope="col">Imagen</th>
-                        </tr>
-                    </thead>
-                    <tbody th:each="usuario : ${usuarios}">
-                    <input hidden th:value="${dni}" name="dni">
-                    <tr>
-                        <th scope="row" th:text="${usuario.dni}"></th>
-                        <td th:text="${usuario.nombre}"></td>
-                        <td th:text="${usuario.apellido}"></td>
-                        <td th:text="${usuario.direccion}"></td>
-                        <td th:text="${usuario.barrio}"></td>
-                        <td th:text="${usuario.email}"></td>
-                        <td th:text="${usuario.telefono}"></td>
-                        <td th:text="${usuario.sexo}"></td>
-                        <td>
-                            <a><img th:if="${usuario.imagen != null}" 
-                                    style="width: 150px;
-                                    height: 150px;
-                                    margin: auto;
-                                    border-radius: 50%" 
-                                    th:src="@{/imagen/perfilUser/__${usuario.dni}__}" >
-                            </a>
-                        </td>
-                        <td>
-                            <a href= "#"><i class="fas fa-feather-alt"></i> Modificar </a>
-                        </td>
+            <table class="tabla" >
+
+                <thead>
+
+                    <tr class="fila_tabla_encabezado">
+
+                        <th class="elemento_tabla_encabezado"></th>
+                        <th class="elemento_tabla_encabezado">N° DNI</th>
+                        <th class="elemento_tabla_encabezado">Nombre</th>
+                        <th class="elemento_tabla_encabezado">Apellido</th>
+                        <th class="elemento_tabla_encabezado">Direccion</th>
+                        <th class="elemento_tabla_encabezado">Barrio</th>
+                        <th class="elemento_tabla_encabezado">E-mail</th>
+                        <th class="elemento_tabla_encabezado">Teléfono</th>
+                        <th class="elemento_tabla_encabezado">Sexo</th>                    
+                        <th class="elemento_tabla_encabezado"></th>
+                        <th class="elemento_tabla_encabezado"></th>
+
                     </tr>
 
-                    </tbody>
-                </table>
+                <tbody>
 
-                <section class="py-5 text-center container">
-                    <div class="d-flex justify-content-lg-start">
-                        <a href="/init_admin" type="btn btn-secondary">Volver</a>
-                    </div>
-                </section>
+                <input hidden th:value="${dni}" name="dni">
+                <tr class="fila_tabla_cuerpo" th:each="usuario : ${usuarios}">
 
-            </div>
-        </section>
+
+
+                    <td class="elemento_tabla_cuerpo"><img th:if="${usuario.imagen != null}" class="thumbnail" th:src="@{/imagen/perfilUser/__${usuario.dni}__}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.dni}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.nombre}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.apellido}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.direccion}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.barrio}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.email}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.telefono}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.sexo}"></td>
+
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo"
+                                                         th:href="@{/user/delete/__${usuario.dni}__}">Eliminar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="#">Modificar</a></td>
+
+                </tr>
+
+                </tbody>
+
+                </thead>
+
+            </table>
+
+            <section class="py-5 text-center container">
+                <div class="d-flex justify-content-lg-start">
+                    <a href="/init_admin" type="btn btn-secondary">Volver</a>
+                </div>
+            </section>
+
+        </div>
 
         <!-- end contact section -->
+
+        <!-- footer section -->
+        <footer th:replace="/fragments/footer_login :: footer_login"></footer>
+        <!-- end footer section -->
 
         <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>

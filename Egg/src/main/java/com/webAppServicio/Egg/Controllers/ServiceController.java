@@ -1,9 +1,7 @@
 package com.webAppServicio.Egg.Controllers;
 
-import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,7 +32,7 @@ public class ServiceController {
         try {
             serviciosTecnicos.crearServicio(tipoServicio, detalle, caracteristicas, imagen);
             modelo.put("exito", "Servicio Registrado Correctamente");
-            return "redirect:/admin/dashboard";
+            return "redirect:/admin/service_list";
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("tipoServicio", tipoServicio);
@@ -42,6 +40,14 @@ public class ServiceController {
             modelo.put("caracteristicas", caracteristicas);
             return "account_service.html";
         }
+    }
+    
+    @GetMapping("/delete/{id}")
+    public String eliminarProveedor(@PathVariable String id, ModelMap modelo) {
+
+        serviciosTecnicos.eliminarServicio(id);
+
+        return "redirect:/admin/service_list";
     }
 
 }
