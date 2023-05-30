@@ -14,7 +14,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav th:replace="/fragments/navBar :: nav"></nav>
+                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
                 </div>
             </header>
 
@@ -28,26 +28,15 @@
             <div class="container">
                 <input hidden th:value="${id}" name="id">
                 <div class="custom_heading-container">
-                    <h3 class=" " th:text="${servicios.tipoServicio}">
-                        
-                    </h3>
+                    <h3 class=" " th:text="${servicios.tipoServicio}"></h3>
                 </div>
-                <p class="layout_padding2-top" th:text="${servicios.caracteristicas}">
-                    
-                </p>
-<!--                <div class="img-box layout_padding2">
-                    <img src="images/plomero.jpg" alt="">
-                </div>
-                <p class="layout_padding2-bottom">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
-                <div class="d-flex justify-content-lg-center">
-                    <a th:href="@{/supplier/lista_plumber}" type="btn btn-primary">Lista De Plomeros</a>
-                </div>-->
+                <p class="layout_padding2-top" th:text="${servicios.caracteristicas}"></p>
+                <div class="img-box layout_padding2">
+                    <img th:if="${servicios.imagen != null}" th:src="@{/imagen/perfilService/__${servicios.id}__}">
+                </div>              
             </div>
             <div class="d-flex justify-content-lg-center">
-                <a th:href="@{/service}" type="btn btn-secondary">Volver a Servicios</a>
+                <a th:href="@{/user/serviceList}" type="btn btn-secondary">Volver a Servicios</a>
             </div>
         </section>
 

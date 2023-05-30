@@ -9,14 +9,15 @@
         <p class="">
             ad minim veniam, quis nostrud exercitation ullamco
         </p>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a class="btn btn-outline-secondary" th:href="@{/serviceList}" role="button">Más Servicios</a>
+        </div>
         <div class="service_container ">
             <div class="row">
                 <div class="col-md-3">
                     <div class="box b-4">
                         <div class="img-box">
-                            <a th:href="@{/description_plumber}">
-                                <img th:src="@{/images/plomero.jpg}" alt="">
-                            </a>
+                            <img th:src="@{/images/plomero.jpg}" alt="">
                         </div>
                         <div class="detail-box">
                             <h6>
@@ -31,9 +32,7 @@
                 <div class="col-md-3">
                     <div class="box b-4">
                         <div class="img-box">
-                            <a th:href="@{/description_electric}">
-                                <img th:src="@{/images/electricista.jfif}" alt="">
-                            </a>
+                            <img th:src="@{/images/electricista.jfif}" alt="">
                         </div>
                         <div class="detail-box">
                             <h6>
@@ -48,9 +47,7 @@
                 <div class="col-md-3">
                     <div class="box b-4">
                         <div class="img-box">
-                            <a th:href="@{description_gas}">
-                                <img th:src="@{/images/gasista.jpg}" alt="">
-                            </a>
+                            <img th:src="@{/images/gasista.jpg}" alt="">
                         </div>
                         <div class="detail-box">
                             <h6>
@@ -65,9 +62,7 @@
                 <div class="col-md-3">
                     <div class="box b-4">
                         <div class="img-box">
-                            <a th:href="@{/description_gardener}">
-                                <img th:src="@{/images/jardinero.jfif}" alt="">
-                            </a>
+                            <img th:src="@{/images/jardinero.jfif}" alt="">
                         </div>
                         <div class="detail-box">
                             <h6>
@@ -80,6 +75,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-info" th:href="@{/serviceList}" role="button">Más Servicios</a>
         </div>
     </div>
 </div>

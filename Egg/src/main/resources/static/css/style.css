@@ -679,5 +679,10 @@ a:focus {
 .detail-services p{
     text-align: initial;
 }
+
+#exampleFormControlTextarea1 {
+    background-color: #f2f2f2;
+}
+
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
