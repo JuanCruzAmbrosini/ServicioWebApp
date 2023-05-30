@@ -1,7 +1,10 @@
 package com.webAppServicio.Egg.Entities;
 
+import com.webAppServicio.Egg.Enums.EstatusOrden;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,10 +35,13 @@ public class OrderService {
 
     @Temporal(TemporalType.DATE)
     private Date fechaRecibida;
-    
+
     @ManyToOne
     private Client usuario;
-    
+
     @OneToOne()
     private Supplier proveedor;
+
+    @Enumerated(EnumType.STRING)
+    private EstatusOrden estatusOrden;
 }
