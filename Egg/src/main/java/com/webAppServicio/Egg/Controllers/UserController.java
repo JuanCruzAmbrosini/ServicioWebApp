@@ -103,6 +103,11 @@ public class UserController {
 
     @GetMapping("/tecnicos/{tipoServicio}")
     public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap model) {
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        for (TechnicalService servicio : servicios) {
+            if(tipoServicio.equalsIgnoreCase(servicio.getTipoServicio())){
+            }
+        }
         
         return "request_supplier.html";
     }

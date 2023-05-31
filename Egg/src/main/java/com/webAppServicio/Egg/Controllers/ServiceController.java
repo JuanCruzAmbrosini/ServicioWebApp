@@ -33,6 +33,7 @@ public class ServiceController {
             serviciosTecnicos.crearServicio(tipoServicio, detalle, caracteristicas, imagen);
             modelo.put("exito", "Servicio Registrado Correctamente");
             return "redirect:/admin/service_list";
+            
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("tipoServicio", tipoServicio);

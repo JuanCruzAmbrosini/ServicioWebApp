@@ -27,10 +27,7 @@ public class Client extends Person {
     @OneToOne
     private Image imagen;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<TechnicalService> servicios;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<OrderService> ordenServicios;
+    @OneToMany
+    private List<OrderService> ordenes;
 
 }
