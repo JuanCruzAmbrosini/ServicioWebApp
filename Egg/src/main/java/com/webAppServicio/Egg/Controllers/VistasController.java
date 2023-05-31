@@ -1,5 +1,6 @@
 package com.webAppServicio.Egg.Controllers;
 
+import com.webAppServicio.Egg.Email.EnvioDeCorreo;
 import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
@@ -10,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -41,9 +43,21 @@ public class VistasController {
 
     @GetMapping("/contact")
     public String contact(ModelMap modelo) {
+
         List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
         modelo.addAttribute("servicios", servicios);
+
         return "contact.html";
+    }
+
+    @PostMapping("/contact_sent")
+    public String contactSent(@RequestParam String nombreApellido, @RequestParam String email, @RequestParam String oficio, @RequestParam String comentario, ModelMap modelo) throws Exception {
+
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        edc.transfer_to_email(email, comentario + " " + nombreApellido, oficio);
+        
+        return "redirect:/contact";
+
     }
 
     @GetMapping("/account")
