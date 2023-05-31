@@ -35,6 +35,7 @@
                     <img th:if="${servicios.imagen != null}" th:src="@{/imagen/perfilService/__${servicios.id}__}">
                 </div>              
             </div>
+            <a th:href="@{/user/tecnicos/{tipoServicio}  (tipoServicio = ${servicios.tipoServicio})}">Ver Técnicos</a>
             <div class="d-flex justify-content-lg-center">
                 <a th:href="@{/user/serviceList}" type="btn btn-secondary">Volver a Servicios</a>
             </div>
