@@ -14,7 +14,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav th:replace="/fragments/navBar :: nav"></nav>
+                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
                 </div>
             </header>
 
@@ -33,13 +33,13 @@
             </div>
             <div class="row text-center">
 
-                <div class="col-lg-3 col-md-6 mb-4" th:each="proveedor : ${proveedores}" th:if="${proveedor.oficio == 'plomeria'}">
-                    <input hidden th:value="${matricula}" name="matricula">
+                <div class="col-lg-3 col-md-6 mb-4" th:each="tecnico : ${tecnicos}">
+                    <input hidden th:value="${dni}" name="dni">
                     <div class="card h-100">
-                        <a><img th:if="${proveedor.imagen != null}" class="card-img-top" th:src="@{/imagen/perfilSupplier/__${proveedor.matricula}__}" ></a>
+                        <a><img th:if="${tecnico.imagen != null}" class="card-img-top" th:src="@{/imagen/perfilSupplier/__${tecnico.dni}__}" ></a>
                         <div class="card-body">
-                            <p class="card-text" th:text="${proveedor.nombre}"></p>
-                            <p class="card-text" th:text="${proveedor.apellido}"></p>
+                            <p class="card-text" th:text="${tecnico.nombre}"></p>
+                            <p class="card-text" th:text="${tecnico.apellido}"></p>
                         </div>
                         <div class="card-footer">
                             <!--                            <a th:href="@{/productohome/{id} (id=${producto.id})}" class="btn btn-success">Ver producto</a>-->
@@ -53,11 +53,12 @@
         <!-- end service section -->
 
         <!-- footer section -->
-        <footer th:replace="/fragments/footer :: footer"></footer>
+        <footer th:replace="/fragments/footer_login :: footer_login"></footer>
         <!-- end footer section -->
 
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <!-- script section -->
+        <div th:replace="/fragments/scripts :: script"></div>
+        <!-- end scripts section -->
 
     </body>
 

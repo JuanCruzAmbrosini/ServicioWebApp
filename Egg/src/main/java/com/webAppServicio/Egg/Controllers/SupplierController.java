@@ -4,6 +4,7 @@ import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,6 @@ public class SupplierController {
 
     @Autowired
     private ServiceOfServices serviceS;
-    
 
     @GetMapping("/account_supplier")
     public String accountSupplier(ModelMap modelo) {

@@ -100,4 +100,10 @@ public class UserController {
 
         return "redirect:/admin/user_list";
     }
+
+    @GetMapping("/tecnicos/{tipoServicio}")
+    public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap model) {
+        
+        return "request_supplier.html";
+    }
 }
