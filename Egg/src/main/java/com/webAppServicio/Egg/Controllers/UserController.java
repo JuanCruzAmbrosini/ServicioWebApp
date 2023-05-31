@@ -1,11 +1,13 @@
 package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ClientService;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -89,8 +91,10 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String perfilUser() {
-        return "profile.html";
+    public String perfilUser(HttpSession session, String dni, ModelMap modelo) {
+        Person usuario = (Person) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuario);
+        return "profileUser.html";
     }
 
     @GetMapping("/delete/{dni}")
@@ -110,5 +114,10 @@ public class UserController {
         }
         
         return "request_supplier.html";
+    }
+    
+    @GetMapping("/order_service")
+    public String ordenServicioUsuario(){
+        return "order_service_user.html";
     }
 }

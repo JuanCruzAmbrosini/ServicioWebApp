@@ -1,11 +1,13 @@
 package com.webAppServicio.Egg.Controllers;
 
+import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -83,4 +85,15 @@ public class SupplierController {
         return "init_supplier_contact.html";
     }
 
+    @GetMapping("/profile")
+    public String perfilSupplier(HttpSession session, String dni, ModelMap modelo) {
+        Person proveedor = (Person) session.getAttribute("usuariosession");
+        modelo.addAttribute("proveedor", proveedor);
+        return "profileSupplier.html";
+    }
+    
+    @GetMapping("/order_service")
+    public String ordenServicioProveedor(ModelMap modelo){
+        return "order_service_supplier.html";
+    }
 }
