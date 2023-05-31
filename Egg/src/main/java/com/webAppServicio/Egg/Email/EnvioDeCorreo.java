@@ -18,9 +18,9 @@ import javax.mail.internet.MimeMessage;
  */
 public class EnvioDeCorreo {
 
-    public void transfer_to_email(String correoEmisor, String mensaje, String asunto) {
+    public void transfer_to_email(String correoRemitente, String mensaje, String asunto) {
 
-        String correoRemitente = "juancruz.ambrosini2@gmail.com";
+        String correoEmisor = "juancruz.ambrosini2@gmail.com";
         String contraseña = "ucpuhmdupjlhzoxc";
 
         Properties EEmail = new Properties();

@@ -1,4 +1,4 @@
-package com.webAppServicio.Egg.Controllers;
+//package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
@@ -63,33 +63,6 @@ public class SupplierController {
 
     }
 
-//    @GetMapping("/lista_plumber")
-//    public String listaPlumber(ModelMap modelo){
-//        List <Supplier> proveedores = supplierS.listarProveedores();
-//        modelo.addAttribute("proveedores", proveedores);
-//        return "request_plumber.html";
-//    }
-//    
-//    @GetMapping("/lista_electric")
-//    public String listaElectric(ModelMap modelo){
-//        List <Supplier> proveedores = supplierS.listarProveedores();
-//        modelo.addAttribute("proveedores", proveedores);
-//        return "request_electric.html";
-//    }
-//    
-//    @GetMapping("/lista_gardener")
-//    public String listaGardener(ModelMap modelo){
-//        List <Supplier> proveedores = supplierS.listarProveedores();
-//        modelo.addAttribute("proveedores", proveedores);
-//        return "request_gardener.html";
-//    }
-//    
-//    @GetMapping("/lista_gas")
-//    public String listaGas(ModelMap modelo){
-//        List <Supplier> proveedores = supplierS.listarProveedores();
-//        modelo.addAttribute("proveedores", proveedores);
-//        return "request_gas.html";
-//    }
     @GetMapping("/delete/{dni}")
     public String eliminarProveedor(@PathVariable String dni, ModelMap modelo) {
 
