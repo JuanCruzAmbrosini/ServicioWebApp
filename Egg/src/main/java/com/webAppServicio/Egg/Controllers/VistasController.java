@@ -49,13 +49,13 @@ public class VistasController {
 
         return "contact.html";
     }
-
+    
     @PostMapping("/contact_sent")
     public String contactSent(@RequestParam String nombreApellido, @RequestParam String email, @RequestParam String oficio, @RequestParam String comentario, ModelMap modelo) throws Exception {
-
+    
         EnvioDeCorreo edc = new EnvioDeCorreo();
         edc.transfer_to_email(email, comentario + " " + nombreApellido, oficio);
-        
+
         return "redirect:/contact";
 
     }

@@ -103,7 +103,7 @@ public class UserController {
 
     @GetMapping("/tecnicos/{tipoServicio}")
     public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap model) {
-        
+
         return "request_supplier.html";
     }
 }
