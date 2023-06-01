@@ -1,0 +1,125 @@
+<div th:fragment="footer">
+    <section class="info_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="info-logo">
+                        <h2>
+                            ServyHouse
+                        </h2>
+                        <p>
+                            Un servicio para nuestros clientes sin moverse de su casa, ahora mas rapido y 
+                            al alcance de tus manos, en simples pasos, escribis, envias y tenes un profresional en la puerta de tu casa!
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-nav">
+                        <h4>
+                            Navegacion
+                        </h4>
+                        <ul>
+                            <li>
+                                <a th:href="@{/}">
+                                    Principal
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/about}">
+                                    Sobre Nosotros
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/serviceList}">
+                                    Servicios
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/contact}">
+                                    Contactanos
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/account}">
+                                    Registrate
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-contact">
+                        <h4>
+                            Informacion de Contacto
+                        </h4>
+                        <div class="location">
+                            <h6>
+                                Oficina Central:
+                            </h6>
+                            <a href="https://www.google.com/maps/place/Egg/@-32.880822,-68.8482519,17z/data=!3m1!4b1!4m6!3m5!1s0x967e08e2bbebf4a1:0x66c29a1a004f419!8m2!3d-32.880822!4d-68.8460632!16s%2Fg%2F11bxdygqbd" target="_blank">
+                                <img th:src="@{/images/locationblack.png}" alt="">
+                                <span>
+                                    Perú 1841, Ciudad de Mendoza, Argentina.
+                                </span>
+                            </a>
+                        </div>
+                        <div class="call">
+                            <h6>
+                                Email:
+                            </h6>
+                            <a href="mailto:eggpreuniversitarios@eggcooperation.com" target="_blank">
+                                <img th:src="@{/images/emailblack.png}" alt="">
+                                <span>
+                                    eggpreuniversitarios@eggcooperation.com
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="discover">
+                        <h4>
+                            Descubrínos en Nuestras Redes
+                        </h4>
+                        <h5>
+                            Como Egg Cooperation
+                        </h5>
+                        <h6>
+                            Contactanos
+                        </h6>
+                        <div class="social-box">
+                            <a href="https://www.facebook.com/EggCooperation/" target="_blank">
+                                <img th:src="@{/images/facebookblack.png}" alt="facebook" >
+                            </a>
+                            <a href="https://www.instagram.com/eggcooperation/" target="_blank" >
+                                <img th:src="@{/images/instagramblack.png}" alt="instagram">
+                            </a>
+                            <a href="https://api.whatsapp.com/send/?phone=5492616060967&text=Necesito+m%C3%A1s+informaci%C3%B3n+de%3A" target="_blank" >
+                                <img th:src="@{/images/whatsappblack.png}" alt="whatsapp">
+                            </a>
+                            <a href="https://www.linkedin.com/company/eggcooperation/mycompany/" target="_blank" >
+                                <img th:src="@{/images/linkedinblack.png}" alt="linkedin">
+                            </a>
+                            <a href="https://www.youtube.com/@EggCooperation" target="_blank" >
+                                <img th:src="@{/images/youtubeblack.png}" alt="youtube">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- end info_section -->
+
+    <!-- footer section -->
+    <section class="container-fluid footer_section">
+        <p>
+            Copyright &copy; 2023 Derechos Reservados por 
+            <a href="https://eggcooperation.com/es-ar/">Egg Cooperation</a>
+        </p>
+    </section>
+    <!-- footer section -->
+</div>

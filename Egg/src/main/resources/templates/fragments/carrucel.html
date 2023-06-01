@@ -1,0 +1,116 @@
+<div th:fragment="carrucel">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="slider_item-box layout_padding2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="img-box">
+                                    <div>
+                                        <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-box">
+                                    <div>
+                                        <h1>
+                                            Contratá sin moverte <br>
+                                            De tu casa <br>
+                                            <span>
+                                                Servicios Desde El Celular
+                                            </span>
+                                        </h1>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item ">
+                <div class="slider_item-box layout_padding2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="img-box">
+                                    <div>
+                                        <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-box">
+                                    <div>
+                                        <h1>
+                                            Tenemos los <br>
+                                            Mejores Profesionales <br>
+                                            <span>
+                                                Técnicos Capacitados
+                                            </span>
+                                        </h1>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item ">
+                <div class="slider_item-box layout_padding2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="img-box">
+                                    <div>
+                                        <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-box">
+                                    <div>
+                                        <h1>
+                                            Calidad y <br>
+                                            Precio Garantizados<br>
+                                            <span>
+                                                Entras, Pedis y Disfutas
+                                            </span>
+                                        </h1>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="slider_nav-box">
+            <div class="btn-box">   
+                <div class="custom_carousel-control">
+                    <a class="carousel-control-prev" th:href="@{#carouselExampleControls}" role="button" data-slide="prev">
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" th:href="@{#carouselExampleControls}" role="button" data-slide="next">
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
