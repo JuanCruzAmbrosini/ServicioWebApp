@@ -1,11 +1,16 @@
 package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.Person;
+import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ClientService;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
+import com.webAppServicio.Egg.Services.SupplierService;
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +29,10 @@ public class UserController {
     private ClientService userS;
 
     @Autowired
-    private ServiceOfServices serviciosTecnicos;
+    private ServiceOfServices servicioS;
+    
+    @Autowired
+    private SupplierService supplierS;
 
     @GetMapping("/account_user")
     public String accountUser() {
@@ -68,29 +76,16 @@ public class UserController {
 
     @GetMapping("/serviceList")
     public String listarServicios(ModelMap modelo) {
-        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        List<TechnicalService> servicios = servicioS.listarServicios();
         modelo.addAttribute("servicios", servicios);
         return "init_user_serviceList.html";
     }
 
     @GetMapping("/service_description/{id}")
     public String verCaracteristicas(@PathVariable("id") String id, ModelMap modelo) {
-        TechnicalService servicios = serviciosTecnicos.getOne(id);
+        TechnicalService servicios = servicioS.getOne(id);
         modelo.addAttribute("servicios", servicios);
         return "description_services.html";
-    }
-
-    @GetMapping("/contact")
-    public String contactoCliente(ModelMap modelo) {
-        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
-        modelo.addAttribute("servicios", servicios);
-        return "init_user_contact.html";
-
-    }
-
-    @GetMapping("/profile")
-    public String perfilUser() {
-        return "profile.html";
     }
 
     @GetMapping("/delete/{dni}")
@@ -102,8 +97,25 @@ public class UserController {
     }
 
     @GetMapping("/tecnicos/{tipoServicio}")
-    public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap model) {
+    public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap tecnicos) {
 
+        List<Supplier> tecnicosPorOficio = new ArrayList<>();
+        tecnicosPorOficio = servicioS.buscarServicioPorTipo(tipoServicio).getProveedores();
+        tecnicos.addAttribute("tecnicosPorOficio",tecnicosPorOficio);
+        
         return "request_supplier.html";
     }
+    
+    @GetMapping("/order_service")
+    public String ordenServicioUsuario(){
+        return "order_service_user.html";
+    }
+    
+    @GetMapping("/profile")
+    public String perfilUser(HttpSession session, String dni, ModelMap modelo) {
+        Person usuario = (Person) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuario);
+        return "profileUser.html";
+    }
+    
 }

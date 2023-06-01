@@ -57,4 +57,10 @@ public class AdminController {
         modelo.addAttribute("servicios", servicios);
         return "list_service.html";
     }
+    
+    @GetMapping("/profile")
+    public String perfilAdmin() {
+        return "profileAdmin.html";
+    }
+    
 }

@@ -98,3 +98,12 @@
 .modal-button {
     margin-top: 10px;
 }
+
+.perfil{
+    
+    display: block;
+    height: 200px;
+    margin: auto;
+    border-radius: 10%;
+
+}
