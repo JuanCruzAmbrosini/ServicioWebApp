@@ -27,10 +27,10 @@ public class Client extends Person {
     @OneToOne
     private Image imagen;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany
     private List<TechnicalService> servicios;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany
     private List<OrderService> ordenServicios;
 
 }

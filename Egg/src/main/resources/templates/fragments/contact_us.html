@@ -7,9 +7,9 @@
     <div class="container layout_padding2-top">
         <div class="row">
             <div class="col-md-6 mx-auto">
-                <form th:action ="@{/contact_sent}"  method="POST" >
+                <form action=""  method="POST" enctype="text/plain">
                     <div>
-                        <input type="text" name="nombreApellido" placeholder="Nombre y Apellido">
+                        <input type="text" name="nombre" placeholder="Nombre y Apellido">
                     </div>
                     <div>
                         <input type="email" name="email" placeholder="Email">
@@ -18,7 +18,7 @@
                         <select name="oficio">
                             <option>Servicio</option>
                             <option th:each="servicio : ${servicios}"
-                                    th:value="${servicio.tipoServicio}"
+                                    th:value="${servicio.id}"
                                     th:text="${servicio.tipoServicio}"/>
                         </select>
                     </div>

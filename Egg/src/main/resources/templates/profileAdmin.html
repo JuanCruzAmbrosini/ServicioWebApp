@@ -14,7 +14,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav th:replace="/fragments/navBarSupplier :: navSupplier"></nav>
+                    <nav th:replace="/fragments/navBarAdmin :: navAdmin"></nav>
                 </div>
             </header>
 
@@ -24,13 +24,16 @@
 
         <div class="bg">
 
-            <!-- contact section -->
-
-            <section class="contact_section layout_padding">
-                <div th:replace="/fragments/contact_us :: contact"></div>
-            </section>
-
-            <!-- end contact section -->
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        Column
+                    </div>
+                    <div class="col">
+                        Column
+                    </div>
+                </div>
+            </div>
 
             <!-- footer section -->
             <footer th:replace="/fragments/footer_login :: footer_login"></footer>

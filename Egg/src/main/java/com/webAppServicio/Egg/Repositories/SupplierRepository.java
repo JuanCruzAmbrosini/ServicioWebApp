@@ -1,6 +1,7 @@
 package com.webAppServicio.Egg.Repositories;
 
 import com.webAppServicio.Egg.Entities.Supplier;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,7 @@ public interface SupplierRepository extends JpaRepository <Supplier, String>{
     public Supplier buscarProveedorPorEmail (@Param ("email") String email);
     
      @Query("SELECT s FROM Supplier s WHERE s.oficio = :oficio")
-    public String buscarProveedorPorOficio (@Param ("oficio") String nombre);
+    public List<Supplier> buscarProveedorPorOficio (@Param ("oficio") String nombre);
     
     @Query("SELECT s FROM Supplier s WHERE s.apellido = :apellido")
     public String buscarProveedorPorApellido (@Param ("apellido") String nombre);
