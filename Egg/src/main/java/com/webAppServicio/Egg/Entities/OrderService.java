@@ -35,17 +35,13 @@ public class OrderService {
 
     @Temporal(TemporalType.DATE)
     private Date fechaRecibida;
-    
-    @Enumerated(EnumType.STRING)
-    private EstatusOrden rol;
-    
-    @OneToOne
-    private TechnicalService servicio;
-    
-    @ManyToOne
-    private Supplier proveedor;
-    
-    @ManyToOne
-    private Client cliente;
 
+    @ManyToOne
+    private Client usuario;
+
+    @OneToOne()
+    private Supplier proveedor;
+
+    @Enumerated(EnumType.STRING)
+    private EstatusOrden estatusOrden;
 }

@@ -38,7 +38,7 @@ public class SupplierController {
     @PostMapping("/registered_supplier")
     public String newSupplier(@RequestParam String dni, @RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam String email,
-            @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam String oficio,
+            @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam TechnicalService oficio,
             ModelMap modelo) throws MyException {
 
         try {
@@ -78,15 +78,8 @@ public class SupplierController {
         return "init_supplier.html";
     }
 
-    @GetMapping("/contact")
-    public String contact(ModelMap modelo) {
-        List<TechnicalService> servicios = serviceS.listarServicios();
-        modelo.addAttribute("servicios", servicios);
-        return "init_supplier_contact.html";
-    }
-
     @GetMapping("/profile")
-    public String perfilSupplier(HttpSession session, String dni, ModelMap modelo) {
+    public String perfilSupplier(HttpSession session, ModelMap modelo) {
         Person proveedor = (Person) session.getAttribute("usuariosession");
         modelo.addAttribute("proveedor", proveedor);
         return "profileSupplier.html";

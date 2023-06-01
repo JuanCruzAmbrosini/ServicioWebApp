@@ -6,6 +6,7 @@ import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ClientService;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
+import com.webAppServicio.Egg.Services.SupplierService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     private ServiceOfServices serviciosTecnicos;
+
+    @Autowired
+    private SupplierService supplierS;
 
     @GetMapping("/account_user")
     public String accountUser() {
@@ -82,14 +86,6 @@ public class UserController {
         return "description_services.html";
     }
 
-    @GetMapping("/contact")
-    public String contactoCliente(ModelMap modelo) {
-        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
-        modelo.addAttribute("servicios", servicios);
-        return "init_user_contact.html";
-
-    }
-
     @GetMapping("/profile")
     public String perfilUser(HttpSession session, String dni, ModelMap modelo) {
         Person usuario = (Person) session.getAttribute("usuariosession");
@@ -105,19 +101,9 @@ public class UserController {
         return "redirect:/admin/user_list";
     }
 
-    @GetMapping("/tecnicos/{tipoServicio}")
-    public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap model) {
-        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
-        for (TechnicalService servicio : servicios) {
-            if(tipoServicio.equalsIgnoreCase(servicio.getTipoServicio())){
-            }
-        }
-        
-        return "request_supplier.html";
-    }
-    
+
     @GetMapping("/order_service")
-    public String ordenServicioUsuario(){
+    public String ordenServicioUsuario() {
         return "order_service_user.html";
     }
 }

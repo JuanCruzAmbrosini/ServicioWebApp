@@ -2,6 +2,7 @@ package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
 import com.webAppServicio.Egg.Entities.Supplier;
+import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.SupplierRepository;
@@ -34,7 +35,7 @@ public class SupplierService implements UserDetailsService {
 
     @Transactional
     public void crearProveedor(MultipartFile imagen,String dni, String matricula, String nombre, String apellido,
-            String telefono, String email, String password, String password2, String oficio) throws MyException {
+            String telefono, String email, String password, String password2, TechnicalService oficio) throws MyException {
 
         validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, oficio);
 
@@ -59,7 +60,7 @@ public class SupplierService implements UserDetailsService {
 
     @Transactional
     public void modificarPerfil(String dni, String matricula, String nombre, String apellido,
-            String telefono, String email, String password, String password2, String oficio) throws MyException {
+            String telefono, String email, String password, String password2, TechnicalService oficio) throws MyException {
 
         validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, oficio);
 
@@ -96,13 +97,13 @@ public class SupplierService implements UserDetailsService {
 
         return listaProveedores;
     }
-
+    
     public Supplier getOne(String matricula) {
         return supplierR.getOne(matricula);
     }
 
     public void validarProveedor(String dni, String matricula, String nombre, String apellido,
-            String telefono, String email, String password, String password2, String oficio) throws MyException {
+            String telefono, String email, String password, String password2, TechnicalService oficio) throws MyException {
 
         if ( dni == null || dni.isEmpty()){
             
@@ -152,7 +153,7 @@ public class SupplierService implements UserDetailsService {
 
         }
 
-        if (oficio == null || oficio.isEmpty()) {
+        if (oficio == null) {
 
             throw new MyException("No se registró una entrada válida en el campo del oficio. Por favor, inténtelo nuevamente.");
 

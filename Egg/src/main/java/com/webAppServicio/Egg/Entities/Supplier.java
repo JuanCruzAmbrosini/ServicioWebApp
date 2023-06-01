@@ -14,18 +14,18 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Supplier extends Person {
-
+public class Supplier extends Person{
+    
     private String matricula;
-    private String oficio;
+
     private double calificacion;
-    
+
+    @OneToOne(mappedBy = "proveedor")
+    private OrderService ordenServicio;
+
     @OneToOne
-    private Image imagen;
-    
-    @OneToOne
-    private TechnicalService servicio;
+    private TechnicalService oficio;
     
     @OneToMany
-    private List<OrderService> ordenes;
+    private List<OrderService> listaOrdenes;
 }

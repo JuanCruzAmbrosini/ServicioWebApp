@@ -28,6 +28,9 @@ public class Client extends Person {
     private Image imagen;
 
     @OneToMany
-    private List<OrderService> ordenes;
+    private List<TechnicalService> servicios;
+
+    @OneToMany
+    private List<OrderService> ordenServicios;
 
 }
