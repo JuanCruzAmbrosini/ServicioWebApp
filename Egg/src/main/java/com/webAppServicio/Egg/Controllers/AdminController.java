@@ -62,4 +62,8 @@ public class AdminController {
     public String perfilAdmin() {
         return "profileAdmin.html";
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
 }

@@ -50,10 +50,10 @@
                                 <input name="matricula" type="text" placeholder="N° Matricula">
                             </div>
                             <div>
-                                <select name="oficio">
+                                <select name="tipoServicio">
                                     <option>Oficio</option>
                                     <option th:each="servicio : ${servicios}"
-                                            th:value="${servicio.id}"
+                                            th:value="${servicio.tipoServicio}"
                                             th:text="${servicio.tipoServicio}"/>
                                 </select>
                             </div>

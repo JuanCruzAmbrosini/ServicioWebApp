@@ -2,11 +2,19 @@ package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Entities.Client;
 import com.webAppServicio.Egg.Entities.Person;
+<<<<<<< HEAD
+=======
+import com.webAppServicio.Egg.Entities.Supplier;
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ClientService;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +35,10 @@ public class UserController {
     private ClientService userS;
 
     @Autowired
-    private ServiceOfServices serviciosTecnicos;
+    private ServiceOfServices servicioS;
+    
+    @Autowired
+    private SupplierService supplierS;
 
     @Autowired
     private SupplierService supplierS;
@@ -74,18 +85,19 @@ public class UserController {
 
     @GetMapping("/serviceList")
     public String listarServicios(ModelMap modelo) {
-        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        List<TechnicalService> servicios = servicioS.listarServicios();
         modelo.addAttribute("servicios", servicios);
         return "init_user_serviceList.html";
     }
 
     @GetMapping("/service_description/{id}")
     public String verCaracteristicas(@PathVariable("id") String id, ModelMap modelo) {
-        TechnicalService servicios = serviciosTecnicos.getOne(id);
+        TechnicalService servicios = servicioS.getOne(id);
         modelo.addAttribute("servicios", servicios);
         return "description_services.html";
     }
 
+<<<<<<< HEAD
     @GetMapping("/profile")
     public String perfilUser(HttpSession session, String dni, ModelMap modelo) {
         Person usuario = (Person) session.getAttribute("usuariosession");
@@ -93,6 +105,8 @@ public class UserController {
         return "profileUser.html";
     }
 
+=======
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
     @GetMapping("/delete/{dni}")
     public String eliminarUser(@PathVariable String dni, ModelMap modelo) {
 
@@ -101,9 +115,33 @@ public class UserController {
         return "redirect:/admin/user_list";
     }
 
+<<<<<<< HEAD
 
     @GetMapping("/order_service")
     public String ordenServicioUsuario() {
         return "order_service_user.html";
+=======
+    @GetMapping("/tecnicos/{tipoServicio}")
+    public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap tecnicos) {
+
+        List<Supplier> tecnicosPorOficio = new ArrayList<>();
+        tecnicosPorOficio = servicioS.buscarServicioPorTipo(tipoServicio).getProveedores();
+        tecnicos.addAttribute("tecnicosPorOficio",tecnicosPorOficio);
+        
+        return "request_supplier.html";
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
     }
+    
+    @GetMapping("/order_service")
+    public String ordenServicioUsuario(){
+        return "order_service_user.html";
+    }
+    
+    @GetMapping("/profile")
+    public String perfilUser(HttpSession session, String dni, ModelMap modelo) {
+        Person usuario = (Person) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuario);
+        return "profileUser.html";
+    }
+    
 }

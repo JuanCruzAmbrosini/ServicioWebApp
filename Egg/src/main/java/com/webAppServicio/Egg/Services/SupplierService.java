@@ -31,16 +31,29 @@ public class SupplierService implements UserDetailsService {
     private SupplierRepository supplierR;
 
     @Autowired
+    private ServiceOfServices servicioS;
+
+    @Autowired
     private ImageService imagenS;
 
     @Transactional
+<<<<<<< HEAD
     public void crearProveedor(MultipartFile imagen,String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, TechnicalService oficio) throws MyException {
+=======
+    public void crearProveedor(MultipartFile imagen, String dni, String matricula, String nombre, String apellido,
+            String telefono, String email, String password, String password2, String tipoServicio) throws MyException {
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
 
-        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, oficio);
+        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
 
         Supplier supplier = new Supplier();
-        
+        TechnicalService oficio = new TechnicalService();
+
+        oficio = servicioS.buscarServicioPorTipo(tipoServicio);
+
+        List<Supplier> listaDeProveedoresTipo = oficio.getProveedores();
+
         supplier.setDni(dni);
         supplier.setMatricula(matricula);
         supplier.setNombre(nombre);
@@ -48,27 +61,37 @@ public class SupplierService implements UserDetailsService {
         supplier.setTelefono(telefono);
         supplier.setEmail(email);
         supplier.setPassword(new BCryptPasswordEncoder().encode(password));
-        supplier.setOficio(oficio);
         Image image = imagenS.guardar(imagen);
         supplier.setImagen(image);
         supplier.setRol(Rol.SUPPLIER);
         supplier.setCalificacion(0);
+        supplier.setOficio(oficio);
+
+        listaDeProveedoresTipo.add(supplier);
 
         supplierR.save(supplier);
+
+        servicioS.modificarServicioSinImagen(oficio.getId(), oficio.getTipoServicio(), oficio.getDetalle(), oficio.getDetalle(), listaDeProveedoresTipo);
 
     }
 
     @Transactional
     public void modificarPerfil(String dni, String matricula, String nombre, String apellido,
+<<<<<<< HEAD
             String telefono, String email, String password, String password2, TechnicalService oficio) throws MyException {
+=======
+            String telefono, String email, String password, String password2, String tipoServicio) throws MyException {
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
 
-        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, oficio);
+        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
 
         Optional<Supplier> respuesta = supplierR.findById(dni);
         if (respuesta.isPresent()) {
 
+            TechnicalService oficio = servicioS.buscarServicioPorTipo(tipoServicio);
+
             Supplier supplier = respuesta.get();
-            
+
             supplier.setDni(dni);
             supplier.setMatricula(matricula);
             supplier.setNombre(nombre);
@@ -102,15 +125,29 @@ public class SupplierService implements UserDetailsService {
         return supplierR.getOne(matricula);
     }
 
+<<<<<<< HEAD
     public void validarProveedor(String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, TechnicalService oficio) throws MyException {
+=======
+    public List<Supplier> listarProveedoresPorOficio(String oficio) {
 
-        if ( dni == null || dni.isEmpty()){
-            
+        List<Supplier> proveedoresPorOficio = new ArrayList<>();
+
+        proveedoresPorOficio = supplierR.buscarProveedorPorOficio(oficio);
+
+        return proveedoresPorOficio;
+    }
+
+    public void validarProveedor(String dni, String matricula, String nombre, String apellido,
+            String telefono, String email, String password, String password2, String tipoOficio) throws MyException {
+
+        if (dni == null || dni.isEmpty()) {
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
+
             throw new MyException("No se registró una entrada válida en el campo del DNI. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
+
         if (matricula == null || matricula.isEmpty()) {
 
             throw new MyException("No se registró una entrada válida en el campo de la matrícula. Por favor, inténtelo nuevamente.");
@@ -153,12 +190,17 @@ public class SupplierService implements UserDetailsService {
 
         }
 
+<<<<<<< HEAD
         if (oficio == null) {
+=======
+        if (tipoOficio == null || tipoOficio.isEmpty()) {
+>>>>>>> 35142c4bb6f2bd79b6407f0320e5a63dc262f8d4
 
             throw new MyException("No se registró una entrada válida en el campo del oficio. Por favor, inténtelo nuevamente.");
 
         }
     }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Supplier usuario = supplierR.buscarProveedorPorEmail(email);
