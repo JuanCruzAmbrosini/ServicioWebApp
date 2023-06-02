@@ -53,7 +53,7 @@ public class SupplierController {
             modelo.put("dni", dni);
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
-            modelo.put("oficio", tipoServicio);
+            modelo.put("tipoServicio", tipoServicio);
             modelo.put("email", email);
             modelo.put("telefono", telefono);
             modelo.put("password", password);

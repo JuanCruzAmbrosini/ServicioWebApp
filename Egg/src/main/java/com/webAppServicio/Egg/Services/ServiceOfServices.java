@@ -1,7 +1,6 @@
 package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
-import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.TechnicalServiceRepository;
@@ -21,7 +20,7 @@ public class ServiceOfServices {
 
     @Autowired
     private ImageService imageS;
-
+    
     @Transactional
     public void crearServicio(String tipoServicio, String detalle, String caracteristicas, MultipartFile imagen) throws MyException {
 
@@ -54,7 +53,7 @@ public class ServiceOfServices {
     }
 
     @Transactional
-    public void modificarServicio(String id, String tipoServicio, String detalle, String caracteristicas, List<Supplier> proveedores, MultipartFile imagen) throws MyException {
+    public void modificarServicio(String id, String tipoServicio, String detalle, String caracteristicas,  MultipartFile imagen) throws MyException {
 
         validar(tipoServicio, detalle, caracteristicas);
 
@@ -69,38 +68,12 @@ public class ServiceOfServices {
             servicioTecnico.setDetalle(detalle);
 
             servicioTecnico.setCaracteristicas(caracteristicas);
-
-            servicioTecnico.setProveedores(proveedores);
 
             Image image = imageS.actualizar(imagen, id);
 
             servicioTecnico.setImagen(image);
 
             servicioR.save(servicioTecnico);
-        }
-    }
-
-    @Transactional
-    public void modificarServicioSinImagen(String id, String tipoServicio, String detalle, String caracteristicas, List<Supplier> proveedores) throws MyException {
-
-        validar(tipoServicio, detalle, caracteristicas);
-
-        Optional<TechnicalService> respuesta = servicioR.findById(id);
-
-        if (respuesta.isPresent()) {
-
-            TechnicalService servicioTecnico = respuesta.get();
-
-            servicioTecnico.setTipoServicio(tipoServicio);
-
-            servicioTecnico.setDetalle(detalle);
-
-            servicioTecnico.setCaracteristicas(caracteristicas);
-
-            servicioTecnico.setProveedores(proveedores);
-
-            servicioR.save(servicioTecnico);
-
         }
     }
 
@@ -114,7 +87,7 @@ public class ServiceOfServices {
     }
 
     @Transactional
-    public void eliminarServicio(String id) {
+    public void eliminarServicio(String id) {    
         servicioR.deleteById(id);
     }
 

@@ -5,6 +5,7 @@
  */
 package com.webAppServicio.Egg.Email;
 
+import com.webAppServicio.Egg.Exceptions.MyException;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -18,8 +19,10 @@ import javax.mail.internet.MimeMessage;
  */
 public class EnvioDeCorreo {
 
-    public void transfer_to_email(String correoRemitente, String mensaje, String asunto) {
+    public void transfer_to_email(String correoRemitente, String mensaje, String asunto) throws MyException {
 
+        validarEmail(correoRemitente, mensaje, asunto);
+        
         String correoEmisor = "juancruz.ambrosini2@gmail.com";
         String contrasena = "ucpuhmdupjlhzoxc";
 
@@ -55,4 +58,26 @@ public class EnvioDeCorreo {
 
     }
 
+    public void validarEmail (String correoRemitente, String mensaje, String asunto) throws MyException{
+        
+        if (correoRemitente == null || correoRemitente.isEmpty()) {
+
+            throw new MyException("No se registró una entrada válida en el campo del correo. Por favor, inténtelo nuevamente.");
+
+        }
+
+        if (mensaje == null || mensaje.isEmpty()) {
+
+            throw new MyException("No se registró una entrada válida en el campo de la matrícula. Por favor, inténtelo nuevamente.");
+
+        }
+
+        if (asunto.equalsIgnoreCase("Servicio") || asunto.isEmpty()) {
+
+            throw new MyException("No se registró una entrada válida en el campo del nombre. Por favor, inténtelo nuevamente.");
+
+        }
+        
+    }
+    
 }
