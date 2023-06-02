@@ -48,8 +48,6 @@ public class SupplierService implements UserDetailsService {
 
         oficio = servicioS.buscarServicioPorTipo(tipoServicio);
 
-        List<Supplier> listaDeProveedoresTipo = oficio.getProveedores();
-
         supplier.setDni(dni);
         supplier.setMatricula(matricula);
         supplier.setNombre(nombre);
@@ -63,11 +61,7 @@ public class SupplierService implements UserDetailsService {
         supplier.setCalificacion(0);
         supplier.setOficio(oficio);
 
-        listaDeProveedoresTipo.add(supplier);
-
         supplierR.save(supplier);
-
-        servicioS.modificarServicioSinImagen(oficio.getId(), oficio.getTipoServicio(), oficio.getDetalle(), oficio.getDetalle(), listaDeProveedoresTipo);
 
     }
 
@@ -119,13 +113,25 @@ public class SupplierService implements UserDetailsService {
         return supplierR.getOne(matricula);
     }
 
-    public List<Supplier> listarProveedoresPorOficio(String oficio) {
+    public List<Supplier> listarProveedoresPorOficio(String tipoServicio) {
 
         List<Supplier> proveedoresPorOficio = new ArrayList<>();
 
-        proveedoresPorOficio = supplierR.buscarProveedorPorOficio(oficio);
+        TechnicalService servicio = servicioS.buscarServicioPorTipo(tipoServicio);
+        
+        proveedoresPorOficio = supplierR.buscarProveedorPorOficio(servicio.getId());
 
         return proveedoresPorOficio;
+    }
+    
+    public  List<Supplier> listarProveedoresPorOficioUsandoId(String id){
+        
+        List<Supplier> proveedoresPorOficio = new ArrayList<>();
+        
+        proveedoresPorOficio = supplierR.buscarProveedorPorOficio(id);
+        
+        return proveedoresPorOficio;
+        
     }
 
     public void validarProveedor(String dni, String matricula, String nombre, String apellido,

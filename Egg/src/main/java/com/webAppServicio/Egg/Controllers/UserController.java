@@ -93,7 +93,7 @@ public class UserController {
     public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap tecnicos) {
 
         List<Supplier> tecnicosPorOficio = new ArrayList<>();
-        tecnicosPorOficio = servicioS.buscarServicioPorTipo(tipoServicio).getProveedores();
+        tecnicosPorOficio = supplierS.listarProveedoresPorOficio(tipoServicio);
         tecnicos.addAttribute("tecnicosPorOficio",tecnicosPorOficio);
         
         return "request_supplier.html";

@@ -96,13 +96,6 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/service_delete/{id}")
-    public String eliminarServicio(@PathVariable String id, RedirectAttributes redirectAttributes) {
-        serviciosTecnicos.eliminarServicio(id);
-        redirectAttributes.addFlashAttribute("exito", "Servicio Eliminado Correctamente");
-        return "redirect:/admin/service_list";
-    }
-
     @GetMapping("/supplier_delete/{dni}")
     public String eliminarProveedor(@PathVariable String dni, RedirectAttributes redirectAttributes) {
         supplierS.eliminarProveedor(dni);
@@ -116,4 +109,16 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("exito", "Usuario Eliminado Correctamente");
         return "redirect:/admin/user_list";
     }
+
+    @GetMapping("/service_delete/{id}")
+    public String eliminarServicio(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        List<Supplier> proveedores = supplierS.listarProveedoresPorOficioUsandoId(id);
+        for (Supplier proveedor : proveedores) {
+            supplierS.eliminarProveedor(proveedor.getDni());
+        }
+        serviciosTecnicos.eliminarServicio(id);
+        redirectAttributes.addFlashAttribute("exito", "Servicio Eliminado Correctamente");
+        return "redirect:/admin/service_list";
+    }
+
 }
