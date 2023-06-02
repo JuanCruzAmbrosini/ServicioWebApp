@@ -1,6 +1,7 @@
 package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
+import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Enums.Rol;
@@ -71,7 +72,7 @@ public class SupplierService implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarPerfil(String dni, String matricula, String nombre, String apellido,
+    public void modificarPerfil(MultipartFile imagen, String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String tipoServicio) throws MyException {
 
         validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
@@ -89,7 +90,9 @@ public class SupplierService implements UserDetailsService {
             supplier.setApellido(apellido);
             supplier.setTelefono(telefono);
             supplier.setEmail(email);
-            supplier.setPassword(password);
+            Image image = imagenS.actualizar(imagen, dni);
+            supplier.setImagen(image);
+            supplier.setPassword(new BCryptPasswordEncoder().encode(password));
             supplier.setOficio(oficio);
 
             supplierR.save(supplier);

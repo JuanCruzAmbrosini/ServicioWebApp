@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/supplier")
@@ -65,14 +65,6 @@ public class SupplierController {
 
     }
 
-    @GetMapping("/delete/{dni}")
-    public String eliminarProveedor(@PathVariable String dni, ModelMap modelo) {
-
-        supplierS.eliminarProveedor(dni);
-
-        return "redirect:/admin/supplier_list";
-    }
-
     @GetMapping("/init")
     public String inicio() {
         return "init_supplier.html";
@@ -84,10 +76,43 @@ public class SupplierController {
     }
     
     @GetMapping("/profile")
-    public String perfilSupplier(HttpSession session,   ModelMap modelo) {
+    public String perfilSupplier(HttpSession session, ModelMap modelo) {
         Person proveedor = (Person) session.getAttribute("usuariosession");
         modelo.addAttribute("proveedor", proveedor);
         return "profileSupplier.html";
     }
+    
+    @GetMapping("/profile_edit")
+    public String perfilSupplierEdit(HttpSession session, ModelMap modelo) {
+        Person proveedor = (Person) session.getAttribute("usuariosession");
+        modelo.addAttribute("proveedor", proveedor);
+        return "modification_supplier.html";
+    }
+    
+    @PostMapping("/modification_profile/{dni}")
+    public String perfilModificado(@RequestParam("dniOculto") String dni, @RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam("correoOculto") String email,
+            @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam("oficioOculto") String tipoServicio,
+            ModelMap modelo, RedirectAttributes redirectAttributes) throws MyException {
+         try {
+            TechnicalService oficio = serviceS.buscarServicioPorTipo(tipoServicio);
+            supplierS.modificarPerfil(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
+            modelo.put("exito", "Proveedor Modificado Correctamente");
+            
+            return "redirect:/supplier/init";
 
+        } catch (MyException ex) {
+
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("oficio", tipoServicio);
+            modelo.put("telefono", telefono);
+            modelo.put("password", password);
+            modelo.put("password2", password2);
+
+            return "modifcation_supplier.html";
+
+        }
+    }
 }

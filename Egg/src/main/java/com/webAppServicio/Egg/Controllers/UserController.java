@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/user")
@@ -88,14 +89,6 @@ public class UserController {
         return "description_services.html";
     }
 
-    @GetMapping("/delete/{dni}")
-    public String eliminarUser(@PathVariable String dni, ModelMap modelo) {
-
-        userS.eliminarUsuario(dni);
-
-        return "redirect:/admin/user_list";
-    }
-
     @GetMapping("/tecnicos/{tipoServicio}")
     public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap tecnicos) {
 
@@ -112,7 +105,7 @@ public class UserController {
     }
     
     @GetMapping("/profile")
-    public String perfilUser(HttpSession session, String dni, ModelMap modelo) {
+    public String perfilUser(HttpSession session, ModelMap modelo) {
         Person usuario = (Person) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuario);
         return "profileUser.html";
