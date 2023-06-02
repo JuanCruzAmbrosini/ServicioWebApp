@@ -3,6 +3,7 @@ package com.webAppServicio.Egg.Controllers;
 import com.webAppServicio.Egg.Email.EnvioDeCorreo;
 import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Entities.TechnicalService;
+import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -49,14 +50,31 @@ public class VistasController {
 
         return "contact.html";
     }
-    
+
     @PostMapping("/contact_sent")
     public String contactSent(@RequestParam String nombreApellido, @RequestParam String email, @RequestParam String oficio, @RequestParam String comentario, ModelMap modelo) throws Exception {
-    
-        EnvioDeCorreo edc = new EnvioDeCorreo();
-        edc.transfer_to_email(email, comentario + " " + nombreApellido, oficio);
 
-        return "redirect:/contact";
+        List<TechnicalService> servicios = serviciosTecnicos.listarServicios();
+        modelo.addAttribute("servicios", servicios);
+
+        try {
+
+            String emailRemitente = "juancruz.ambrosini2@gmail.com";
+
+            EnvioDeCorreo edc = new EnvioDeCorreo();
+            edc.transfer_to_email(emailRemitente, comentario + " \n " + nombreApellido + "\n" + email, oficio);
+
+            modelo.put("exito", "La consulta fue realizada con éxito!");
+
+            return "contact.html";
+
+        } catch (Exception ex) {
+
+            modelo.put("error", "La consulta NO fue realizada con éxito, revise todos los campos e intente nuevamente.");
+
+            return "contact.html";
+
+        }
 
     }
 

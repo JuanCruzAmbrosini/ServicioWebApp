@@ -16,38 +16,4 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/service_create")
 public class ServiceController {
 
-    @Autowired
-    private ServiceOfServices serviciosTecnicos;
-
-    @GetMapping("/account_service")
-    public String registroServicio() {
-        return "account_service.html";
-    }
-
-    @PostMapping("/newService")
-    public String newService(@RequestParam String tipoServicio, @RequestParam String detalle,
-            @RequestParam String caracteristicas,
-            @RequestParam MultipartFile imagen, ModelMap modelo) throws MyException {
-
-        try {
-            serviciosTecnicos.crearServicio(tipoServicio, detalle, caracteristicas, imagen);
-            modelo.put("exito", "Servicio Registrado Correctamente");
-            return "redirect:/admin/service_list";
-        } catch (MyException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("tipoServicio", tipoServicio);
-            modelo.put("detalle", detalle);
-            modelo.put("caracteristicas", caracteristicas);
-            return "account_service.html";
-        }
-    }
-    
-    @GetMapping("/delete/{id}")
-    public String eliminarProveedor(@PathVariable String id, ModelMap modelo) {
-
-        serviciosTecnicos.eliminarServicio(id);
-        modelo.put("exito", "Servicio Eliminado Correctamente");
-        return "redirect:/admin/service_list";
-    }
-
 }
