@@ -18,6 +18,12 @@
 
         </div>
 
+        <!-- validar section -->
+
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- end validar section -->
+
         <!-- contact section -->
 
         <div class="contenido_principal">
@@ -56,7 +62,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${proveedor.telefono}"></td>
 
                     <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo"
-                                                         th:href="@{/supplier/delete/__${proveedor.dni}__}">Eliminar</a></td>
+                                                         th:href="@{/admin/supplier_delete/__${proveedor.dni}__}">Eliminar</a></td>
                     <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="#">Modificar</a></td>
 
                     </tbody>

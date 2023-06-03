@@ -27,7 +27,7 @@
                         <a class="nav-link" th:href="@{/admin/supplier_list}">Lista Técnicos</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/profile}">Mi Perfil</a>
+                        <a class="nav-link" th:if="${session.usuariosession != null}" th:href="@{/admin/profile}">Mi Perfil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Salir</a>

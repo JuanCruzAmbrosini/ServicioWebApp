@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/user")
@@ -88,14 +89,6 @@ public class UserController {
         return "description_services.html";
     }
 
-    @GetMapping("/delete/{dni}")
-    public String eliminarUser(@PathVariable String dni, ModelMap modelo) {
-
-        userS.eliminarUsuario(dni);
-
-        return "redirect:/admin/user_list";
-    }
-
     @GetMapping("/tecnicos/{tipoServicio}")
     public String mostrarTecnicos(@PathVariable String tipoServicio, ModelMap tecnicos) {
 
@@ -112,10 +105,42 @@ public class UserController {
     }
     
     @GetMapping("/profile")
-    public String perfilUser(HttpSession session, String dni, ModelMap modelo) {
+    public String perfilUser(HttpSession session, ModelMap modelo) {
         Person usuario = (Person) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuario);
         return "profileUser.html";
     }
     
+        @GetMapping("/profile_edit")
+    public String perfilUserEdit(HttpSession session, ModelMap modelo) {
+        Person usuario = (Person) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuario);
+        return "modification_user.html";
+    }
+    
+    @PostMapping("/modification_profile/{dni}")
+    public String perfilModificado(@RequestParam("dniOculto") String dni, @RequestParam MultipartFile imagen, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam("correoOculto") String email,
+            @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
+            ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
+         try {
+            userS.modificarPerfil(imagen, dni, nombre, apellido, barrio, telefono, direccion, email, password, password2, sexo);
+            redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios"); 
+            return "redirect:/user/profile";
+
+        } catch (MyException ex) {
+
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("telefono", telefono);
+            modelo.put("password", password);
+            modelo.put("password2", password2);
+            modelo.put("sexo", sexo);
+            modelo.put("direccion", direccion);
+
+            return "redirect:/user/modification_user/{dni}";
+
+        }
+    }
 }

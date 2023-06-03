@@ -22,39 +22,45 @@
 
         </div>
 
-        <section class="contact_section layout_padding">
+        <!-- validar section -->
 
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- end validar section -->
+
+        <section class="contact_section">
             <div class="container layout_padding2-top">
-                <div class="row">
-                    <div class="col-md-6 mx-auto">
-                        <input hidden th:value="${dni}" name="dni">
-                        <div class="col">
-                            <p><img class="perfil" th:if="${proveedor.imagen != null}" th:src="@{/imagen/perfilSupplier/__${proveedor.dni}__}"></p>
-                            <br>
-                            <p>DNI: <input  type="text" th:value="${proveedor.dni}" disabled></p>
-                            <p>Nombre: <input  type="text" th:value="${proveedor.nombre}" disabled></p>
-                            <p>Apellido: <input  type="text" th:value="${proveedor.apellido}" disabled></p>
-                            <p>N° Matricula: <input type="text" th:value="${proveedor.matricula}"disabled></p>
-                            <p>Oficio: <input  type="text" th:value="${proveedor.oficio.tipoServicio}" disabled></p>
-                            <p>Email: <input  type="text" th:value="${proveedor.email}" disabled></p>
-                            <p>Telefono: <input  type="text" th:value="${proveedor.telefono}" disabled></p>
-                        </div>
+                <div class="row justify-content-center">
+                    <input hidden th:value="${dni}" name="dni">
+                    <p><img class="perfil" th:if="${proveedor.imagen != null}" th:src="@{/imagen/perfilSupplier/__${proveedor.dni}__}"></p>
+                    <div class="col-4  mx-auto">
+                        <p>Nombre: <input  type="text" th:value="${proveedor.nombre}" disabled></p>
+                        <p>Apellido: <input  type="text" th:value="${proveedor.apellido}" disabled></p>
+                        <p>Email: <input  type="text" th:value="${proveedor.email}" disabled></p>
+                        <p>Telefono: <input  type="text" th:value="${proveedor.telefono}" disabled></p>
+                    </div>
+                    <div class="col-4  mx-auto">
+                        <p>DNI: <input  type="text" th:value="${proveedor.dni}" disabled></p>
+                        <p>N° Matricula: <input type="text" th:value="${proveedor.matricula}"disabled></p>
+                        <p>Oficio: <input  type="text" th:value="${proveedor.oficio.tipoServicio}" disabled></p>
                         <div class="d-flex justify-content-center">
-                            <a class="boton_modificar_tabla_cuerpo" href="#">Modificar</a></td>
+                            <a class="boton_modificar_tabla_cuerpo" th:href="@{/supplier/profile_edit}">Modificar</a></td>
                         </div>
                     </div>
-                </div>    
-                <!--                <a style="align-content: end" class="boton_eliminar_tabla_cuerpo" th:href="@{/user/delete/__${usuario.dni}__}">Eliminar Cuenta</a>-->
-            </div>
-        </section>
-        <!-- footer section -->
-        <footer th:replace="/fragments/footer_login :: footer_login"></footer>
-        <!-- end footer section -->
 
-        <!-- script section -->
-        <div th:replace="/fragments/scripts :: script"></div>
-        <!-- end scripts section -->
+                </div>
+            </div>    
+            <!--                <a style="align-content: end" class="boton_eliminar_tabla_cuerpo" th:href="@{/user/delete/__${usuario.dni}__}">Eliminar Cuenta</a>-->
+        </div>
+    </section>
+    <!-- footer section -->
+    <footer th:replace="/fragments/footer_login :: footer_login"></footer>
+    <!-- end footer section -->
 
-    </body>
+    <!-- script section -->
+    <div th:replace="/fragments/scripts :: script"></div>
+    <!-- end scripts section -->
+
+</body>
 
 </html>

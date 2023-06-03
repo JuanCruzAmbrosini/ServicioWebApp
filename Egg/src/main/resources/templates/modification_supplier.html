@@ -29,60 +29,56 @@
         <section class="contact_section layout_padding">
             <div class="custom_heading-container">
                 <h3 class=" ">
-                    Registrate Para Ser Parte De Nosotros y Brindar Tus Servicios
+                    Editar Tus Datos Para Mejorar Tus Servicios
                 </h3>
             </div>
-
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form action="/supplier/registered_supplier" method="POST" enctype="multipart/form-data">
+                        <form th:action="@{/supplier/modification_profile/__${proveedor.dni}__}" method="POST" enctype="multipart/form-data">
+                            <input hidden th:value="${dni}" name="dni">
                             <div>
-                                <input name="nombre"  type="text" placeholder="Nombre">
+                                <p>DNI: <input  type="number" name="dni" th:value="${proveedor.dni}" disabled></p>
+                                <input type="hidden" name="dniOculto" th:value="${proveedor.dni}">
                             </div>
                             <div>
-                                <input name="apellido" type="text" placeholder="Apellido">
+                                <p>N° Matricula: <input type="text" name="matricula" th:value="${proveedor.matricula}"></p>
                             </div>
                             <div>
-                                <input name="dni" type="number" placeholder="N° DNI">
+                                <p>Nombre: <input  type="text" name ="nombre" th:value="${proveedor.nombre}"></p>
                             </div>
                             <div>
-                                <input name="matricula" type="number" placeholder="N° Matricula">
+                                <p>Apellido: <input  type="text" name="apellido" th:value="${proveedor.apellido}"></p>
                             </div>
                             <div>
-                                <select name="oficio" id="">
-                                    <option value="" >Oficio</option>
-                                    <option value="plomeria">Plomeria</option>
-                                    <option value="gasista">Gasista</option>
-                                    <option value="electricista">Electricista</option>
-                                    <option value="jardineria">Jardineria</option>
-                                </select>
+                                <p>Oficio:  <input  type="text" name="oficio" th:value="${proveedor.oficio.tipoServicio}" disabled=""></p>
+                                 <input type="hidden" name="oficioOculto" th:value="${proveedor.oficio.tipoServicio}">
+                            </div>
+                            </p>
+                            <div>
+                                <p>Email: <input type="email" class="form-control" name="email" placeholder="email" th:value="${proveedor.email}" disabled></p>
+                                <input type="hidden" name="correoOculto" th:value="${proveedor.email}">
                             </div>
                             <div>
-                                <input name ="email" type="email" placeholder="Email">
-                            </div>
-                            <div>
-                                <input name="telefono" type="text" placeholder="Numero de Celular">
+                                <p>Telefono: <input  type="text" name="telefono" th:value="${proveedor.telefono}"></p>
                             </div>
                             <div>
                                 <input name="imagen" type="file" placeholder="Cargar Archivo">
                             </div>
                             <div>
-                                <input name="password" type="password" placeholder="Contraseña">
+                                <p>Contraseña: <input name="password" type="password"></p>
                             </div>
                             <div>
-                                <input name="password2" type="password" placeholder="Repetir Contraseña">
+                                <p>Repetir Contraseña: <input name="password2" type="password"></p>
                             </div>
-                         
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-primary" type="submit">Resgistrate</button>
-
+                                <button class="btn btn-primary" type="submit">Guardar</button>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button class="btn btn-secondary" type="reset">Borrar</button>
                             </div>
                             <div class="d-flex justify-content-lg-start">
-                                <a th:href="@{/account}" type="btn btn-secondary">Volver a Registros</a>
+                                <a th:href="@{/supplier/init}" type="btn btn-secondary">Cancelar</a>
                             </div>
                         </form>
                     </div>

@@ -5,10 +5,9 @@
  */
 package com.webAppServicio.Egg.Services;
 
-/**
- *
- * @author Juan Cruz
- */
-public class OrderService {
-    
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderServiceServices {
+
 }
