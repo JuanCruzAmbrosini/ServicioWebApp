@@ -41,7 +41,7 @@ public class SupplierService implements UserDetailsService {
     public void crearProveedor(MultipartFile imagen, String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String tipoServicio) throws MyException {
 
-        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
+        validarProveedor(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
 
         Supplier supplier = new Supplier();
         TechnicalService oficio = new TechnicalService();
@@ -69,14 +69,15 @@ public class SupplierService implements UserDetailsService {
     public void modificarPerfil(MultipartFile imagen, String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String tipoServicio) throws MyException {
 
-        validarProveedor(dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
+        validarProveedor(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
 
         Optional<Supplier> respuesta = supplierR.findById(dni);
+
         if (respuesta.isPresent()) {
 
-            TechnicalService oficio = servicioS.buscarServicioPorTipo(tipoServicio);
-
             Supplier supplier = respuesta.get();
+
+            TechnicalService oficio = servicioS.buscarServicioPorTipo(tipoServicio);
 
             supplier.setDni(dni);
             supplier.setMatricula(matricula);
@@ -84,10 +85,23 @@ public class SupplierService implements UserDetailsService {
             supplier.setApellido(apellido);
             supplier.setTelefono(telefono);
             supplier.setEmail(email);
-            Image image = imagenS.actualizar(imagen, dni);
+            String idImagen = null;
+
+            if (supplier.getEmail() != null) {
+                idImagen = supplier.getImagen().getId();
+            }
+
+            Image image = imagenS.actualizar(imagen, idImagen);
+
             supplier.setImagen(image);
+
             supplier.setPassword(new BCryptPasswordEncoder().encode(password));
+
             supplier.setOficio(oficio);
+            
+            supplier.setRol(Rol.SUPPLIER);
+            
+            supplier.setCalificacion(0);
 
             supplierR.save(supplier);
 
@@ -118,23 +132,23 @@ public class SupplierService implements UserDetailsService {
         List<Supplier> proveedoresPorOficio = new ArrayList<>();
 
         TechnicalService servicio = servicioS.buscarServicioPorTipo(tipoServicio);
-        
+
         proveedoresPorOficio = supplierR.buscarProveedorPorOficio(servicio.getId());
 
         return proveedoresPorOficio;
     }
-    
-    public  List<Supplier> listarProveedoresPorOficioUsandoId(String id){
-        
+
+    public List<Supplier> listarProveedoresPorOficioUsandoId(String id) {
+
         List<Supplier> proveedoresPorOficio = new ArrayList<>();
-        
+
         proveedoresPorOficio = supplierR.buscarProveedorPorOficio(id);
-        
+
         return proveedoresPorOficio;
-        
+
     }
 
-    public void validarProveedor(String dni, String matricula, String nombre, String apellido,
+    public void validarProveedor(MultipartFile imagen, String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String tipoOficio) throws MyException {
 
         if (dni == null || dni.isEmpty()) {
@@ -142,7 +156,7 @@ public class SupplierService implements UserDetailsService {
             throw new MyException("No se registró una entrada válida en el campo del DNI. Por favor, inténtelo nuevamente.");
 
         }
-
+        
         if (matricula == null || matricula.isEmpty()) {
 
             throw new MyException("No se registró una entrada válida en el campo de la matrícula. Por favor, inténtelo nuevamente.");
@@ -189,6 +203,10 @@ public class SupplierService implements UserDetailsService {
 
             throw new MyException("No se registró una entrada válida en el campo del oficio. Por favor, inténtelo nuevamente.");
 
+        }
+
+        if (imagen.isEmpty() || imagen == null) {
+            throw new MyException("No se registró una entrada válida en el campo de imagen. Por favor, inténtelo nuevamente.");
         }
     }
 

@@ -26,7 +26,7 @@ public class SupplierController {
 
     @Autowired
     private ServiceOfServices serviceS;
-    
+
     @GetMapping("/account_supplier")
     public String accountSupplier(ModelMap modelo) {
         List<TechnicalService> servicios = serviceS.listarServicios();
@@ -43,7 +43,7 @@ public class SupplierController {
         try {
 
             TechnicalService oficio = serviceS.buscarServicioPorTipo(tipoServicio);
-            supplierS.crearProveedor(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio );
+            supplierS.crearProveedor(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
             modelo.put("exito", "Proveedor registrado Correctamente");
             return "login.html";
 
@@ -71,35 +71,37 @@ public class SupplierController {
     }
 
     @GetMapping("/order_service")
-    public String ordenServicioProveedor(ModelMap modelo){
+    public String ordenServicioProveedor(ModelMap modelo) {
         return "order_service_supplier.html";
     }
-    
+
     @GetMapping("/profile")
     public String perfilSupplier(HttpSession session, ModelMap modelo) {
         Person proveedor = (Person) session.getAttribute("usuariosession");
         modelo.addAttribute("proveedor", proveedor);
         return "profileSupplier.html";
     }
-    
+
     @GetMapping("/profile_edit")
     public String perfilSupplierEdit(HttpSession session, ModelMap modelo) {
         Person proveedor = (Person) session.getAttribute("usuariosession");
         modelo.addAttribute("proveedor", proveedor);
         return "modification_supplier.html";
     }
-    
+
     @PostMapping("/modification_profile/{dni}")
     public String perfilModificado(@RequestParam("dniOculto") String dni, @RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam("correoOculto") String email,
             @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam("oficioOculto") String tipoServicio,
-            ModelMap modelo, RedirectAttributes redirectAttributes) throws MyException {
-         try {
-            TechnicalService oficio = serviceS.buscarServicioPorTipo(tipoServicio);
+            ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
+        
+        TechnicalService oficio = serviceS.buscarServicioPorTipo(tipoServicio);
+        
+        try {
             supplierS.modificarPerfil(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
-            modelo.put("exito", "Proveedor Modificado Correctamente");
-            
-            return "redirect:/supplier/init";
+
+            redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios");
+            return "redirect:/supplier/profile";
 
         } catch (MyException ex) {
 
@@ -111,7 +113,7 @@ public class SupplierController {
             modelo.put("password", password);
             modelo.put("password2", password2);
 
-            return "modifcation_supplier.html";
+            return "redirect:/supplier/modification_profile/{dni}";
 
         }
     }

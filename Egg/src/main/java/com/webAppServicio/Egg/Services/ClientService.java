@@ -40,7 +40,7 @@ public class ClientService implements UserDetailsService{
     @Transactional
     public void crearUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
 
-        validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
+        validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
         Client usuario = new Client();
 
@@ -71,9 +71,11 @@ public class ClientService implements UserDetailsService{
     }
 
     @Transactional
-    public void modificarPerfil(String dni, String nombre, String apellido, String barrio, String telefono, String direccion, String email, String password, String password2, String sexo) throws MyException {
+    public void modificarPerfil(MultipartFile imagen, String dni, String nombre, String apellido, 
+            String barrio, String telefono, String direccion, 
+            String email, String password, String password2, String sexo) throws MyException {
 
-        validarUsuario(dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
+        validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
         
         Optional<Client> respuesta = userR.findById(dni);
         if (respuesta.isPresent()) {
@@ -86,8 +88,18 @@ public class ClientService implements UserDetailsService{
             usuario.setTelefono(telefono);
             usuario.setDireccion(direccion);
             usuario.setEmail(email);
-            usuario.setPassword(password);
             usuario.setSexo(sexo);
+            String idImagen = null;
+            if (usuario.getEmail() != null) {
+                idImagen = usuario.getImagen().getId();
+            }
+           
+            Image image = imageS.actualizar(imagen, idImagen);
+            
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            
+            usuario.setBarrio(barrio);
+            usuario.setRol(Rol.USER);
             
             userR.save(usuario);
         }
@@ -105,7 +117,7 @@ public class ClientService implements UserDetailsService{
   
     }
     
-    public void validarUsuario (String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2 , String sexo) throws MyException{
+    public void validarUsuario (MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2 , String sexo) throws MyException{
         
         if ( dni == null || dni.isEmpty()){
             
@@ -165,6 +177,9 @@ public class ClientService implements UserDetailsService{
             
             throw new MyException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
             
+        }
+        if (imagen.isEmpty() || imagen == null) {
+            throw new MyException("No se registró una entrada válida en el campo de imagen. Por favor, inténtelo nuevamente.");
         }
         
     }
