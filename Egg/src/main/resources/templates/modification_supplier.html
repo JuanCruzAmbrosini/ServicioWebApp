@@ -10,7 +10,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav th:replace="/fragments/navBar :: nav"></nav>
+                    <nav th:replace="/fragments/navBarSupplier :: navSupplier"></nav>
                 </div>
             </header>
 
@@ -38,8 +38,7 @@
                         <form th:action="@{/supplier/modification_profile/__${proveedor.dni}__}" method="POST" enctype="multipart/form-data">
                             <input hidden th:value="${dni}" name="dni">
                             <div>
-                                <p>DNI: <input  type="number" name="dni" th:value="${proveedor.dni}" disabled></p>
-                                <input type="hidden" name="dniOculto" th:value="${proveedor.dni}">
+                                <p>DNI: <input  type="number" th:value="${proveedor.dni}" disabled></p>
                             </div>
                             <div>
                                 <p>N° Matricula: <input type="text" name="matricula" th:value="${proveedor.matricula}"></p>

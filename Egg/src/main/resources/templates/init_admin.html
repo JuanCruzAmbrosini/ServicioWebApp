@@ -8,7 +8,8 @@
     <!-- head -->
 
     <body>
-
+        <div class="hero_area">
+            
         <!-- header section strats -->
 
         <header class="header_section">
@@ -18,14 +19,53 @@
         </header>
 
         <!-- end header section -->
-
+        
+        </div>
+        
         <!-- validar section -->
 
         <div th:replace="/fragments/validate :: validate"></div>
 
         <!-- end validar section -->
 
-        <h1>Hola Admin</h1>
+        <div class="bg">
+            
+        <!-- main section -->
+        
+        <section class=" slider_section position-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="img-box">
+                            <div>
+                                <img th:src="@{/images/slider-img.jpg}" alt="" class="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="detail-box">
+                            <div>
+                                <h1>
+                                    Hola Admin <br>
+                                    Aca Podras Controlar Todo<br>
+                                    <span>
+                                        Crear, Modificar o Eliminar
+                                    </span>
+                                </h1>
+                                <p th:if="${session.usuariosession != null}" th:text=" 'Estas en tu Sesión '+ ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido} "></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+        
+        <!-- end main section -->
+
+        <!-- footer section -->
+        <footer th:replace="/fragments/footer_login :: footer_login"></footer>
+        <!-- end footer section -->
 
         <!-- script section -->
         <div th:replace="/fragments/scripts :: script"></div>

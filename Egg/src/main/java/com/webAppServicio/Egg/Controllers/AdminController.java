@@ -73,6 +73,39 @@ public class AdminController {
         return "profileAdmin.html";
     }
 
+    @GetMapping("/profile_edit")
+    public String perfilUserEdit(HttpSession session, ModelMap modelo) {
+        Person usuario = (Person) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuario);
+        return "modification_admin.html";
+    }
+
+    @PostMapping("/modification_profile/{dni}")
+    public String perfilModificado(@PathVariable String dni, @RequestParam MultipartFile imagen, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam("correoOculto") String email,
+            @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
+            ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
+         try {
+            userS.modificarPerfilAdmin(imagen, dni, nombre, apellido, barrio, telefono, direccion, email, password, password2, sexo);
+            redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios"); 
+            return "redirect:/admin/profile";
+
+        } catch (MyException ex) {
+            redirectAttributes.addFlashAttribute("error", "Tu Perfil No Se Actualizo");
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("telefono", telefono);
+            modelo.put("password", password);
+            modelo.put("password2", password2);
+            modelo.put("sexo", sexo);
+            modelo.put("direccion", direccion);
+
+            return "redirect:/admin/modification_profile/{dni}";
+
+        }
+    }
+
     @GetMapping("/account_service")
     public String registroServicio() {
         return "account_service.html";

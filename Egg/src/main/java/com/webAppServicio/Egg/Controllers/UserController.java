@@ -119,7 +119,7 @@ public class UserController {
     }
     
     @PostMapping("/modification_profile/{dni}")
-    public String perfilModificado(@RequestParam("dniOculto") String dni, @RequestParam MultipartFile imagen, @RequestParam String nombre,
+    public String perfilModificado(@PathVariable String dni, @RequestParam MultipartFile imagen, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam("correoOculto") String email,
             @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
             ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
@@ -129,7 +129,7 @@ public class UserController {
             return "redirect:/user/profile";
 
         } catch (MyException ex) {
-
+            redirectAttributes.addFlashAttribute("error", "Tu Perfil No Se Actualizo");
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
@@ -139,7 +139,7 @@ public class UserController {
             modelo.put("sexo", sexo);
             modelo.put("direccion", direccion);
 
-            return "redirect:/user/modification_user/{dni}";
+            return "redirect:/user/modification_profile/{dni}";
 
         }
     }
