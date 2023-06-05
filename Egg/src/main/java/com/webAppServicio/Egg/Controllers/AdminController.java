@@ -114,6 +114,27 @@ public class AdminController {
         return "redirect:/admin/user_list";
     }
 
+    @GetMapping("/view_user/{dni}")
+    public String verUsuario(@PathVariable String dni, ModelMap modelo) {
+        Client usuario = userS.getOne(dni);
+        modelo.addAttribute("usuario", usuario);
+        return "view_user_profile.html";
+    }
+
+    @GetMapping("/view_supplier/{dni}")
+    public String verProveedor(@PathVariable String dni, ModelMap modelo) {
+        Supplier proveedor = supplierS.getOne(dni);
+        modelo.addAttribute("proveedor", proveedor);
+        return "view_supplier_profile.html";
+    }
+
+    @GetMapping("/view_service/{id}")
+    public String verServicio(@PathVariable("id") String id, ModelMap modelo) {
+        TechnicalService servicios = serviciosTecnicos.getOne(id);
+        modelo.addAttribute("servicios", servicios);
+        return "view_service_details.html";
+    }
+
     @GetMapping("/account_service")
     public String registroServicio() {
         return "account_service.html";
