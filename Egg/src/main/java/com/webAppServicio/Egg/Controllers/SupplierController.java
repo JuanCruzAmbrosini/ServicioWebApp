@@ -1,10 +1,15 @@
 package com.webAppServicio.Egg.Controllers;
 
+import com.webAppServicio.Egg.Entities.OrderService;
 import com.webAppServicio.Egg.Entities.Person;
+import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.TechnicalService;
 import com.webAppServicio.Egg.Exceptions.MyException;
+import com.webAppServicio.Egg.Services.OrderServiceServices;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,9 @@ public class SupplierController {
 
     @Autowired
     private ServiceOfServices serviceS;
+
+    @Autowired
+    private OrderServiceServices orderS;
 
     @GetMapping("/account_supplier")
     public String accountSupplier(ModelMap modelo) {
@@ -71,7 +79,15 @@ public class SupplierController {
     }
 
     @GetMapping("/order_service")
-    public String ordenServicioProveedor(ModelMap modelo) {
+    public String listaOrdenPorProveedor(ModelMap modelo, HttpSession session) {
+
+        Supplier usuario = (Supplier) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = new ArrayList<>();
+
+        ordenes = orderS.listarOrdenesPorProveedorId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
+
         return "order_service_supplier.html";
     }
 

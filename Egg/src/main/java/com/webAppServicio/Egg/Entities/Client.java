@@ -27,10 +27,4 @@ public class Client extends Person {
     @OneToOne
     private Image imagen;
 
-    @OneToMany
-    private List<TechnicalService> servicios;
-
-    @OneToMany
-    private List<OrderService> ordenServicios;
-
 }

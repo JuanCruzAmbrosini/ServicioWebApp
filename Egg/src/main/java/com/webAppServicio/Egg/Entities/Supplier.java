@@ -1,11 +1,8 @@
 package com.webAppServicio.Egg.Entities;
 
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,13 +19,8 @@ public class Supplier extends Person {
 
     private double calificacion;
 
-    @OneToOne(mappedBy = "proveedor")
-    private OrderService ordenServicio;
-
     @ManyToOne
     @JoinColumn(name = "technical_service_id")
     private TechnicalService oficio;
 
-    @OneToMany
-    private List<OrderService> listaOrdenes;
 }
