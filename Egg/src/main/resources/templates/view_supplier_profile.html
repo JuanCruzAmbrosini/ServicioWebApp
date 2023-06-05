@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <!-- head -->
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <!-- head -->
+
+    <body>
+        <div class="hero_area">
+
+            <!-- header section strats -->
+
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBarAdmin :: navAdmin"></nav>
+                </div>
+            </header>
+
+            <!-- end header section -->
+
+        </div>
+
+        <!-- validar section -->
+
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- end validar section -->
+
+        <section class="contact_section">
+            <div class="container layout_padding2-top">
+                <div class="row justify-content-center">
+                    <input hidden th:value="${dni}" name="dni">
+                    <p><img class="perfil" th:if="${proveedor.imagen != null}" th:src="@{/imagen/perfilSupplier/__${proveedor.dni}__}"></p>
+                    <div class="col-4  mx-auto">
+                        <p>Nombre: <input  type="text" th:value="${proveedor.nombre}" disabled></p>
+                        <p>Apellido: <input  type="text" th:value="${proveedor.apellido}" disabled></p>
+                        <p>Email: <input  type="text" th:value="${proveedor.email}" disabled></p>
+                        <p>Telefono: <input  type="text" th:value="${proveedor.telefono}" disabled></p>
+                    </div>
+                    <div class="col-4  mx-auto">
+                        <p>DNI: <input  type="text" th:value="${proveedor.dni}" disabled></p>
+                        <p>N° Matricula: <input type="text" th:value="${proveedor.matricula}"disabled></p>
+                        <p>Oficio: <input  type="text" th:value="${proveedor.oficio.tipoServicio}" disabled></p>
+                        <div class="d-flex justify-content-center">
+                        <a class="boton_modificar_tabla_cuerpo" th:href="@{/admin/supplier_list}">Volver Lista De Proveedores</a></td>
+                    </div>
+                    </div>
+
+                </div>
+            </div>    
+        </div>
+    </section>
+    <!-- footer section -->
+    <footer th:replace="/fragments/footer_login :: footer_login"></footer>
+    <!-- end footer section -->
+
+    <!-- script section -->
+    <div th:replace="/fragments/scripts :: script"></div>
+    <!-- end scripts section -->
+
+</body>
+
+</html>
