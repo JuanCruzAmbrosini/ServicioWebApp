@@ -2,6 +2,7 @@ package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.UserRepository;

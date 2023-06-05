@@ -11,6 +11,7 @@ import com.webAppServicio.Egg.Services.SupplierService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,9 +86,9 @@ public class AdminController {
             @RequestParam String apellido, @RequestParam("correoOculto") String email,
             @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
             ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
-         try {
+        try {
             userS.modificarPerfilAdmin(imagen, dni, nombre, apellido, barrio, telefono, direccion, email, password, password2, sexo);
-            redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios"); 
+            redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios");
             return "redirect:/admin/profile";
 
         } catch (MyException ex) {
@@ -104,6 +105,13 @@ public class AdminController {
             return "redirect:/admin/modification_profile/{dni}";
 
         }
+    }
+
+    @GetMapping("/modificarRol/{dni}")
+    public String cambiarRol(@PathVariable String dni, RedirectAttributes redirectAttributes) {
+        userS.cambiarRol(dni);
+        redirectAttributes.addFlashAttribute("exito", "El Usuario a Cambiado a un Nuevo Rol");
+        return "redirect:/admin/user_list";
     }
 
     @GetMapping("/account_service")
