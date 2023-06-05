@@ -2,16 +2,8 @@ package com.webAppServicio.Egg.Entities;
 
 import com.webAppServicio.Egg.Enums.EstatusOrden;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +20,11 @@ public class OrderService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String detalleorden;
+    @ManyToOne
+    @JoinColumn(name = "technical_service_id")
+    private TechnicalService Oficio;
+
+    private String detalleOrden;
 
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
@@ -37,9 +33,11 @@ public class OrderService {
     private Date fechaRecibida;
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client usuario;
 
-    @OneToOne()
+    @ManyToOne()
+    @JoinColumn(name = "supplier_id")
     private Supplier proveedor;
 
     @Enumerated(EnumType.STRING)
