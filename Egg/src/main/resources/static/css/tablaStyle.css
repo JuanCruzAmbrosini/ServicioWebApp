@@ -45,7 +45,7 @@
 
 }
 
-.boton_eliminar_tabla_cuerpo , .boton_modificar_tabla_cuerpo{
+.boton_eliminar_tabla_cuerpo , .boton_modificar_tabla_cuerpo, .boton_ver_tabla_cuerpo{
 
     border-radius: 5px;
     color: white;
@@ -73,6 +73,12 @@
 
 }
 
+.boton_ver_tabla_cuerpo {
+
+    background-color: #ffff00;
+    color: black;
+
+}
 .modal {
     display: none;
     position: fixed;
@@ -100,7 +106,7 @@
 }
 
 .perfil{
-    
+
     display: block;
     height: 150px;
     margin: auto;
