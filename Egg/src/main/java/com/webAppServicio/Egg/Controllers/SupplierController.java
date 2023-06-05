@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,7 +107,7 @@ public class SupplierController {
     }
 
     @PostMapping("/modification_profile/{dni}")
-    public String perfilModificado(@RequestParam("dniOculto") String dni, @RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
+    public String perfilModificado(@PathVariable String dni, @RequestParam MultipartFile imagen, @RequestParam String matricula, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam("correoOculto") String email,
             @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam("oficioOculto") String tipoServicio,
             ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
@@ -120,7 +121,7 @@ public class SupplierController {
             return "redirect:/supplier/profile";
 
         } catch (MyException ex) {
-
+            redirectAttributes.addFlashAttribute("error", "Tu Perfil No Se Actualizo");
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);

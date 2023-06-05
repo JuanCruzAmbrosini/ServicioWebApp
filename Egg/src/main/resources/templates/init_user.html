@@ -21,6 +21,12 @@
             <!-- end header section -->
 
         </div>
+        
+        <!-- validar section -->
+
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- end validar section -->
 
         <div class="bg">
 
@@ -39,16 +45,13 @@
                             <div class="detail-box">
                                 <div>
                                     <h1>
-                                        Contratá sin moverte <br>
-                                        De tu casa <br>
+                                        Bienvenido De Nuevo <br>                                      
+                                        Contratá Sin Moverte <br>
                                         <span>
-                                            Servicios Desde La Aplicacion
+                                            Servicios Desde Tu Casa
                                         </span>
                                     </h1>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                        sed do eiusmod tempor incididunt ut labore
-                                    </p>
+                                    <p th:if="${session.usuariosession != null}" th:text=" 'Estas en tu Sesión '+ ${session.usuariosession.nombre} + ' ' + ${session.usuariosession.apellido} "></p>
                                 </div>
                             </div>
                         </div>

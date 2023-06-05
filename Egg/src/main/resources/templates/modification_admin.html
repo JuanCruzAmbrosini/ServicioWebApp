@@ -10,7 +10,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
+                    <nav th:replace="/fragments/navBarAdmin :: navAdmin"></nav>
                 </div>
             </header>
 
@@ -35,7 +35,7 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form th:action="@{/user/modification_profile/__${usuario.dni}__}" method="POST" enctype="multipart/form-data">
+                        <form th:action="@{/admin/modification_profile/__${usuario.dni}__}" method="POST" enctype="multipart/form-data">
                             <input hidden th:value="${dni}" name="dni">
                             <div>
                                 <p>DNI: <input  type="number" th:value="${usuario.dni}" disabled></p>

@@ -39,10 +39,9 @@
                         <th class="elemento_tabla_encabezado">Nombre</th>
                         <th class="elemento_tabla_encabezado">Apellido</th>
                         <th class="elemento_tabla_encabezado">Direccion</th>
-                        <th class="elemento_tabla_encabezado">Barrio</th>
                         <th class="elemento_tabla_encabezado">E-mail</th>
                         <th class="elemento_tabla_encabezado">Teléfono</th>
-                        <th class="elemento_tabla_encabezado">Sexo</th>                    
+                        <th class="elemento_tabla_encabezado">Rol</th>                    
                         <th class="elemento_tabla_encabezado"></th>
                         <th class="elemento_tabla_encabezado"></th>
 
@@ -60,14 +59,13 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${usuario.nombre}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${usuario.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${usuario.direccion}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.barrio}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${usuario.email}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${usuario.telefono}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.sexo}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${usuario.rol}"></td>
 
                     <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo"
                                                          th:href="@{/admin/user_delete/__${usuario.dni}__}">Eliminar</a></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="#">Modificar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" th:href="@{/admin/modificarRol/__${usuario.dni}__}">Cambiar</a></td>
 
                 </tr>
 

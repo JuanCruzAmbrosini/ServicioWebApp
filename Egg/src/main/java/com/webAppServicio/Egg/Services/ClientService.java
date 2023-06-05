@@ -1,8 +1,8 @@
-
 package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.UserRepository;
@@ -24,16 +24,15 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Service
-public class ClientService implements UserDetailsService{
+public class ClientService implements UserDetailsService {
 
     @Autowired
     private UserRepository userR;
-    
+
     @Autowired
     private ImageService imageS;
-    
+
     @Autowired
     private SupplierService supplierS;
 
@@ -41,7 +40,7 @@ public class ClientService implements UserDetailsService{
     public void crearUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
 
         validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
-        
+
         Client usuario = new Client();
 
         usuario.setDni(dni);
@@ -56,7 +55,7 @@ public class ClientService implements UserDetailsService{
         usuario.setImagen(image);
         usuario.setBarrio(barrio);
         usuario.setRol(Rol.USER);
-        
+
         userR.save(usuario);
 
     }
@@ -71,12 +70,12 @@ public class ClientService implements UserDetailsService{
     }
 
     @Transactional
-    public void modificarPerfil(MultipartFile imagen, String dni, String nombre, String apellido, 
-            String barrio, String telefono, String direccion, 
+    public void modificarPerfil(MultipartFile imagen, String dni, String nombre, String apellido,
+            String barrio, String telefono, String direccion,
             String email, String password, String password2, String sexo) throws MyException {
 
         validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
-        
+
         Optional<Client> respuesta = userR.findById(dni);
         if (respuesta.isPresent()) {
 
@@ -93,122 +92,183 @@ public class ClientService implements UserDetailsService{
             if (usuario.getEmail() != null) {
                 idImagen = usuario.getImagen().getId();
             }
-           
+
             Image image = imageS.actualizar(imagen, idImagen);
-            
+
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-            
+
             usuario.setBarrio(barrio);
             usuario.setRol(Rol.USER);
-            
+
             userR.save(usuario);
         }
 
     }
-    
-    public Client getOne(String dni){
+
+    @Transactional
+    public void modificarPerfilAdmin(MultipartFile imagen, String dni, String nombre, String apellido,
+            String barrio, String telefono, String direccion,
+            String email, String password, String password2, String sexo) throws MyException {
+
+        validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
+
+        Optional<Client> respuesta = userR.findById(dni);
+        
+        if (respuesta.isPresent()) {
+
+            Client usuario = respuesta.get();
+
+            usuario.setDni(dni);
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setTelefono(telefono);
+            usuario.setDireccion(direccion);
+            usuario.setEmail(email);
+            usuario.setSexo(sexo);
+            
+            String idImagen = null;
+            
+            if (usuario.getEmail() != null) {
+                idImagen = usuario.getImagen().getId();
+            }
+
+            Image image = imageS.actualizar(imagen, idImagen);
+
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+
+            usuario.setBarrio(barrio);
+            
+            if (usuario.getRol().equals(Rol.ADMIN)) {
+
+                usuario.setRol(Rol.ADMIN);
+            }
+
+            userR.save(usuario);
+        }
+
+    }
+
+    @Transactional
+    public void cambiarRol(String dni) {
+        Optional<Client> respuesta = userR.findById(dni);
+
+        if (respuesta.isPresent()) {
+
+            Client usuario = respuesta.get();
+
+            if (usuario.getRol().equals(Rol.USER)) {
+
+                usuario.setRol(Rol.ADMIN);
+
+            } else if (usuario.getRol().equals(Rol.ADMIN)) {
+                usuario.setRol(Rol.USER);
+            }
+        }
+    }
+
+    public Client getOne(String dni) {
         return userR.getOne(dni);
     }
-    
+
     @Transactional
-    public void eliminarUsuario (String dni){
-        
+    public void eliminarUsuario(String dni) {
+
         userR.deleteById(dni);
-  
+
     }
-    
-    public void validarUsuario (MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2 , String sexo) throws MyException{
-        
-        if ( dni == null || dni.isEmpty()){
-            
+
+    public void validarUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
+
+        if (dni == null || dni.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del DNI. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (nombre == null || nombre.isEmpty()){
-            
+
+        if (nombre == null || nombre.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del nombre. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (apellido == null || apellido.isEmpty()){
-            
+
+        if (apellido == null || apellido.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del Apellido. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (telefono == null || telefono.isEmpty()){
-            
+
+        if (telefono == null || telefono.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del teléfono. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (direccion == null || direccion.isEmpty()){
-            
+
+        if (direccion == null || direccion.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del la dirección. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (barrio == null || barrio.isEmpty()){
-            
+
+        if (barrio == null || barrio.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del barrio. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (email == null || email.isEmpty()){
-            
+
+        if (email == null || email.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del e-mail. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (password == null || password.isEmpty()){
-            
+
+        if (password == null || password.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo de la contraseña. Por favor, inténtelo nuevamente.");
-            
+
         }
-        
-        if (!password2.equals(password)){
-            
+
+        if (!password2.equals(password)) {
+
             throw new MyException("Las contraseñas no coinciden, por favor, revise nuevamente los campos.");
-            
+
         }
-        
-        if (sexo == null || sexo.isEmpty()){
-            
+
+        if (sexo == null || sexo.isEmpty()) {
+
             throw new MyException("No se registró una entrada válida en el campo del sexo. Por favor, inténtelo nuevamente.");
-            
+
         }
         if (imagen.isEmpty() || imagen == null) {
             throw new MyException("No se registró una entrada válida en el campo de imagen. Por favor, inténtelo nuevamente.");
         }
-        
+
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        
+
         Client usuario = userR.buscarUsuarioPorEmail(email);
-        
+
         if (usuario != null) {
-            
+
             List<GrantedAuthority> permisos = new ArrayList();
-            
+
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-            
+
             permisos.add(p);
-            
+
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            
+
             HttpSession session = attr.getRequest().getSession(true);
-            
+
             session.setAttribute("usuariosession", usuario);
-            
-            return new User(usuario.getEmail(), usuario.getPassword(),permisos);
-        }else{
-            
-           return  supplierS.loadUserByUsername(email);
-            
+
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+        } else {
+
+            return supplierS.loadUserByUsername(email);
+
         }
     }
-    
+
 }

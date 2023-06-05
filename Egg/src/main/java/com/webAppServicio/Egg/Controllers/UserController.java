@@ -131,17 +131,17 @@ public class UserController {
     }
 
     @PostMapping("/modification_profile/{dni}")
-    public String perfilModificado(@RequestParam("dniOculto") String dni, @RequestParam MultipartFile imagen, @RequestParam String nombre,
-                                   @RequestParam String apellido, @RequestParam("correoOculto") String email,
-                                   @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
-                                   ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
-        try {
+    public String perfilModificado(@PathVariable String dni, @RequestParam MultipartFile imagen, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam("correoOculto") String email,
+            @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
+            ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
+         try {
             userS.modificarPerfil(imagen, dni, nombre, apellido, barrio, telefono, direccion, email, password, password2, sexo);
             redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios");
             return "redirect:/user/profile";
 
         } catch (MyException ex) {
-
+            redirectAttributes.addFlashAttribute("error", "Tu Perfil No Se Actualizo");
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
@@ -151,7 +151,7 @@ public class UserController {
             modelo.put("sexo", sexo);
             modelo.put("direccion", direccion);
 
-            return "profileUser.html";
+            return "redirect:/user/modification_profile/{dni}";
 
         }
     }

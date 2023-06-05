@@ -41,7 +41,7 @@
                             <p class="card-text" th:text=" 'Matricula N°: ' + ${tecnico.matricula}"></p>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-success">Presupuesto</a>
+                            <a th:href="@{/order/quote}" class="btn btn-success">Presupuesto</a>
                             <a th:href="@{/user/new_order/{dni}(dni=${tecnico.dni})}" class="btn btn-warning">Contratar</a>
                         </div>
                     </div>
