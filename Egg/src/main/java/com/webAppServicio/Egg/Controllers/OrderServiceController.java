@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/order")
 public class OrderServiceController {
-    
-    @GetMapping("/detail_service")
-    public String detalleOrden(){
-        return "detail_service";
-    }
-    
-    @GetMapping("/quote")
-    public String pedirCotizacion(){
-        return "budget.html";
-    }
-    
-    @PostMapping("/newBudget")
-    public String nuevoPresupuesto(){
-        return "redirect:/user/order_service";
-    }
+//    
+//    @GetMapping("/detail_service")
+//    public String detalleOrden(){
+//        return "detail_service";
+//    }
+//    
+//    @GetMapping("/quote")
+//    public String pedirCotizacion(){
+//        return "budget.html";
+//    }
+//    
+//    @PostMapping("/newBudget")
+//    public String nuevoPresupuesto(){
+//        return "redirect:/user/order_service";
+//    }
 }
