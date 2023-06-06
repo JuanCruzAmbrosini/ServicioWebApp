@@ -130,7 +130,7 @@ public class UserController {
     }
 
     @PostMapping("/order_service_budgeted_aproved/{id}")
-    public String aprovarOrden (@PathVariable Integer id, ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes){
+    public String aprovarOrden(@PathVariable Integer id, ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
 
         OrderService orden = orderS.getOne(id);
         EnvioDeCorreo edc = new EnvioDeCorreo();
@@ -142,14 +142,14 @@ public class UserController {
                     orden.getDetalleOrden(), orden.getPresupuesto(),
                     String.valueOf(EstatusOrden.DESARROLLO), orden.getFechaRecibida());
 
-            edc.transfer_to_email(orden.getProveedor().getEmail(),"Buenas noticias! " + usuario.getNombre() + " " +
-                    usuario.getApellido() + " ha aceptado la orden (orden N° " + orden.getId() +")! \nEl usuario te estará esperando a la hora que has marcado.\nMuchas gracias por usar nuestros servicios!",
-                     "Orden N°" + orden.getId() + " aceptada! Felicidades!");
+            edc.transfer_to_email(orden.getProveedor().getEmail(), "Buenas noticias! " + usuario.getNombre() + " "
+                    + usuario.getApellido() + " ha aceptado la orden (orden N° " + orden.getId() + ")! \nEl usuario te estará esperando a la hora que has marcado.\nMuchas gracias por usar nuestros servicios!",
+                    "Orden N°" + orden.getId() + " aceptada! Felicidades!");
             redirectAttributes.addFlashAttribute("exito", "La orden ha sido aceptada y se le informará al tecnico a la brevedad! \nGracias por usar nuestros servicios!");
 
             return "redirect:/user/order_service_budgeted";
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
             redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error. Inténtelo nuevamente mas tarde! \nGracias por usar nuestros servicios!");
             return "redirect:/user/order_service_budgeted";
@@ -174,8 +174,17 @@ public class UserController {
 //        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
 //
 //        modelo.addAttribute("ordenes", ordenes);
-
         return "order_service_user_finally.html";
+    }
+
+    @GetMapping("/order_scoring")
+    public String CalificacionPorUsuarioAProveedor(ModelMap modelo, HttpSession session) {
+
+//        Client usuario = (Client) session.getAttribute("usuariosession");
+//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
+//
+//        modelo.addAttribute("ordenes", ordenes);
+        return "order_service_puntuaction.html";
     }
 
     @GetMapping("/profile")
@@ -232,8 +241,8 @@ public class UserController {
 
         EnvioDeCorreo edc = new EnvioDeCorreo();
         edc.transfer_to_email(order.getProveedor().getEmail(), "El usuario: " + order.getUsuario().getNombre() + " "
-                                + order.getUsuario().getApellido() + " ha cancelado la orden pendiente (id N°= "+ order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
-                                + order.getId() + " cancelada.");
+                + order.getUsuario().getApellido() + " ha cancelado la orden pendiente (id N°= " + order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
+                + order.getId() + " cancelada.");
 
         orderS.eliminarOrden(id);
 
@@ -248,7 +257,7 @@ public class UserController {
 
         EnvioDeCorreo edc = new EnvioDeCorreo();
         edc.transfer_to_email(order.getProveedor().getEmail(), "El usuario: " + order.getUsuario().getNombre() + " "
-                + order.getUsuario().getApellido() + " ha cancelado la orden pendiente (id N°= "+ order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
+                + order.getUsuario().getApellido() + " ha cancelado la orden pendiente (id N°= " + order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
                 + order.getId() + " cancelada.");
 
         orderS.eliminarOrden(id);

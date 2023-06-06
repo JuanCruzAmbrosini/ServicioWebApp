@@ -48,7 +48,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaFinalizacion}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.proveedor.nombre +' '+ orden.proveedor.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Valorar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" th:href="@{/user/order_scoring}">Valorar</a></td>
                 </tr>
                 </tbody>
                 </thead>
