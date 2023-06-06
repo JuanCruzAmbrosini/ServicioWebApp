@@ -10,7 +10,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
+                    <nav th:replace="/fragments/navBarSupplier :: navSupplier"></nav>
                 </div>
             </header>
 
@@ -24,17 +24,16 @@
 
         <div class="contenido_principal">
             <br>
-            <h3>En Proceso</h3>
+            <h3>Finalizadas</h3>
             <table class="tabla" >
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>
-                        <th class="elemento_tabla_encabezado">Tipo de Servicio</th>
                         <th class="elemento_tabla_encabezado">Detalle Servicio</th>
                         <th class="elemento_tabla_encabezado">Fecha Inicio</th>
-                        <th class="elemento_tabla_encabezado">Fecha/Hora Visita</th>
-                        <th class="elemento_tabla_encabezado">Tecnico</th>
-                        <th class="elemento_tabla_encabezado">Estado</th>                    
+                        <th class="elemento_tabla_encabezado">Fecha Finalizada</th>
+                        <th class="elemento_tabla_encabezado">Cliente</th>
+                        <th class="elemento_tabla_encabezado">Estado</th>                  
                         <th class="elemento_tabla_encabezado"></th>
                         <th class="elemento_tabla_encabezado"></th>
                     </tr>
@@ -42,11 +41,10 @@
                 <input hidden th:value="${id}" name="id">
                 <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}">
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.id}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.oficio.tipoServicio}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.detalleOrden}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaCreacion}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fecha_hora}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.proveedor.nombre +' '+ orden.proveedor.apellido}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaFinalizacion}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.nombre + ' ' + orden.usuario.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
                 </tr>
                 </tbody>
@@ -54,7 +52,7 @@
             </table>
             <section class="py-5 text-center container">
                 <div class="d-flex justify-content-lg-start">
-                    <a th:href="@{/user/init}" type="btn btn-secondary">Volver</a>
+                    <a th:href="@{/supplier/init}" type="btn btn-secondary">Volver</a>
                 </div>
             </section>
 

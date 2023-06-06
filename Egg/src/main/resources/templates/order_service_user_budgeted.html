@@ -24,15 +24,14 @@
 
         <div class="contenido_principal">
             <br>
-            <h3>En Proceso</h3>
+            <h3>Presupuestadas</h3>
             <table class="tabla" >
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>
                         <th class="elemento_tabla_encabezado">Tipo de Servicio</th>
-                        <th class="elemento_tabla_encabezado">Detalle Servicio</th>
-                        <th class="elemento_tabla_encabezado">Fecha Inicio</th>
                         <th class="elemento_tabla_encabezado">Fecha/Hora Visita</th>
+                        <th class="elemento_tabla_encabezado">Presupuesto</th>
                         <th class="elemento_tabla_encabezado">Tecnico</th>
                         <th class="elemento_tabla_encabezado">Estado</th>                    
                         <th class="elemento_tabla_encabezado"></th>
@@ -43,11 +42,12 @@
                 <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}">
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.id}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.oficio.tipoServicio}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.detalleOrden}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaCreacion}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.fecha_hora}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.presupuesto}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.proveedor.nombre +' '+ orden.proveedor.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="">Aceptar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Cancelar</a></td>
                 </tr>
                 </tbody>
                 </thead>

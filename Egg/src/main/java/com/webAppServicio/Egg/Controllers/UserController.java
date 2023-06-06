@@ -47,9 +47,9 @@ public class UserController {
 
     @PostMapping("/registered_user")
     public String newUser(@RequestParam MultipartFile imagen, @RequestParam String dni, @RequestParam String nombre,
-                          @RequestParam String apellido, @RequestParam String telefono,
-                          @RequestParam String direccion, @RequestParam String barrio, @RequestParam String email,
-                          @RequestParam String password, @RequestParam String password2, @RequestParam String sexo, ModelMap modelo) throws MyException {
+            @RequestParam String apellido, @RequestParam String telefono,
+            @RequestParam String direccion, @RequestParam String barrio, @RequestParam String email,
+            @RequestParam String password, @RequestParam String password2, @RequestParam String sexo, ModelMap modelo) throws MyException {
 
         try {
             userS.crearUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
@@ -100,7 +100,7 @@ public class UserController {
         List<Supplier> tecnicosPorOficio = new ArrayList<>();
         tecnicosPorOficio = supplierS.listarProveedoresPorOficio(tipoServicio);
         modelo.addAttribute("tecnicosPorOficio", tecnicosPorOficio);
-        modelo.addAttribute("tipoServicio",tipoServicio);
+        modelo.addAttribute("tipoServicio", tipoServicio);
 
         return "request_supplier.html";
     }
@@ -114,6 +114,37 @@ public class UserController {
         modelo.addAttribute("ordenes", ordenes);
 
         return "order_service_user.html";
+    }
+
+    @GetMapping("/order_service_budgeted")
+    public String ListaOrdenPorUsuarioPresupuestadas(ModelMap modelo, HttpSession session) {
+
+//        Client usuario = (Client) session.getAttribute("usuariosession");
+//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
+//
+//        modelo.addAttribute("ordenes", ordenes);
+        return "order_service_user_budgeted.html";
+    }
+
+    @GetMapping("/order_service_in_process")
+    public String ListaOrdenPorUsuarioEnProceso(ModelMap modelo, HttpSession session) {
+
+//        Client usuario = (Client) session.getAttribute("usuariosession");
+//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
+//
+//        modelo.addAttribute("ordenes", ordenes);
+        return "order_service_user_in_process.html";
+    }
+
+    @GetMapping("/order_service_finally")
+    public String ListaOrdenPorUsuarioFinalizadas(ModelMap modelo, HttpSession session) {
+
+//        Client usuario = (Client) session.getAttribute("usuariosession");
+//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
+//
+//        modelo.addAttribute("ordenes", ordenes);
+
+        return "order_service_user_finally.html";
     }
 
     @GetMapping("/profile")
@@ -135,7 +166,7 @@ public class UserController {
             @RequestParam String apellido, @RequestParam("correoOculto") String email,
             @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
             ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
-         try {
+        try {
             userS.modificarPerfil(imagen, dni, nombre, apellido, barrio, telefono, direccion, email, password, password2, sexo);
             redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios");
             return "redirect:/user/profile";
@@ -166,7 +197,7 @@ public class UserController {
 
     @PostMapping("/new_order_done/{dni}")
     public String nuevaOrdenCreada(@PathVariable String dni, @RequestParam String detalleOrden,
-                                   ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
+            ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
 
         Client usuario = (Client) session.getAttribute("usuariosession");
         Supplier supplier = supplierS.getOne(dni);
@@ -177,10 +208,10 @@ public class UserController {
 
             EnvioDeCorreo edc = new EnvioDeCorreo();
 
-            orderS.createOrder(tipoServicio , detalleOrden, usuario, supplier);
+            orderS.createOrder(tipoServicio, detalleOrden, usuario, supplier);
 
-            edc.transfer_to_email(supplier.getEmail(), detalleOrden + "\n" + "Usuario: " + usuario.getNombre() + " " +
-                    usuario.getApellido() + "\n" + "Fecha de emisión de la orden: " + fechaActual ,"Nueva orden para el servicio de: " + tipoServicio );
+            edc.transfer_to_email(supplier.getEmail(), detalleOrden + "\n" + "Usuario: " + usuario.getNombre() + " "
+                    + usuario.getApellido() + "\n" + "Fecha de emisión de la orden: " + fechaActual, "Nueva orden para el servicio de: " + tipoServicio);
 
             redirectAttributes.addFlashAttribute("exito", "La orden ha sido enviada. El técnico encargado la evaluará a la brevedad.");
 
