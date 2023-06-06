@@ -164,6 +164,22 @@ public class UserController {
         return "order_creation.html";
     }
 
+    @GetMapping("/order_cancel/{id}")
+    public String cancelarOrden(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws MyException {
+        OrderService order = orderS.getOne(id);
+
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        edc.transfer_to_email(order.getProveedor().getEmail(), "El usuario: " + order.getUsuario().getNombre() + " "
+                                + order.getUsuario().getApellido() + " ha cancelado la orden pendiente (id N°= "+ order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
+                                + order.getId() + " cancelada.");
+
+        orderS.eliminarOrden(id);
+
+        redirectAttributes.addFlashAttribute("exito", "La orden ha sido cancelada con éxito.");
+
+        return "redirect:/user/order_service";
+    }
+
     @PostMapping("/new_order_done/{dni}")
     public String nuevaOrdenCreada(@PathVariable String dni, @RequestParam String detalleOrden,
                                    ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {

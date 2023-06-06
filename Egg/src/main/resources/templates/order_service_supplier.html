@@ -46,7 +46,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.direccion}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.telefono}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="">Aceptar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" th:href ="@{/supplier/order_response/__${orden.id}__}">Aceptar</a></td>
                     <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Rechazar</a></td>
                 </tr>
                 </tbody>

@@ -1,5 +1,7 @@
 package com.webAppServicio.Egg.Controllers;
 
+import com.webAppServicio.Egg.DateConverter.DateConverter;
+import com.webAppServicio.Egg.Email.EnvioDeCorreo;
 import com.webAppServicio.Egg.Entities.OrderService;
 import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Entities.Supplier;
@@ -10,6 +12,7 @@ import com.webAppServicio.Egg.Services.ServiceOfServices;
 import com.webAppServicio.Egg.Services.SupplierService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,4 +137,40 @@ public class SupplierController {
 
         }
     }
+
+    @GetMapping ("/order_response/{id}")
+    public String cotizarOrden (ModelMap modelo, @PathVariable Integer id){
+
+        modelo.addAttribute("orden", orderS.getOne(id));
+
+        return "order_response.html";
+
+    }
+
+    @PostMapping ("/order_responsed/{id}")
+    public String ordenCotizada(@PathVariable Integer id, @RequestParam String fecha_hora, @RequestParam double presupuesto, HttpSession session, ModelMap modelo){
+
+        DateConverter dc = new DateConverter();
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        Supplier proveedor = (Supplier) session.getAttribute("usuariosession");
+        OrderService orden = orderS.getOne(id);
+        Date fechaRecibida = dc.conversorFecha(fecha_hora);
+
+        try {
+            orderS.modificarOrden(orden.getId(), orden.getOficio().getTipoServicio(),orden.getDetalleOrden(),presupuesto,"COTIZADA",fechaRecibida);
+            edc.transfer_to_email(orden.getUsuario().getEmail(), "La orden N° " + orden.getId() + " ya ha sido cotizada por el técnico " + proveedor.getNombre() + " " +
+                    proveedor.getApellido() +" y está a la espera de su confirmación! \n Gracias por usar nuestros servicios!","Orden N° " + orden.getId() + "(" +
+                    orden.getOficio().getTipoServicio() + ") ha sido cotizada.");
+
+            modelo.addAttribute("exito","La orden ha sido cotizada y se le enviará la información al cliente.");
+
+            return "redirect:/supplier/order_service";
+
+        } catch (MyException e) {
+            modelo.addAttribute("error","Ha habido un inconveniente a la hora de enviar la cotización. Revise los campos ingresados o inténtelo nuevamente más tarde.");
+            return "redirect:/supplier/order_service";
+        }
+
+    }
+
 }

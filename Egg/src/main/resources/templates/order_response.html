@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+<div class="hero_area">
+
+    <!-- header section strats -->
+
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav th:replace="/fragments/navBarSupplier :: navSupplier"></nav>
+        </div>
+    </header>
+
+    <!-- end header section -->
+
+</div>
+
+<!-- validar section -->
+
+<div th:replace="/fragments/validate :: validate"></div>
+
+<!-- end validar section -->
+
+<!-- form section -->
+
+<section class="contact_section layout_padding">
+    <div class="custom_heading-container">
+        <h3 class=" ">
+            Responde a Esta Nueva Solicitud De servicio!
+        </h3>
+    </div>
+
+    <div class="container layout_padding2-top">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <form th:action = "@{/supplier/order_responsed/__${orden.id}__}" method="POST"
+                      enctype="multipart/form-data">
+                    <div>
+                        <label for="fecha_hora">Fecha y Hora:</label>
+                        <input type="datetime-local" name="fecha_hora">
+                    </div>
+                    <div>
+                        <label for="costo"></label>
+                        <input type="number" name="presupuesto" placeholder="Presupuesto $: ">
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary" type="submit">Enviar orden</button>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-secondary" type="reset">Borrar</button>
+                    </div>
+                    <div class="d-flex justify-content-lg-start">
+                        <a th:href="@{/supplier/order_service}" type="btn btn-secondary">Volver</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end form section -->
+
+<!-- footer section -->
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+<!-- end footer section -->
+
+<!-- script section -->
+<div th:replace="/fragments/scripts :: script"></div>
+<!-- end scripts section -->
+
+</body>
+
+</html>
