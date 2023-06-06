@@ -2,6 +2,7 @@ package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.Email.EnvioDeCorreo;
 import com.webAppServicio.Egg.Entities.*;
+import com.webAppServicio.Egg.Enums.EstatusOrden;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.ClientService;
 import com.webAppServicio.Egg.Services.OrderServiceServices;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -119,20 +121,49 @@ public class UserController {
     @GetMapping("/order_service_budgeted")
     public String ListaOrdenPorUsuarioPresupuestadas(ModelMap modelo, HttpSession session) {
 
-//        Client usuario = (Client) session.getAttribute("usuariosession");
-//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
-//
-//        modelo.addAttribute("ordenes", ordenes);
+        Client usuario = (Client) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
+
         return "order_service_user_budgeted.html";
+    }
+
+    @PostMapping("/order_service_budgeted_aproved/{id}")
+    public String aprovarOrden (@PathVariable Integer id, ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes){
+
+        OrderService orden = orderS.getOne(id);
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        Client usuario = (Client) session.getAttribute("usuariosession");
+
+        try {
+
+            orderS.modificarOrden(orden.getId(), orden.getOficio().getTipoServicio(),
+                    orden.getDetalleOrden(), orden.getPresupuesto(),
+                    String.valueOf(EstatusOrden.DESARROLLO), orden.getFechaRecibida());
+
+            edc.transfer_to_email(orden.getProveedor().getEmail(),"Buenas noticias! " + usuario.getNombre() + " " +
+                    usuario.getApellido() + " ha aceptado la orden (orden N° " + orden.getId() +")! \nEl usuario te estará esperando a la hora que has marcado.\nMuchas gracias por usar nuestros servicios!",
+                     "Orden N°" + orden.getId() + " aceptada! Felicidades!");
+            redirectAttributes.addFlashAttribute("exito", "La orden ha sido aceptada y se le informará al tecnico a la brevedad! \nGracias por usar nuestros servicios!");
+
+            return "redirect:/user/order_service_budgeted";
+
+        } catch (Exception e){
+
+            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error. Inténtelo nuevamente mas tarde! \nGracias por usar nuestros servicios!");
+            return "redirect:/user/order_service_budgeted";
+        }
+
     }
 
     @GetMapping("/order_service_in_process")
     public String ListaOrdenPorUsuarioEnProceso(ModelMap modelo, HttpSession session) {
 
-//        Client usuario = (Client) session.getAttribute("usuariosession");
-//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
-//
-//        modelo.addAttribute("ordenes", ordenes);
+        Client usuario = (Client) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
         return "order_service_user_in_process.html";
     }
 
@@ -193,6 +224,38 @@ public class UserController {
         modelo.addAttribute("tecnico", supplierS.getOne(dni));
 
         return "order_creation.html";
+    }
+
+    @GetMapping("/order_cancel/{id}")
+    public String cancelarOrdenSinCotizar(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws MyException {
+        OrderService order = orderS.getOne(id);
+
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        edc.transfer_to_email(order.getProveedor().getEmail(), "El usuario: " + order.getUsuario().getNombre() + " "
+                                + order.getUsuario().getApellido() + " ha cancelado la orden pendiente (id N°= "+ order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
+                                + order.getId() + " cancelada.");
+
+        orderS.eliminarOrden(id);
+
+        redirectAttributes.addFlashAttribute("exito", "La orden ha sido cancelada con éxito.");
+
+        return "redirect:/user/order_service";
+    }
+
+    @GetMapping("/order_cancel_budgeted/{id}")
+    public String cancelarOrdenCotizada(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws MyException {
+        OrderService order = orderS.getOne(id);
+
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        edc.transfer_to_email(order.getProveedor().getEmail(), "El usuario: " + order.getUsuario().getNombre() + " "
+                + order.getUsuario().getApellido() + " ha cancelado la orden pendiente (id N°= "+ order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
+                + order.getId() + " cancelada.");
+
+        orderS.eliminarOrden(id);
+
+        redirectAttributes.addFlashAttribute("exito", "La orden ha sido cancelada con éxito.");
+
+        return "redirect:/user/order_service_budgeted";
     }
 
     @PostMapping("/new_order_done/{dni}")

@@ -10,5 +10,5 @@ package com.webAppServicio.Egg.Enums;
  * @author Juan Cruz
  */
 public enum EstatusOrden {
-    ABIERTA,DESARROLLO,FINALIZADA;
+    ABIERTA,COTIZADA,DESARROLLO,FINALIZADA;
 }

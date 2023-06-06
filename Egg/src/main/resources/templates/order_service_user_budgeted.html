@@ -39,15 +39,18 @@
                     </tr>
                 <tbody>
                 <input hidden th:value="${id}" name="id">
-                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}">
+                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}" th:if="${orden.estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).COTIZADA}">
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.id}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.oficio.tipoServicio}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fecha_hora}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaRecibida}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.presupuesto}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.proveedor.nombre +' '+ orden.proveedor.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="">Aceptar</a></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Cancelar</a></td>
+                    <td class="elemento_tabla_cuerpo">  <form th:action="@{/user/order_service_budgeted_aproved/__${orden.id}__}" method="post" style="display: inline;">
+                                                                <input type="hidden" name="_method" value="post" />
+                                                                <input type="submit" class="boton_modificar_tabla_cuerpo" value="Aceptar" />
+                                                                </form></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" th:href = "@{/user/order_cancel_budgeted/__${orden.id}__}">Cancelar</a></td>
                 </tr>
                 </tbody>
                 </thead>

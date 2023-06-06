@@ -42,4 +42,6 @@ public class OrderService {
 
     @Enumerated(EnumType.STRING)
     private EstatusOrden estatusOrden;
+
+    private double presupuesto;
 }

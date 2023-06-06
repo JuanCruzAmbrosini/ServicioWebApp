@@ -40,11 +40,11 @@
                     </tr>
                 <tbody>
                 <input hidden th:value="${id}" name="id">
-                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}">
+                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}" th:if="${orden.estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).COTIZADA}">
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.id}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.detalleOrden}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaCreacion}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fecha_hora}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaRecibida}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.presupuesto}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.nombre + ' ' + orden.usuario.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>

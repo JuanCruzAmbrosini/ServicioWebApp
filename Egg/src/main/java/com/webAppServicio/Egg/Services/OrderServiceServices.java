@@ -51,7 +51,7 @@ public class OrderServiceServices {
     }
 
     @Transactional
-    public void modificarOrden (Integer id, String tipoServicio, String detalleOrden){
+    public void modificarOrden (Integer id, String tipoServicio, String detalleOrden, double presupuesto, String estatusOrden, Date fechaRecibida){
 
         Optional<OrderService> respuesta = orderR.findById(id);
 
@@ -62,6 +62,9 @@ public class OrderServiceServices {
 
             orden.setOficio(oficio);
             orden.setDetalleOrden(detalleOrden);
+            orden.setPresupuesto(presupuesto);
+            orden.setEstatusOrden(EstatusOrden.valueOf(estatusOrden));
+            orden.setFechaRecibida(fechaRecibida);
 
             orderR.save(orden);
         }
