@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <div class="hero_area">
+
+            <!-- header section strats -->
+
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBarSupplier :: navSupplier"></nav>
+                </div>
+            </header>
+
+            <!-- end header section -->
+
+        </div>
+
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- table section -->
+
+        <div class="contenido_principal">
+            <br>
+            <h3>Finalizadas</h3>
+            <table class="tabla" >
+                <thead>
+                    <tr class="fila_tabla_encabezado">
+                        <th class="elemento_tabla_encabezado">N° De Pedido</th>
+                        <th class="elemento_tabla_encabezado">Detalle Servicio</th>
+                        <th class="elemento_tabla_encabezado">Fecha Inicio</th>
+                        <th class="elemento_tabla_encabezado">Fecha Finalizada</th>
+                        <th class="elemento_tabla_encabezado">Cliente</th>
+                        <th class="elemento_tabla_encabezado">Estado</th>                  
+                        <th class="elemento_tabla_encabezado"></th>
+                        <th class="elemento_tabla_encabezado"></th>
+                    </tr>
+                <tbody>
+                <input hidden th:value="${id}" name="id">
+                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}">
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.id}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.detalleOrden}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaCreacion}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaFinalizacion}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.nombre + ' ' + orden.usuario.apellido}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
+                </tr>
+                </tbody>
+                </thead>
+            </table>
+            <section class="py-5 text-center container">
+                <div class="d-flex justify-content-lg-start">
+                    <a th:href="@{/supplier/init}" type="btn btn-secondary">Volver</a>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- end table section -->
+
+        <!-- footer section -->
+        <footer th:replace="/fragments/footer_login :: footer_login"></footer>
+        <!-- end footer section -->
+
+        <!-- script section -->
+        <div th:replace="/fragments/scripts :: script"></div>
+        <!-- end scripts section -->
+
+    </body>
+
+</html>
