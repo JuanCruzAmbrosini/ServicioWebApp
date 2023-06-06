@@ -10,7 +10,7 @@
 
             <header class="header_section">
                 <div class="container-fluid">
-                    <nav th:replace="/fragments/navBarSupplier :: navSupplier"></nav>
+                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
                 </div>
             </header>
 
@@ -18,43 +18,46 @@
 
         </div>
 
+        <div th:replace="/fragments/validate :: validate"></div>
+
         <!-- table section -->
 
         <div class="contenido_principal">
+            <br>
+            <h3>Presupuestadas</h3>
             <table class="tabla" >
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>
                         <th class="elemento_tabla_encabezado">Tipo de Servicio</th>
-                        <th class="elemento_tabla_encabezado">Detalle Servicio</th>
-                        <th class="elemento_tabla_encabezado">Fecha Inicio</th>
-                        <th class="elemento_tabla_encabezado">Cliente</th>
-                        <th class="elemento_tabla_encabezado">Direccion</th>
-                        <th class="elemento_tabla_encabezado">Telefono</th>
+                        <th class="elemento_tabla_encabezado">Fecha/Hora Visita</th>
+                        <th class="elemento_tabla_encabezado">Presupuesto</th>
+                        <th class="elemento_tabla_encabezado">Tecnico</th>
                         <th class="elemento_tabla_encabezado">Estado</th>                    
                         <th class="elemento_tabla_encabezado"></th>
                         <th class="elemento_tabla_encabezado"></th>
                     </tr>
                 <tbody>
                 <input hidden th:value="${id}" name="id">
-                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}"th:if="${orden.estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).ABIERTA}" >
+                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}" th:if="${orden.estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).COTIZADA}">
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.id}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.oficio.tipoServicio}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.detalleOrden}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaCreacion}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.nombre + ' ' + orden.usuario.apellido}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.direccion}"></td>
-                    <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.telefono}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaRecibida}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.presupuesto}"></td>
+                    <td  class="elemento_tabla_cuerpo" th:text="${orden.proveedor.nombre +' '+ orden.proveedor.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" th:href ="@{/supplier/order_response/__${orden.id}__}">Aceptar</a></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Rechazar</a></td>
+                    <td class="elemento_tabla_cuerpo">  <form th:action="@{/user/order_service_budgeted_aproved/__${orden.id}__}" method="post" style="display: inline;">
+                                                                <input type="hidden" name="_method" value="post" />
+                                                                <input type="submit" class="boton_modificar_tabla_cuerpo" value="Aceptar" />
+                                                                </form></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" th:href = "@{/user/order_cancel_budgeted/__${orden.id}__}">Cancelar</a></td>
                 </tr>
                 </tbody>
                 </thead>
             </table>
             <section class="py-5 text-center container">
                 <div class="d-flex justify-content-lg-start">
-                    <a th:href="@{/supplier/init}" type="btn btn-secondary">Volver</a>
+                    <a th:href="@{/user/init}" type="btn btn-secondary">Volver</a>
                 </div>
             </section>
 

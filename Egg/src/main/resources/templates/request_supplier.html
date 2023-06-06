@@ -19,40 +19,41 @@
 
             <!-- service section -->
 
-            <section class="service_section layout_padding-bottom">
-                <div class="container">
-                    <br>
-                    <div class="custom_heading-container">
-                        <h3 th:text="${tipoServicio}"></h3>
-                    </div>
-                    <h4>Estos Son Nuestros Profesionales Matriculados</h4>
-                    <section class="service_section layout_padding-bottom">
-                        <div class="row text-center">
+        <section class="service_section layout_padding-bottom">
+            <div class="container">
+                <br>
+                <div class="custom_heading-container">
+                    <h3 th:text="${tipoServicio}"></h3>
+                </div>
+                <h4>Estos Son Nuestros Profesionales Matriculados</h4>
+                <section class="service_section layout_padding-bottom">
+                    <div class="row text-center">
 
-                            <div class="col-lg-3 col-md-6 mb-4" th:each="tecnico : ${tecnicosPorOficio}">
-                                <input hidden th:value="${dni}" name="dni">
+                        <div class="col-lg-3 col-md-6 mb-4" th:each="tecnico : ${tecnicosPorOficio}">
+                            <input hidden th:value="${dni}" name="dni">
+                            <div class="card h-100">
                                 <div class="card h-100">
-                                    <div class="card h-100">
-                                        <a><img th:if="${tecnico.imagen != null}" class="card-img-top" th:src="@{/imagen/perfilSupplier/__${tecnico.dni}__}" ></a>
-                                        <div class="card-body">
-                                            <p class="card-text" th:text="${tecnico.nombre}"></p>
-                                            <p class="card-text" th:text="${tecnico.apellido}"></p>
-                                            <p class="card-text" th:text=" 'Matricula N°: ' + ${tecnico.matricula}"></p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <a th:href="@{/user/new_order/{dni}(dni=${tecnico.dni})}" class="btn btn-warning">Contratar Servicio</a>
-                                        </div>
+                                    <a><img th:if="${tecnico.imagen != null}" class="card-img-top" th:src="@{/imagen/perfilSupplier/__${tecnico.dni}__}" ></a>
+                                    <div class="card-body">
+                                        <p class="card-text" th:text="${tecnico.nombre}"></p>
+                                        <p class="card-text" th:text="${tecnico.apellido}"></p>
+                                        <p class="card-text" th:text=" 'Matricula N°: ' + ${tecnico.matricula}"></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a th:href="@{/user/new_order/{dni}(dni=${tecnico.dni})}" class="btn btn-warning">Contratar Servicio</a>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </section>
-                    <div class="d-flex justify-content-lg-center">
-                        <a th:href="@{/user/serviceList}" type="btn btn-secondary">Volver a Servicios</a>
+
                     </div>
+                </section>
+                <div class="d-flex justify-content-lg-center">
+                    <a th:href="@{/user/serviceList}" type="btn btn-secondary">Volver a Servicios</a>
                 </div>
-            </section>
+            </div>
+        </section>
+>>>>>>> df292f1c363171bf7bba19e81170b4de2b242fe7
 
             <!-- end service section -->
 

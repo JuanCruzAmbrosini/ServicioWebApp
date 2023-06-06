@@ -23,6 +23,8 @@
         <!-- table section -->
 
         <div class="contenido_principal">
+            <br>
+            <h3>Solicitadas</h3>
             <table class="tabla" >
                 <thead>
                     <tr class="fila_tabla_encabezado">
@@ -37,7 +39,7 @@
                     </tr>
                 <tbody>
                 <input hidden th:value="${id}" name="id">
-                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}">
+                <tr class="fila_tabla_cuerpo" th:each="orden : ${ordenes}" th:if="${orden.estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).ABIERTA}">
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.id}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.oficio.tipoServicio}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.detalleOrden}"></td>

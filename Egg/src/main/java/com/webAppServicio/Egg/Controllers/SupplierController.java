@@ -6,6 +6,7 @@ import com.webAppServicio.Egg.Entities.OrderService;
 import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Entities.Supplier;
 import com.webAppServicio.Egg.Entities.TechnicalService;
+import com.webAppServicio.Egg.Enums.EstatusOrden;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.OrderServiceServices;
 import com.webAppServicio.Egg.Services.ServiceOfServices;
@@ -95,6 +96,45 @@ public class SupplierController {
         return "order_service_supplier.html";
     }
 
+    @GetMapping("/order_service_quoted")
+    public String listaOrdenPorProveedorCotizadas(ModelMap modelo, HttpSession session) {
+
+        Supplier usuario = (Supplier) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = new ArrayList<>();
+
+        ordenes = orderS.listarOrdenesPorProveedorId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
+
+        return "order_service_supplier_quoted.html";
+    }
+
+    @GetMapping("/order_service_in_process")
+    public String listaOrdenPorProveedorEnProceso(ModelMap modelo, HttpSession session) {
+
+        Supplier usuario = (Supplier) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = new ArrayList<>();
+
+        ordenes = orderS.listarOrdenesPorProveedorId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
+
+        return "order_service_supplier_in_process.html";
+    }
+
+    @GetMapping("/order_service_finally")
+    public String listaOrdenPorProveedorFinalizadas(ModelMap modelo, HttpSession session) {
+
+        Supplier usuario = (Supplier) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = new ArrayList<>();
+
+        ordenes = orderS.listarOrdenesPorProveedorId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
+
+        return "order_service_supplier_finally.html";
+    }
+
     @GetMapping("/profile")
     public String perfilSupplier(HttpSession session, ModelMap modelo) {
         Person proveedor = (Person) session.getAttribute("usuariosession");
@@ -114,9 +154,9 @@ public class SupplierController {
             @RequestParam String apellido, @RequestParam("correoOculto") String email,
             @RequestParam String telefono, @RequestParam String password, @RequestParam String password2, @RequestParam("oficioOculto") String tipoServicio,
             ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
-        
+
         TechnicalService oficio = serviceS.buscarServicioPorTipo(tipoServicio);
-        
+
         try {
             supplierS.modificarPerfil(imagen, dni, matricula, nombre, apellido, telefono, email, password, password2, tipoServicio);
 
@@ -157,7 +197,7 @@ public class SupplierController {
         Date fechaRecibida = dc.conversorFecha(fecha_hora);
 
         try {
-            orderS.modificarOrden(orden.getId(), orden.getOficio().getTipoServicio(),orden.getDetalleOrden(),presupuesto,"COTIZADA",fechaRecibida);
+            orderS.modificarOrden(orden.getId(), orden.getOficio().getTipoServicio(),orden.getDetalleOrden(),presupuesto,String.valueOf(EstatusOrden.COTIZADA),fechaRecibida);
             edc.transfer_to_email(orden.getUsuario().getEmail(), "La orden N° " + orden.getId() + " ya ha sido cotizada por el técnico " + proveedor.getNombre() + " " +
                     proveedor.getApellido() +" y está a la espera de su confirmación! \n Gracias por usar nuestros servicios!","Orden N° " + orden.getId() + "(" +
                     orden.getOficio().getTipoServicio() + ") ha sido cotizada.");
