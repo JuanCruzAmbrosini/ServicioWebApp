@@ -17,8 +17,23 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/user/serviceList}">Servicios</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/user/order_service}">Mis Pedidos</a>
+                    <!--                    <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/user/order_service}">Mis Pedidos</a>
+                                        </li>-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mis Pedidos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            <li><a class="dropdown-item"  th:href="@{/user/order_service}">Solicitadas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li><a class="dropdown-item" href="#">En Proceso</a></li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li><a class="dropdown-item" href="#">Finalizadas</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:if="${session.usuariosession != null}" th:href="@{/user/profile}">Mi Perfil</a>
