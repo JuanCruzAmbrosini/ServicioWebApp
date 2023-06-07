@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="/fragments/head :: head"></head>
+<head th:replace="/fragments/head :: head"></head>
 
-    <body>
-        <div class="hero_area">
+<body>
+<div class="hero_area">
 
-            <!-- header section strats -->
+    <!-- header section strats -->
 
-            <header class="header_section">
-                <div class="container-fluid">
-                    <nav th:replace="/fragments/navBarClient :: navClient"></nav>
-                </div>
-            </header>
-
-            <!-- end header section -->
-
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav th:replace="/fragments/navBarClient :: navClient"></nav>
         </div>
+    </header>
 
-        <div th:replace="/fragments/validate :: validate"></div>
+    <!-- end header section -->
 
-        <!-- table section -->
+</div>
 
-        <div class="contenido_principal">
-            <br>
-            <h3>En Proceso</h3>
-            <table class="tabla" >
-                <div th:if="${#lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).DESARROLLO])}">
-                    <br>
-                    <br>
-                    <br>
-                    <h2>No hay órdenes en desarrollo.</h2>
-                </div>
+<div th:replace="/fragments/validate :: validate"></div>
+
+<!-- table section -->
+
+<div class="contenido_principal">
+    <br>
+    <h3>En Desarrollo</h3>
+    <div th:if="${#lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).DESARROLLO])}">
+        <br>
+        <br>
+        <br>
+        <h2>No hay órdenes en desarrollo.</h2>
+    </div>
 
                     <table class="tabla" th:if="${not #lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).DESARROLLO])}">
                 <thead>
@@ -42,7 +41,7 @@
                         <th class="elemento_tabla_encabezado">Fecha Inicio</th>
                         <th class="elemento_tabla_encabezado">Fecha/Hora Visita</th>
                         <th class="elemento_tabla_encabezado">Tecnico</th>
-                        <th class="elemento_tabla_encabezado">Estado</th>                    
+                        <th class="elemento_tabla_encabezado">Estado</th>
                         <th class="elemento_tabla_encabezado"></th>
                         <th class="elemento_tabla_encabezado"></th>
                     </tr>
@@ -60,24 +59,24 @@
                 </tbody>
                 </thead>
             </table>
-            <section class="py-5 text-center container">
-                <div class="d-flex justify-content-lg-start">
-                    <a th:href="@{/user/init}" type="btn btn-secondary">Volver</a>
-                </div>
-            </section>
-
+    <section class="py-5 text-center container">
+        <div class="d-flex justify-content-lg-start">
+            <a th:href="@{/user/init}" type="btn btn-secondary">Volver</a>
         </div>
+    </section>
 
-        <!-- end table section -->
+</div>
 
-        <!-- footer section -->
-        <footer th:replace="/fragments/footer_login :: footer_login"></footer>
-        <!-- end footer section -->
+<!-- end table section -->
 
-        <!-- script section -->
-        <div th:replace="/fragments/scripts :: script"></div>
-        <!-- end scripts section -->
+<!-- footer section -->
+<footer th:replace="/fragments/footer_login :: footer_login"></footer>
+<!-- end footer section -->
 
-    </body>
+<!-- script section -->
+<div th:replace="/fragments/scripts :: script"></div>
+<!-- end scripts section -->
+
+</body>
 
 </html>

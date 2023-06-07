@@ -310,7 +310,9 @@ public class UserController {
             orderS.createOrder(tipoServicio, detalleOrden, usuario, supplier);
 
             edc.transfer_to_email(supplier.getEmail(), detalleOrden + "\n" + "Usuario: " + usuario.getNombre() + " "
-                    + usuario.getApellido() + "\n" + "Fecha de emisión de la orden: " + fechaActual, "Nueva orden para el servicio de: " + tipoServicio);
+                    + usuario.getApellido() + "\n" + "Fecha de emisión de la orden: " + fechaActual
+                    + "\nE-mail del usuario: " + usuario.getEmail() + "\nDirección del usuario: " + usuario.getDireccion() + "\nBarrio del usuario: "
+                    + usuario.getBarrio(), "Nueva orden para el servicio de: " + tipoServicio);
 
             redirectAttributes.addFlashAttribute("exito", "La orden ha sido enviada. El técnico encargado la evaluará a la brevedad.");
 
