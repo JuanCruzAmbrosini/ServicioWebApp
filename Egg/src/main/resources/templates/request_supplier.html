@@ -38,7 +38,11 @@
                                             <p class="card-text" th:text="${tecnico.nombre}"></p>
                                             <p class="card-text" th:text="${tecnico.apellido}"></p>
                                             <p class="card-text" th:text=" 'Matricula N°: ' + ${tecnico.matricula}"></p>
-                                            <p class="card-text" th:text="${tecnico.calificacion} + ' ★'"></p>
+                                            <p class="card-text">
+                                                <span th:if="${#lists.isEmpty(tecnico.calificaciones)}">Sin Calificaciones</span>
+                                                <span th:unless="${#lists.isEmpty(tecnico.calificaciones)}" th:text="${#numbers.formatDecimal(tecnico.calificaciones.![doubleValue()].sum() / tecnico.calificaciones.size(), 1, 2)}"></span>
+                                                <span> ★</span>
+                                            </p>
                                         </div>
                                         <div class="card-footer">
                                             <a th:href="@{/user/new_order/{dni}(dni=${tecnico.dni})}" class="btn btn-warning">Contratar Servicio</a>

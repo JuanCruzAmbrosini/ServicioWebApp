@@ -2,10 +2,7 @@ package com.webAppServicio.Egg.Controllers;
 
 import com.webAppServicio.Egg.DateConverter.DateConverter;
 import com.webAppServicio.Egg.Email.EnvioDeCorreo;
-import com.webAppServicio.Egg.Entities.OrderService;
-import com.webAppServicio.Egg.Entities.Person;
-import com.webAppServicio.Egg.Entities.Supplier;
-import com.webAppServicio.Egg.Entities.TechnicalService;
+import com.webAppServicio.Egg.Entities.*;
 import com.webAppServicio.Egg.Enums.EstatusOrden;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Services.OrderServiceServices;
@@ -109,6 +106,19 @@ public class SupplierController {
         return "order_service_supplier_quoted.html";
     }
 
+    @GetMapping("/order_service_finally")
+    public String listaOrdenPorProveedorFinalizadas(ModelMap modelo, HttpSession session) {
+
+        Supplier usuario = (Supplier) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = new ArrayList<>();
+
+        ordenes = orderS.listarOrdenesPorProveedorId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
+
+        return "order_service_supplier_finally.html";
+    }
+
     @GetMapping("/order_service_in_process")
     public String listaOrdenPorProveedorEnProceso(ModelMap modelo, HttpSession session) {
 
@@ -121,18 +131,36 @@ public class SupplierController {
 
         return "order_service_supplier_in_process.html";
     }
+    @PostMapping("/order_finalization/{id}")
+    public String aprovarOrden(@PathVariable Integer id, ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
 
-    @GetMapping("/order_service_finally")
-    public String listaOrdenPorProveedorFinalizadas(ModelMap modelo, HttpSession session) {
-
+        OrderService orden = orderS.getOne(id);
+        EnvioDeCorreo edc = new EnvioDeCorreo();
         Supplier usuario = (Supplier) session.getAttribute("usuariosession");
-        List<OrderService> ordenes = new ArrayList<>();
+        Date fechaFinalizada = new Date();
 
-        ordenes = orderS.listarOrdenesPorProveedorId(usuario.getDni());
+        try {
 
-        modelo.addAttribute("ordenes", ordenes);
+            orderS.modificarOrdenConFechaFinalizada(orden.getId(), orden.getOficio().getTipoServicio(),
+                    orden.getDetalleOrden(), orden.getPresupuesto(),
+                    String.valueOf(EstatusOrden.FINALIZADA), orden.getFechaRecibida(),fechaFinalizada );
 
-        return "order_service_supplier_finally.html";
+            edc.transfer_to_email(orden.getUsuario().getEmail(), "El técnico " + usuario.getNombre() + " " +
+                    usuario.getApellido() + " ha finalizado su trabajo! Por favor, pásate por nuestra página para dejarle una " +
+                    "reseña y así ayudar a los demás usuarios.\nEsperamos serte nuevamente de utilidad en el futuro!",
+                    "Orden N° " + orden.getId() + "(" +orden.getOficio().getTipoServicio() + ") ha sido finalizada.");
+
+
+            redirectAttributes.addFlashAttribute("exito", "La orden ha sido finalizada. Pronto el cliente le dejará una reseña en su cuenta!\nGracias por usar nuestros servicios!");
+
+            return "redirect:/supplier/order_service_finally";
+
+        } catch (Exception e) {
+
+            redirectAttributes.addFlashAttribute("error", "Ha ocurrido un error. Inténtelo nuevamente mas tarde! \nGracias por usar nuestros servicios!");
+            return "redirect:/supplier/order_service_in_process";
+        }
+
     }
 
     @GetMapping("/profile")
