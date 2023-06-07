@@ -48,6 +48,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.presupuesto}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.nombre + ' ' + orden.usuario.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_ver_tabla_cuerpo" th:href ="@{/supplier/view_order/__${orden.id}__}">Ver</a></td>
                     <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Cancelar</a></td>
                 </tr>
                 </tbody>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <!-- head -->
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <!-- head -->
+
+    <body>
+        <div class="hero_area">
+
+            <!-- header section strats -->
+
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav th:replace="/fragments/navBarSupplier :: navSupplier"></nav>
+                </div>
+            </header>
+
+            <!-- end header section -->
+
+        </div>
+
+        <!-- validar section -->
+
+        <div th:replace="/fragments/validate :: validate"></div>
+
+        <!-- end validar section -->
+
+        <section class="contact_section">
+            <div class="container layout_padding2-top">
+                <div class="row justify-content-center">
+                    <input hidden th:value="${id}" name="id">
+                    <div class="col-4  mx-auto">
+                        <p>N° Orden: <input  type="text" th:value="${orden.id}" disabled></p>
+                        <p>Tipo De Servicio: <input  type="text" th:value="${orden.oficio.tipoServicio}" disabled></p>
+                        <p>Detalle del Servicio: <input autofocus type="text" th:value="${orden.detalleOrden}" disabled></p>
+                        <p>Fecha Del Pedido: <input  type="text" th:value="${orden.fechaCreacion}" disabled></p>
+                        <p>Fecha Finalizacion Estimada: <input  type="text" th:value="${orden.fechaRecibida}" disabled></p>
+                        <p>Nombre y Apellido: <input  type="text" th:value="${orden.usuario.nombre + ' ' + orden.usuario.apellido}" disabled></p>
+                    </div>
+                    <div class="col-4  mx-auto">
+                        <p>Direccion: <input  type="text" th:value="${orden.usuario.direccion}" disabled></p>
+                        <p>Email: <input  type="text" th:value="${orden.usuario.email}" disabled></p>
+                        <p>Barrio: <input type="text" th:value="${orden.usuario.barrio}" disabled></p>
+                        <p>Telefono: <input  type="text" th:value="${orden.usuario.telefono}" disabled></p>
+                        <p>Presupuesto : <input type="text" th:value="${orden.presupuesto}" disabled></p>
+                        <p>Estado Del Pedido: <input  type="text" th:value="${orden.estatusOrden}" disabled></p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="boton_modificar_tabla_cuerpo" th:href="@{/supplier/init}">Volver</a></td>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </section>
+    <!-- footer section -->
+    <footer th:replace="/fragments/footer_login :: footer_login"></footer>
+    <!-- end footer section -->
+
+    <!-- script section -->
+    <div th:replace="/fragments/scripts :: script"></div>
+    <!-- end scripts section -->
+
+</body>
+
+</html>

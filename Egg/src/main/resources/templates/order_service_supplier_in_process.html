@@ -48,10 +48,12 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.direccion}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.telefono}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_ver_tabla_cuerpo" th:href ="@{/supplier/view_order/__${orden.id}__}">Ver</a></td>
                     <td class="elemento_tabla_cuerpo">  <form th:action="@{/supplier/order_finalization/__${orden.id}__}" method="post" style="display: inline;">
                         <input type="hidden" name="_method" value="post" />
                         <input type="submit" class="boton_modificar_tabla_cuerpo" value="Finalizar" />
                     </form></td>
+                    
                 </tr>
                 </tbody>
                 </thead>

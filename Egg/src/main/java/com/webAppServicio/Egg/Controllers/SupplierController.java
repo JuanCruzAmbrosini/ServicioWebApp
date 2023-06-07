@@ -131,6 +131,7 @@ public class SupplierController {
 
         return "order_service_supplier_in_process.html";
     }
+    
     @PostMapping("/order_finalization/{id}")
     public String aprovarOrden(@PathVariable Integer id, ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
 
@@ -239,6 +240,14 @@ public class SupplierController {
             return "redirect:/supplier/order_service";
         }
 
+    }
+    
+    @GetMapping("/view_order/{id}")
+    public String verOrden(@PathVariable Integer id, ModelMap modelo){
+        
+        modelo.addAttribute("orden", orderS.getOne(id));
+        
+        return "view_order_service.html";
     }
 
 }

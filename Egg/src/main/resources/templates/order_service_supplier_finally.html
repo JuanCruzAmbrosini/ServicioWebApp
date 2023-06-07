@@ -46,6 +46,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.fechaFinalizada}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.nombre + ' ' + orden.usuario.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_ver_tabla_cuerpo" th:href ="@{/supplier/view_order/__${orden.id}__}">Ver</a></td>
                 </tr>
                 </tbody>
                 </thead>
