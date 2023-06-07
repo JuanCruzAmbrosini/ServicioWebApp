@@ -24,4 +24,6 @@ public class Supplier extends Person {
     @JoinColumn(name = "technical_service_id")
     private TechnicalService oficio;
 
+    private double calificacion;
+
 }

@@ -37,9 +37,9 @@
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form th:action = "@{/user/punctuated_order/__${tecnico.dni}__}" method="POST">
+                        <form th:action = "@{/user/punctuated_order}" method="POST">
                             <div>
-                                <input type="hidden" name="dni" th:value="${dni}">
+                                <input type="hidden" name="id" th:value="${orden.id}">
                             </div>
                             <p>¿Cuántas Estrellas Le Das A Nuestro Técnico?</p>
                             <div>
