@@ -59,6 +59,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${servicio.caracteristicas}"></td>
 
                     <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" th:href="@{/admin/service_delete/__${servicio.id}__}">Eliminar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" th:href="@{/admin/modification_service/__${servicio.id}__}">Modificar</a></td>
                     <td class="elemento_tabla_cuerpo"><a class="boton_ver_tabla_cuerpo" th:href="@{/admin/view_service/__${servicio.id}__}">Ver</a></td>
 
                 </tr>
