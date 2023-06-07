@@ -96,6 +96,38 @@ public class SupplierController {
         return "order_service_supplier.html";
     }
 
+    @GetMapping("/order_cancel/{id}")
+    public String cancelarOrdenSinCotizar(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws MyException {
+        OrderService order = orderS.getOne(id);
+
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        edc.transfer_to_email(order.getProveedor().getEmail(), "El proveedor: " + order.getProveedor().getNombre() + " "
+                + order.getProveedor().getApellido() + " ha cancelado la orden pendiente (id N°= " + order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
+                + order.getId() + " cancelada.");
+
+        orderS.eliminarOrden(id);
+
+        redirectAttributes.addFlashAttribute("exito", "La orden ha sido cancelada con éxito.");
+
+        return "redirect:/supplier/order_service";
+    }
+
+    @GetMapping("/order_cancel_quoted/{id}")
+    public String cancelarOrdenSinCotizarCotizada(@PathVariable Integer id, RedirectAttributes redirectAttributes) throws MyException {
+        OrderService order = orderS.getOne(id);
+
+        EnvioDeCorreo edc = new EnvioDeCorreo();
+        edc.transfer_to_email(order.getProveedor().getEmail(), "El proveedor: " + order.getProveedor().getNombre() + " "
+                + order.getProveedor().getApellido() + " ha cancelado la orden pendiente (id N°= " + order.getId() + ") \n Gracias por utilizar nuestros servicios.", "Orden N°"
+                + order.getId() + " cancelada.");
+
+        orderS.eliminarOrden(id);
+
+        redirectAttributes.addFlashAttribute("exito", "La orden ha sido cancelada con éxito.");
+
+        return "redirect:/supplier/order_service_quoted";
+    }
+
     @GetMapping("/order_service_quoted")
     public String listaOrdenPorProveedorCotizadas(ModelMap modelo, HttpSession session) {
 
@@ -219,7 +251,7 @@ public class SupplierController {
     }
 
     @PostMapping("/order_responsed/{id}")
-    public String ordenCotizada(@PathVariable Integer id, @RequestParam String fecha_hora, @RequestParam double presupuesto, HttpSession session, ModelMap modelo) {
+    public String ordenCotizada(@PathVariable Integer id, @RequestParam String fecha_hora, @RequestParam double presupuesto, HttpSession session, ModelMap modelo, RedirectAttributes redirectAttributes) {
 
         DateConverter dc = new DateConverter();
         EnvioDeCorreo edc = new EnvioDeCorreo();
@@ -233,12 +265,13 @@ public class SupplierController {
                     + proveedor.getApellido() + " y está a la espera de su confirmación! \n Gracias por usar nuestros servicios!", "Orden N° " + orden.getId() + "("
                     + orden.getOficio().getTipoServicio() + ") ha sido cotizada.");
 
-            modelo.addAttribute("exito", "La orden ha sido cotizada y se le enviará la información al cliente.");
+            redirectAttributes.addFlashAttribute("exito", "La orden ha sido cotizada y se le enviará la información al cliente.");
 
-            return "redirect:/supplier/order_service";
+            return "redirect:/supplier/order_service_quoted";
 
         } catch (MyException e) {
-            modelo.addAttribute("error", "Ha habido un inconveniente a la hora de enviar la cotización. Revise los campos ingresados o inténtelo nuevamente más tarde.");
+
+            redirectAttributes.addFlashAttribute("error", "Ha habido un inconveniente a la hora de enviar la cotización. Revise los campos ingresados o inténtelo nuevamente más tarde.");
             return "redirect:/supplier/order_service";
         }
 

@@ -4,14 +4,12 @@ import com.webAppServicio.Egg.Email.EnvioDeCorreo;
 import com.webAppServicio.Egg.Entities.*;
 import com.webAppServicio.Egg.Enums.EstatusOrden;
 import com.webAppServicio.Egg.Exceptions.MyException;
-import com.webAppServicio.Egg.Services.ClientService;
-import com.webAppServicio.Egg.Services.OrderServiceServices;
-import com.webAppServicio.Egg.Services.ServiceOfServices;
-import com.webAppServicio.Egg.Services.SupplierService;
+import com.webAppServicio.Egg.Services.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +40,9 @@ public class UserController {
     @Autowired
     private OrderServiceServices orderS;
 
+    @Autowired
+    private CalificacionService calificacionS;
+
     @GetMapping("/account_user")
     public String accountUser() {
         return "account_user.html";
@@ -49,9 +50,9 @@ public class UserController {
 
     @PostMapping("/registered_user")
     public String newUser(@RequestParam MultipartFile imagen, @RequestParam String dni, @RequestParam String nombre,
-            @RequestParam String apellido, @RequestParam String telefono,
-            @RequestParam String direccion, @RequestParam String barrio, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, @RequestParam String sexo, ModelMap modelo) throws MyException {
+                          @RequestParam String apellido, @RequestParam String telefono,
+                          @RequestParam String direccion, @RequestParam String barrio, @RequestParam String email,
+                          @RequestParam String password, @RequestParam String password2, @RequestParam String sexo, ModelMap modelo) throws MyException {
 
         try {
             userS.crearUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
@@ -143,11 +144,11 @@ public class UserController {
                     String.valueOf(EstatusOrden.DESARROLLO), orden.getFechaRecibida());
 
             edc.transfer_to_email(orden.getProveedor().getEmail(), "Buenas noticias! " + usuario.getNombre() + " "
-                    + usuario.getApellido() + " ha aceptado la orden (orden N° " + orden.getId() + ")! \nEl usuario te estará esperando a la hora que has marcado.\nMuchas gracias por usar nuestros servicios!",
+                            + usuario.getApellido() + " ha aceptado la orden (orden N° " + orden.getId() + ")! \nEl usuario te estará esperando a la hora que has marcado.\nMuchas gracias por usar nuestros servicios!",
                     "Orden N°" + orden.getId() + " aceptada! Felicidades!");
             redirectAttributes.addFlashAttribute("exito", "La orden ha sido aceptada y se le informará al tecnico a la brevedad! \nGracias por usar nuestros servicios!");
 
-            return "redirect:/user/order_service_budgeted";
+            return "redirect:/user/order_service_in_process";
 
         } catch (Exception e) {
 
@@ -178,13 +179,39 @@ public class UserController {
     }
 
     @GetMapping("/order_scoring/{id}")
-    public String CalificacionPorUsuarioAProveedor(@PathVariable Integer id, ModelMap modelo, HttpSession session) {
+    public String calificarAProveedor(ModelMap modelo, @PathVariable Integer id){
 
-    Supplier tecnico = orderS.getOne(id).getProveedor();
-
-    modelo.addAttribute("tecnico", tecnico);
+        modelo.addAttribute("orden", orderS.getOne(id));
 
         return "order_service_puntuaction.html";
+
+    }
+
+    @PostMapping("/punctuated_order")
+    public String usuarioAProveedorCalificado(@RequestParam Integer id, HttpServletRequest request, ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
+
+        double estrellas = Double.parseDouble(request.getParameter("estrellas"));
+        Calificacion calificacion = calificacionS.crearCalificacion(estrellas);
+        OrderService orden = orderS.getOne(id);
+        Supplier tecnico = orden.getProveedor();
+
+        try {
+            supplierS.anadirCalificacion(tecnico.getDni(), calificacion);
+
+            modelo.addAttribute("tecnico", tecnico);
+
+            redirectAttributes.addFlashAttribute("exito", "La calificación se ha enviado con éxito y la orden se ha eliminado.");
+
+            orderS.eliminarOrden(orden.getId());
+
+            return "redirect:/user/init";
+
+        } catch (Exception ex){
+
+            redirectAttributes.addFlashAttribute("error", "La calificación no se ha enviado con éxito, intentelo nuevamente más tarde.");
+
+            return "redirect:/user/order_service_finally";
+        }
     }
 
     @GetMapping("/profile")
@@ -203,9 +230,9 @@ public class UserController {
 
     @PostMapping("/modification_profile/{dni}")
     public String perfilModificado(@PathVariable String dni, @RequestParam MultipartFile imagen, @RequestParam String nombre,
-            @RequestParam String apellido, @RequestParam("correoOculto") String email,
-            @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
-            ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
+                                   @RequestParam String apellido, @RequestParam("correoOculto") String email,
+                                   @RequestParam String telefono, @RequestParam String direccion, @RequestParam String sexo, @RequestParam String password, @RequestParam String password2, @RequestParam String barrio,
+                                   ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) throws MyException {
         try {
             userS.modificarPerfil(imagen, dni, nombre, apellido, barrio, telefono, direccion, email, password, password2, sexo);
             redirectAttributes.addFlashAttribute("exito", "Tu Perfil Se Actualizo Correctamente, Inicie Sesion Nuevamente Para Ver Los Cambios");
@@ -269,7 +296,7 @@ public class UserController {
 
     @PostMapping("/new_order_done/{dni}")
     public String nuevaOrdenCreada(@PathVariable String dni, @RequestParam String detalleOrden,
-            ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
+                                   ModelMap modelo, HttpSession session, RedirectAttributes redirectAttributes) {
 
         Client usuario = (Client) session.getAttribute("usuariosession");
         Supplier supplier = supplierS.getOne(dni);

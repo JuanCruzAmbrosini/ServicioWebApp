@@ -16,12 +16,28 @@
 
             <!-- end header section -->
 
+            <!-- validar section -->
+
+            <div th:replace="/fragments/validate :: validate"></div>
+
+            <!-- end validar section -->
+
         </div>
 
         <!-- table section -->
 
         <div class="contenido_principal">
-            <table class="tabla" >
+            <br>
+            <h3>Solicitadas</h3>
+
+            <div th:if="${#lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).ABIERTA])}">
+                <br>
+                <br>
+                <br>
+                <h2>No hay órdenes abiertas.</h2>
+            </div>
+
+            <table class="tabla" th:if="${not #lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).ABIERTA])}">
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>
@@ -50,7 +66,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
                     <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" th:href ="@{/supplier/order_response/__${orden.id}__}">Aceptar</a></td>
                     <td class="elemento_tabla_cuerpo"><a class="boton_ver_tabla_cuerpo" th:href ="@{/supplier/view_order/__${orden.id}__}">Ver</a></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Rechazar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" th:href="@{/supplier/order_cancel/__${orden.id}__}">Rechazar</a></td>
                 </tr>
                 </tbody>
                 </thead>

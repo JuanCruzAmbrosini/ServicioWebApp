@@ -49,6 +49,7 @@ public class SupplierService implements UserDetailsService {
 
         Supplier supplier = new Supplier();
         TechnicalService oficio = new TechnicalService();
+        List<Calificacion> calificaciones = new ArrayList<>();
 
         oficio = servicioS.buscarServicioPorTipo(tipoServicio);
 
@@ -59,10 +60,12 @@ public class SupplierService implements UserDetailsService {
         supplier.setTelefono(telefono);
         supplier.setEmail(email);
         supplier.setPassword(new BCryptPasswordEncoder().encode(password));
+        supplier.setCalificaciones(calificaciones);
         Image image = imagenS.guardar(imagen);
         supplier.setImagen(image);
         supplier.setRol(Rol.SUPPLIER);
         supplier.setOficio(oficio);
+        supplier.setCalificacion(0);
 
         supplierR.save(supplier);
 
@@ -107,6 +110,35 @@ public class SupplierService implements UserDetailsService {
             supplierR.save(supplier);
 
         }
+    }
+
+    @Transactional
+    public void anadirCalificacion (String dni, Calificacion calificacion){
+
+        Optional<Supplier> respuesta = supplierR.findById(dni);
+
+
+        if(respuesta.isPresent()){
+
+            Supplier supplier = respuesta.get();
+            supplier.getCalificaciones().add(calificacion);
+            double sumaCalificaciones = 0;
+            double calificacionFinal = 0;
+
+            for (Calificacion calificacionParcial: supplier.getCalificaciones()) {
+
+                sumaCalificaciones += calificacionParcial.getValorCalificacion();
+
+            }
+
+            calificacionFinal = sumaCalificaciones/supplier.getCalificaciones().size();
+
+            supplier.setCalificacion(calificacionFinal);
+
+            supplierR.save(supplier);
+
+        }
+
     }
 
     @Transactional

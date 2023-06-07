@@ -14,7 +14,7 @@ public class CalificacionService {
     CalificacionRepository calificacionR;
 
     @Transactional
-    public void crearCalificacion(double valorCalificacion){
+    public Calificacion crearCalificacion(double valorCalificacion){
 
         Calificacion calificacion = new Calificacion();
 
@@ -22,6 +22,7 @@ public class CalificacionService {
 
         calificacionR.save(calificacion);
 
+        return calificacion;
     }
 
 }
