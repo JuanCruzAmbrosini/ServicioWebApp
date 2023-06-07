@@ -44,7 +44,7 @@
                         <p>N° Matricula: <input type="text" th:value="${proveedor.matricula}"disabled></p>
                         <p>Oficio: <input  type="text" th:value="${proveedor.oficio.tipoServicio}" disabled></p>
                         <div class="d-flex justify-content-center">
-                            <a class="boton_modificar_tabla_cuerpo" th:href="@{/supplier/profile_edit}">Modificar</a></td>
+                            <a class="boton_modificar_tabla_cuerpo" th:href="@{/supplier/profile_edit/__${proveedor.dni}__}">Modificar</a></td>
                         </div>
                     </div>
 
