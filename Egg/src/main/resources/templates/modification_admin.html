@@ -41,16 +41,16 @@
                                 <p>DNI: <input  type="number" th:value="${usuario.dni}" disabled></p>
                             </div>
                             <div>
-                                <p>Nombre: <input  type="text" name ="nombre" th:value="${usuario.nombre}"></p>
+                                <p>Nombre: <input  type="text" name ="nombre" th:value="${usuario.nombre}" ></p>
                             </div>
                             <div>
-                                <p>Apellido: <input  type="text" name="apellido" th:value="${usuario.apellido}"></p>
+                                <p>Apellido: <input  type="text" name="apellido" th:value="${usuario.apellido}" ></p>
                             </div>
                             <div>
-                                <p>Direccion: <input type="text" name="direccion" th:value="${usuario.direccion}"></p>
+                                <p>Direccion: <input type="text" name="direccion" th:value="${usuario.direccion}" ></p>
                             </div>
                             <div>
-                                <p>Barrio: <input type="text" name="barrio" th:value="${usuario.barrio}"></p>
+                                <p>Barrio: <input type="text" name="barrio" th:value="${usuario.barrio}" ></p>
                             </div>
                             </p>
                             <div>
@@ -58,10 +58,10 @@
                                 <input type="hidden" name="correoOculto" th:value="${usuario.email}">
                             </div>
                             <div>
-                                <p>Telefono: <input  type="text" name="telefono" th:value="${usuario.telefono}"></p>
+                                <p>Telefono: <input  type="text" name="telefono" th:value="${usuario.telefono}" ></p>
                             </div>
                             <div>
-                                <select name="sexo">
+                                <select name="sexo" >
                                     <option value="">Sexo</option>
                                     <option value="Masculino">Masculino</option>
                                     <option value="Femenino">Femenino</option>
@@ -69,7 +69,7 @@
                                 </select>
                             </div>
                             <div>
-                                <input name="imagen" type="file" placeholder="Cargar Archivo">
+                                <input name="imagen" type="file" placeholder="Cargar Archivo" required>
                             </div>
                             <div>
                                 <p>Contraseña: <input name="password" type="password" ></p>

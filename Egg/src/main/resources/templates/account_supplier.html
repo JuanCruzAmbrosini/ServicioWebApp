@@ -47,10 +47,10 @@
                                 <input name="dni" type="number" placeholder="N° DNI">
                             </div>
                             <div>
-                                <input name="matricula" type="text" placeholder="N° Matricula">
+                                <input name="matricula" type="text" placeholder="N° Matricula" required>
                             </div>
                             <div>
-                                <select name="tipoServicio">
+                                <select name="tipoServicio" required>
                                     <option>Oficio</option>
                                     <option th:each="servicio : ${servicios}"
                                             th:value="${servicio.tipoServicio}"
@@ -58,19 +58,19 @@
                                 </select>
                             </div>
                             <div>
-                                <input name ="email" type="email" placeholder="Email">
+                                <input name ="email" type="email" placeholder="Email" required>
                             </div>
                             <div>
                                 <input name="telefono" type="text" placeholder="Numero de Celular">
                             </div>
                             <div>
-                                <input name="imagen" type="file" placeholder="Cargar Archivo">
+                                <input name="imagen" type="file" placeholder="Cargar Archivo" required>
                             </div>
                             <div>
-                                <input name="password" type="password" placeholder="Contraseña">
+                                <input name="password" type="password" placeholder="Contraseña" required>
                             </div>
                             <div>
-                                <input name="password2" type="password" placeholder="Repetir Contraseña">
+                                <input name="password2" type="password" placeholder="Repetir Contraseña" required>
                             </div>
                          
                             <div class="d-flex justify-content-center">

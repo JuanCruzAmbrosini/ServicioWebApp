@@ -2,7 +2,6 @@ package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
 import com.webAppServicio.Egg.Entities.Client;
-import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.UserRepository;
@@ -38,11 +37,11 @@ public class ClientService implements UserDetailsService {
 
     @Transactional
     public void crearUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
-
+        
         validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
 
         Client usuario = new Client();
-
+        
         usuario.setDni(dni);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
@@ -73,7 +72,7 @@ public class ClientService implements UserDetailsService {
     public void modificarPerfil(MultipartFile imagen, String dni, String nombre, String apellido,
             String barrio, String telefono, String direccion,
             String email, String password, String password2, String sexo) throws MyException {
-
+        
         validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
 
         Optional<Client> respuesta = userR.findById(dni);
@@ -113,7 +112,7 @@ public class ClientService implements UserDetailsService {
         validarUsuario(imagen, dni, nombre, apellido, telefono, direccion, barrio, email, password, password2, sexo);
 
         Optional<Client> respuesta = userR.findById(dni);
-        
+
         if (respuesta.isPresent()) {
 
             Client usuario = respuesta.get();
@@ -125,9 +124,9 @@ public class ClientService implements UserDetailsService {
             usuario.setDireccion(direccion);
             usuario.setEmail(email);
             usuario.setSexo(sexo);
-            
+
             String idImagen = null;
-            
+
             if (usuario.getEmail() != null) {
                 idImagen = usuario.getImagen().getId();
             }
@@ -137,7 +136,7 @@ public class ClientService implements UserDetailsService {
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
             usuario.setBarrio(barrio);
-            
+
             if (usuario.getRol().equals(Rol.ADMIN)) {
 
                 usuario.setRol(Rol.ADMIN);
