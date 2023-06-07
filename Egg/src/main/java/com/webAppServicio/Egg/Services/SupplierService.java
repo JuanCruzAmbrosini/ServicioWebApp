@@ -1,13 +1,11 @@
 package com.webAppServicio.Egg.Services;
 
-import com.webAppServicio.Egg.Entities.Image;
-import com.webAppServicio.Egg.Entities.Person;
-import com.webAppServicio.Egg.Entities.Supplier;
-import com.webAppServicio.Egg.Entities.TechnicalService;
+import com.webAppServicio.Egg.Entities.*;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.SupplierRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
@@ -35,6 +33,12 @@ public class SupplierService implements UserDetailsService {
     private ServiceOfServices servicioS;
 
     @Autowired
+    private CalificacionService calificacionS;
+
+    @Autowired
+    OrderServiceServices orderS;
+
+    @Autowired
     private ImageService imagenS;
 
     @Transactional
@@ -58,7 +62,6 @@ public class SupplierService implements UserDetailsService {
         Image image = imagenS.guardar(imagen);
         supplier.setImagen(image);
         supplier.setRol(Rol.SUPPLIER);
-        supplier.setCalificacion(0);
         supplier.setOficio(oficio);
 
         supplierR.save(supplier);
@@ -100,8 +103,6 @@ public class SupplierService implements UserDetailsService {
             supplier.setOficio(oficio);
             
             supplier.setRol(Rol.SUPPLIER);
-            
-            supplier.setCalificacion(0);
 
             supplierR.save(supplier);
 
@@ -110,6 +111,15 @@ public class SupplierService implements UserDetailsService {
 
     @Transactional
     public void eliminarProveedor(String dni) {
+
+        List<OrderService> ordenes = orderS.listarOrdenesPorProveedorId(dni);
+
+        for (OrderService orden: ordenes
+             ) {
+
+            orderS.eliminarOrden(orden.getId());
+
+        }
 
         supplierR.deleteById(dni);
 

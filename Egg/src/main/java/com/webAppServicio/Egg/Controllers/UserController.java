@@ -170,20 +170,20 @@ public class UserController {
     @GetMapping("/order_service_finally")
     public String ListaOrdenPorUsuarioFinalizadas(ModelMap modelo, HttpSession session) {
 
-//        Client usuario = (Client) session.getAttribute("usuariosession");
-//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
-//
-//        modelo.addAttribute("ordenes", ordenes);
+        Client usuario = (Client) session.getAttribute("usuariosession");
+        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
+
+        modelo.addAttribute("ordenes", ordenes);
         return "order_service_user_finally.html";
     }
 
-    @GetMapping("/order_scoring")
-    public String CalificacionPorUsuarioAProveedor(ModelMap modelo, HttpSession session) {
+    @GetMapping("/order_scoring/{id}")
+    public String CalificacionPorUsuarioAProveedor(@PathVariable Integer id, ModelMap modelo, HttpSession session) {
 
-//        Client usuario = (Client) session.getAttribute("usuariosession");
-//        List<OrderService> ordenes = orderS.listarOrdenesPorClienteId(usuario.getDni());
-//
-//        modelo.addAttribute("ordenes", ordenes);
+    Supplier tecnico = orderS.getOne(id).getProveedor();
+
+    modelo.addAttribute("tecnico", tecnico);
+
         return "order_service_puntuaction.html";
     }
 
