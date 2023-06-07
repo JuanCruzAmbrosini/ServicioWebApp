@@ -19,7 +19,7 @@ public class ServiceOfServices {
     private TechnicalServiceRepository servicioR;
 
     @Autowired
-    private ImageService imageS;
+    private ImageService imagenS;
     
     @Transactional
     public void crearServicio(String tipoServicio, String detalle, String caracteristicas, MultipartFile imagen) throws MyException {
@@ -34,7 +34,7 @@ public class ServiceOfServices {
 
         servicioTecnico.setCaracteristicas(caracteristicas);
 
-        Image image = imageS.guardar(imagen);
+        Image image = imagenS.guardar(imagen);
 
         servicioTecnico.setImagen(image);
 
@@ -69,7 +69,13 @@ public class ServiceOfServices {
 
             servicioTecnico.setCaracteristicas(caracteristicas);
 
-            Image image = imageS.actualizar(imagen, id);
+            String idImagen = null;
+
+            if (servicioTecnico.getId() != null) {
+                idImagen = servicioTecnico.getImagen().getId();
+            }
+
+            Image image = imagenS.actualizar(imagen, idImagen);
 
             servicioTecnico.setImagen(image);
 

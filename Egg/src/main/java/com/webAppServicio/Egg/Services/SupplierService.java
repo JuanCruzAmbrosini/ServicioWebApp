@@ -133,7 +133,9 @@ public class SupplierService implements UserDetailsService {
 
             calificacionFinal = sumaCalificaciones/supplier.getCalificaciones().size();
 
-            supplier.setCalificacion(calificacionFinal);
+            double calificacionFinalRedondeada = Math.round(calificacionFinal * 10.0) / 10.0;
+
+            supplier.setCalificacion(calificacionFinalRedondeada);
 
             supplierR.save(supplier);
 

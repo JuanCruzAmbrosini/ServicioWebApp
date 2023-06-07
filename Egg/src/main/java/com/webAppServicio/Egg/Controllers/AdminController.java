@@ -183,4 +183,35 @@ public class AdminController {
         return "redirect:/admin/service_list";
     }
 
+    @GetMapping("/modification_service/{id}")
+    public String modificarServicio(@PathVariable String id, ModelMap modelo) {
+        TechnicalService servicios = serviciosTecnicos.getOne(id);
+        modelo.addAttribute("servicios", servicios);
+
+        return "modification_service.html";
+    }
+
+    @PostMapping("/edit_service/{id}")
+    public String servicioModificado(@PathVariable String id, @RequestParam String tipoServicio, @RequestParam String detalle,
+                                     @RequestParam String caracteristicas,
+                                     @RequestParam MultipartFile imagen, RedirectAttributes redirectAttributes) throws MyException {
+
+        try {
+
+            serviciosTecnicos.modificarServicio(id, tipoServicio, detalle, caracteristicas, imagen);
+            redirectAttributes.addFlashAttribute("exito", "Servicio Modificado Correctamente");
+
+            return "redirect:/admin/service_list";
+
+        } catch (MyException ex) {
+
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+            redirectAttributes.addFlashAttribute("tipoServicio", tipoServicio);
+            redirectAttributes.addFlashAttribute("detalle", detalle);
+            redirectAttributes.addFlashAttribute("caracteristicas", caracteristicas);
+
+            return "redirect:/admin/modification_service/{id}";
+        }
+    }
+
 }
