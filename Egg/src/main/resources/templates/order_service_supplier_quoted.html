@@ -25,7 +25,13 @@
         <div class="contenido_principal">
             <br>
             <h3>Cotizadas</h3>
-            <table class="tabla" >
+            <div th:if="${#lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).COTIZADA])}">
+                <br>
+                <br>
+                <br>
+                <h2>No hay ordenes pendientes de aprovación.</h2>
+            </div>
+            <table class="tabla" th:if="${not #lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).COTIZADA])}" >
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>
@@ -49,7 +55,7 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.nombre + ' ' + orden.usuario.apellido}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
                     <td class="elemento_tabla_cuerpo"><a class="boton_ver_tabla_cuerpo" th:href ="@{/supplier/view_order/__${orden.id}__}">Ver</a></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" href="">Cancelar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_eliminar_tabla_cuerpo" th:href="@{/supplier/order_cancel_quoted/__${orden.id}__}">Cancelar</a></td>
                 </tr>
                 </tbody>
                 </thead>

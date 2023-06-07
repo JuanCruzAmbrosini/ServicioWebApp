@@ -148,7 +148,7 @@ public class UserController {
                     "Orden N°" + orden.getId() + " aceptada! Felicidades!");
             redirectAttributes.addFlashAttribute("exito", "La orden ha sido aceptada y se le informará al tecnico a la brevedad! \nGracias por usar nuestros servicios!");
 
-            return "redirect:/user/order_service_budgeted";
+            return "redirect:/user/order_service_in_process";
 
         } catch (Exception e) {
 

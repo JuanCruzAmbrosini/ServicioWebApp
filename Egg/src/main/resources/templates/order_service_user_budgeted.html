@@ -24,8 +24,14 @@
 
         <div class="contenido_principal">
             <br>
-            <h3>Presupuestadas</h3>
-            <table class="tabla" >
+            <h3>Cotizadas</h3>
+            <div th:if="${#lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).COTIZADA])}">
+                <br>
+                <br>
+                <br>
+                <h2>No hay órdenes cotizadas.</h2>
+            </div>
+            <table class="tabla" th:if="${not #lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).COTIZADA])}">
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>
