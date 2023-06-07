@@ -74,9 +74,9 @@ public class AdminController {
         return "profileAdmin.html";
     }
 
-    @GetMapping("/profile_edit")
-    public String perfilUserEdit(HttpSession session, ModelMap modelo) {
-        Person usuario = (Person) session.getAttribute("usuariosession");
+    @GetMapping("/profile_edit/{dni}")
+    public String perfilUserEdit(@PathVariable String dni, ModelMap modelo) {
+        Person usuario = userS.getOne(dni);
         modelo.addAttribute("usuario", usuario);
         return "modification_admin.html";
     }
@@ -92,17 +92,17 @@ public class AdminController {
             return "redirect:/admin/profile";
 
         } catch (MyException ex) {
-            redirectAttributes.addFlashAttribute("error", "Tu Perfil No Se Actualizo");
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("apellido", apellido);
-            modelo.put("telefono", telefono);
-            modelo.put("password", password);
-            modelo.put("password2", password2);
-            modelo.put("sexo", sexo);
-            modelo.put("direccion", direccion);
+            
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+            redirectAttributes.addFlashAttribute("nombre", nombre);
+            redirectAttributes.addFlashAttribute("apellido", apellido);
+            redirectAttributes.addFlashAttribute("telefono", telefono);
+            redirectAttributes.addFlashAttribute("password", password);
+            redirectAttributes.addFlashAttribute("password2", "No Coinciden Las Contraseñas");
+            redirectAttributes.addFlashAttribute("sexo", sexo);
+            redirectAttributes.addFlashAttribute("direccion", direccion);
 
-            return "redirect:/admin/modification_profile/{dni}";
+            return "redirect:/admin/profile_edit/{dni}";
 
         }
     }

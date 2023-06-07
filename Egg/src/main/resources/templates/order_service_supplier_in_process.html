@@ -25,7 +25,13 @@
         <div class="contenido_principal">
             <br>
             <h3>En Proceso</h3>
-            <table class="tabla" >
+            <div th:if="${#lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).DESARROLLO])}">
+                <br>
+                <br>
+                <br>
+                <h2>No hay órdenes en desarrollo.</h2>
+            </div>
+            <table class="tabla" th:if="${not #lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).DESARROLLO])}">
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>
@@ -48,7 +54,12 @@
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.direccion}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.usuario.telefono}"></td>
                     <td  class="elemento_tabla_cuerpo" th:text="${orden.estatusOrden}"></td>
-                    <td class="elemento_tabla_cuerpo"><a class="boton_modificar_tabla_cuerpo" href="">Finalizar</a></td>
+                    <td class="elemento_tabla_cuerpo"><a class="boton_ver_tabla_cuerpo" th:href ="@{/supplier/view_order/__${orden.id}__}">Ver</a></td>
+                    <td class="elemento_tabla_cuerpo">  <form th:action="@{/supplier/order_finalization/__${orden.id}__}" method="post" style="display: inline;">
+                        <input type="hidden" name="_method" value="post" />
+                        <input type="submit" class="boton_modificar_tabla_cuerpo" value="Finalizar" />
+                    </form></td>
+                    
                 </tr>
                 </tbody>
                 </thead>

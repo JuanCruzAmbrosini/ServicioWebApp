@@ -17,10 +17,13 @@ public class Supplier extends Person {
 
     private String matricula;
 
-    private double calificacion;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Calificacion> calificaciones;
 
     @ManyToOne
     @JoinColumn(name = "technical_service_id")
     private TechnicalService oficio;
+
+    private double calificacion;
 
 }

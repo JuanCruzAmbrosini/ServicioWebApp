@@ -29,21 +29,38 @@
         <section class="contact_section layout_padding">
             <div class="custom_heading-container">
                 <h3 class=" ">
-                    Solicita un nuevo servicio!
+                    Que Te Parecio El Servicio De Nuestro Técnico?<br>
+                    Tu Comentario Nos Ayuda A Seguir Adelante!!!
                 </h3>
             </div>
 
             <div class="container layout_padding2-top">
                 <div class="row">
                     <div class="col-md-6 mx-auto">
-                        <form th:action = "@{/user/new_order_done/__${tecnico.dni}__}" method="POST">
+                        <form th:action = "@{/user/punctuated_order}" method="POST">
                             <div>
-                                <input type="hidden" name="dni" th:value="${dni}">
+                                <input type="hidden" name="id" th:value="${orden.id}">
                             </div>
+                            <p>¿Cuántas Estrellas Le Das A Nuestro Técnico?</p>
+                            <div>
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="estrellas" value="5">
+                                    <label for="radio1">★</label>
+                                    <input id="radio2" type="radio" name="estrellas" value="4">
+                                    <label for="radio2">★</label>
+                                    <input id="radio3" type="radio" name="estrellas" value="3">
+                                    <label for="radio3">★</label>
+                                    <input id="radio4" type="radio" name="estrellas" value="2">
+                                    <label for="radio4">★</label>
+                                    <input id="radio5" type="radio" name="estrellas" value="1">
+                                    <label for="radio5">★</label>
+                                </p>
+                            </div>
+                            <p>¿Puedes Dejarnos Algún Comentario Con Respecto A Nuestro Técnico?</p>
                             <div>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"
-                                          name="detalleOrden" type="text" placeholder="Detalle de la orden" required maxlength="150"></textarea>
-                            </div>
+                                          name="detalleOrden" type="text" placeholder="Comentario"></textarea>
+                            </div>                           
                             <div class="d-flex justify-content-center">
                                 <button class="btn btn-primary" type="submit">Enviar orden</button>
 

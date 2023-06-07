@@ -71,6 +71,27 @@ public class OrderServiceServices {
     }
 
     @Transactional
+    public void modificarOrdenConFechaFinalizada (Integer id, String tipoServicio, String detalleOrden, double presupuesto, String estatusOrden, Date fechaRecibida, Date fechaFinalizada){
+
+        Optional<OrderService> respuesta = orderR.findById(id);
+
+        if(respuesta.isPresent()) {
+
+            OrderService orden = respuesta.get();
+            TechnicalService oficio = servicioS.buscarServicioPorTipo(tipoServicio);
+
+            orden.setOficio(oficio);
+            orden.setDetalleOrden(detalleOrden);
+            orden.setPresupuesto(presupuesto);
+            orden.setEstatusOrden(EstatusOrden.valueOf(estatusOrden));
+            orden.setFechaRecibida(fechaRecibida);
+            orden.setFechaFinalizada(fechaFinalizada);
+
+            orderR.save(orden);
+        }
+    }
+
+    @Transactional
     public void eliminarOrden (Integer id){
 
         orderR.deleteById(id);

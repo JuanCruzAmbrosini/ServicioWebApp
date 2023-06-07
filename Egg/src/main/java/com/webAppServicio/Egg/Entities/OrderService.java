@@ -32,6 +32,9 @@ public class OrderService {
     @Temporal(TemporalType.DATE)
     private Date fechaRecibida;
 
+    @Temporal(TemporalType.DATE)
+    private Date fechaFinalizada;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client usuario;

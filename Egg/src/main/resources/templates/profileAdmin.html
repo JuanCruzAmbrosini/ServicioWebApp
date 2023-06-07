@@ -46,7 +46,7 @@
                         <p>Sexo: <input  type="text" th:value="${usuario.sexo}" disabled></p>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a class="boton_modificar_tabla_cuerpo" th:href="@{/admin/profile_edit}">Modificar</a></td>
+                        <a class="boton_modificar_tabla_cuerpo" th:href="@{/admin/profile_edit/__${usuario.dni}__}">Modificar</a></td>
                     </div>
                 </div>
             </div>    

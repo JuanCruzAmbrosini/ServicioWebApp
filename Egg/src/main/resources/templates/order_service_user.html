@@ -25,7 +25,13 @@
         <div class="contenido_principal">
             <br>
             <h3>Solicitadas</h3>
-            <table class="tabla" >
+            <div th:if="${#lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).ABIERTA])}">
+                <br>
+                <br>
+                <br>
+                <h2>No hay órdenes abiertas.</h2>
+            </div>
+            <table class="tabla" th:if="${not #lists.isEmpty(ordenes.?[estatusOrden == T(com.webAppServicio.Egg.Enums.EstatusOrden).ABIERTA])}">
                 <thead>
                     <tr class="fila_tabla_encabezado">
                         <th class="elemento_tabla_encabezado">N° De Pedido</th>

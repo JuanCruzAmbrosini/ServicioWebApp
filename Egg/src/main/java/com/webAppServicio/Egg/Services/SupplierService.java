@@ -1,13 +1,11 @@
 package com.webAppServicio.Egg.Services;
 
-import com.webAppServicio.Egg.Entities.Image;
-import com.webAppServicio.Egg.Entities.Person;
-import com.webAppServicio.Egg.Entities.Supplier;
-import com.webAppServicio.Egg.Entities.TechnicalService;
+import com.webAppServicio.Egg.Entities.*;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
 import com.webAppServicio.Egg.Repositories.SupplierRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
@@ -35,6 +33,12 @@ public class SupplierService implements UserDetailsService {
     private ServiceOfServices servicioS;
 
     @Autowired
+    private CalificacionService calificacionS;
+
+    @Autowired
+    OrderServiceServices orderS;
+
+    @Autowired
     private ImageService imagenS;
 
     @Transactional
@@ -45,6 +49,7 @@ public class SupplierService implements UserDetailsService {
 
         Supplier supplier = new Supplier();
         TechnicalService oficio = new TechnicalService();
+        List<Calificacion> calificaciones = new ArrayList<>();
 
         oficio = servicioS.buscarServicioPorTipo(tipoServicio);
 
@@ -55,11 +60,12 @@ public class SupplierService implements UserDetailsService {
         supplier.setTelefono(telefono);
         supplier.setEmail(email);
         supplier.setPassword(new BCryptPasswordEncoder().encode(password));
+        supplier.setCalificaciones(calificaciones);
         Image image = imagenS.guardar(imagen);
         supplier.setImagen(image);
         supplier.setRol(Rol.SUPPLIER);
-        supplier.setCalificacion(0);
         supplier.setOficio(oficio);
+        supplier.setCalificacion(0);
 
         supplierR.save(supplier);
 
@@ -100,8 +106,6 @@ public class SupplierService implements UserDetailsService {
             supplier.setOficio(oficio);
             
             supplier.setRol(Rol.SUPPLIER);
-            
-            supplier.setCalificacion(0);
 
             supplierR.save(supplier);
 
@@ -109,7 +113,45 @@ public class SupplierService implements UserDetailsService {
     }
 
     @Transactional
+    public void anadirCalificacion (String dni, Calificacion calificacion){
+
+        Optional<Supplier> respuesta = supplierR.findById(dni);
+
+
+        if(respuesta.isPresent()){
+
+            Supplier supplier = respuesta.get();
+            supplier.getCalificaciones().add(calificacion);
+            double sumaCalificaciones = 0;
+            double calificacionFinal = 0;
+
+            for (Calificacion calificacionParcial: supplier.getCalificaciones()) {
+
+                sumaCalificaciones += calificacionParcial.getValorCalificacion();
+
+            }
+
+            calificacionFinal = sumaCalificaciones/supplier.getCalificaciones().size();
+
+            supplier.setCalificacion(calificacionFinal);
+
+            supplierR.save(supplier);
+
+        }
+
+    }
+
+    @Transactional
     public void eliminarProveedor(String dni) {
+
+        List<OrderService> ordenes = orderS.listarOrdenesPorProveedorId(dni);
+
+        for (OrderService orden: ordenes
+             ) {
+
+            orderS.eliminarOrden(orden.getId());
+
+        }
 
         supplierR.deleteById(dni);
 
