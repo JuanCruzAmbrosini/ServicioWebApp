@@ -2,8 +2,10 @@ package com.webAppServicio.Egg.Services;
 
 import com.webAppServicio.Egg.Entities.Image;
 import com.webAppServicio.Egg.Entities.Client;
+import com.webAppServicio.Egg.Entities.Person;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
+import com.webAppServicio.Egg.Repositories.PersonRepository;
 import com.webAppServicio.Egg.Repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,9 @@ public class ClientService implements UserDetailsService {
 
     @Autowired
     private SupplierService supplierS;
+
+    @Autowired
+    private PersonRepository personR;
 
     @Transactional
     public void crearUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
@@ -178,7 +183,20 @@ public class ClientService implements UserDetailsService {
 
     public void validarUsuario(MultipartFile imagen, String dni, String nombre, String apellido, String telefono, String direccion, String barrio, String email, String password, String password2, String sexo) throws MyException {
 
-        if (dni == null || dni.isEmpty()) {
+        List<Person> listaPersonas = personR.findAll();
+
+        for (Person persona:
+                listaPersonas) {
+
+            if(persona.getEmail().equals(email)){
+
+                throw new MyException("Ese correo ya está en uso, por favor seleccione uno nuevo.");
+
+            }
+
+        }
+
+        if (dni == null || dni.isEmpty() || personR.existsById(dni)) {
 
             throw new MyException("No se registró una entrada válida en el campo del DNI. Por favor, inténtelo nuevamente.");
 

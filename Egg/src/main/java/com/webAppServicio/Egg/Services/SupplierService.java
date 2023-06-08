@@ -3,6 +3,7 @@ package com.webAppServicio.Egg.Services;
 import com.webAppServicio.Egg.Entities.*;
 import com.webAppServicio.Egg.Enums.Rol;
 import com.webAppServicio.Egg.Exceptions.MyException;
+import com.webAppServicio.Egg.Repositories.PersonRepository;
 import com.webAppServicio.Egg.Repositories.SupplierRepository;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +41,9 @@ public class SupplierService implements UserDetailsService {
 
     @Autowired
     private ImageService imagenS;
+
+    @Autowired
+    private PersonRepository personR;
 
     @Transactional
     public void crearProveedor(MultipartFile imagen, String dni, String matricula, String nombre, String apellido,
@@ -195,7 +199,20 @@ public class SupplierService implements UserDetailsService {
     public void validarProveedor(MultipartFile imagen, String dni, String matricula, String nombre, String apellido,
             String telefono, String email, String password, String password2, String tipoOficio) throws MyException {
 
-        if (dni == null || dni.isEmpty()) {
+        List<Person> listaPersonas = personR.findAll();
+
+        for (Person persona:
+             listaPersonas) {
+
+            if(persona.getEmail().equals(email)){
+
+                throw new MyException("Ese correo ya está en uso, por favor seleccione uno nuevo.");
+
+            }
+
+        }
+
+        if (dni == null || dni.isEmpty() || personR.existsById(dni) ) {
 
             throw new MyException("No se registró una entrada válida en el campo del DNI. Por favor, inténtelo nuevamente.");
 
